@@ -25,9 +25,9 @@ jobs:
       run:
         working-directory: Windows_and_Linux
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.13"
           cache: pip
@@ -105,7 +105,7 @@ jobs:
           mkdir -p ../out
           cp "dist/AI Shortcuts.exe" ../out/AI-Shortcuts-windows-x64.exe
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: ai-shortcuts-${{ matrix.name }}
           path: out/*
