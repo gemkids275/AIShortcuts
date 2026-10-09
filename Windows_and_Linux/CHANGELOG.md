@@ -40,4 +40,4 @@ First release of the AI Shortcuts fork for Windows and Linux. Published as pre-b
 - Windows binaries are not code-signed; SmartScreen may warn on first run.
 - Per-command API keys fall back to a lightly obfuscated file (not encrypted) when no OS keyring is available.
 
-[1]: https://github.com/gemkids275/WritingToolsV2/releases/tag/win-v1
+[1]: https://github.com/gemkids275/AIShortcuts/releases/tag/win-v1

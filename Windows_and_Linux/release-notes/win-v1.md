@@ -32,7 +32,7 @@ sha256sum -c SHA256SUMS.txt --ignore-missing      # Linux / macOS / Git Bash
 ```powershell
 Get-FileHash .\AI-Shortcuts-windows-x64.exe -Algorithm SHA256   # compare with SHA256SUMS.txt
 ```
-Build provenance can be checked with `gh attestation verify <file> --repo gemkids275/WritingToolsV2`.
+Build provenance can be checked with `gh attestation verify <file> --repo gemkids275/AIShortcuts`.
 
 ## Upgrading
 - Settings and commands live in `%APPDATA%\AIShortcuts` (Windows) or `~/.config/aishortcuts` (Linux).
@@ -44,4 +44,4 @@ Build provenance can be checked with `gh attestation verify <file> --repo gemkid
 - Windows binary is unsigned.
 - Without an OS keyring, per-command API keys are stored in a lightly obfuscated (not encrypted) file.
 
-Full details: [CHANGELOG](https://github.com/gemkids275/WritingToolsV2/blob/main/Windows_and_Linux/CHANGELOG.md). Found a problem? [Open an issue](https://github.com/gemkids275/WritingToolsV2/issues/new).
+Full details: [CHANGELOG](https://github.com/gemkids275/AIShortcuts/blob/main/Windows_and_Linux/CHANGELOG.md). Found a problem? [Open an issue](https://github.com/gemkids275/AIShortcuts/issues/new).

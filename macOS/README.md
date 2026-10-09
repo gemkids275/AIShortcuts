@@ -36,7 +36,7 @@
 ## Quick Start (Download & Install)
 
 1) **Download** the latest `.dmg` from **Releases**:  
-   https://github.com/gemkids275/WritingToolsV2/releases
+   https://github.com/gemkids275/AIShortcuts/releases
 
 2) **Install**  
    - Open the `.dmg`, drag **AI Shortcuts.app** into **Applications**.
@@ -112,7 +112,7 @@ Bring your own API keys, switch providers anytime, and mix local + cloud based o
 
 1. Clone the repo and open the project:
    ```bash
-   git clone https://github.com/gemkids275/WritingToolsV2.git
+   git clone https://github.com/gemkids275/AIShortcuts.git
    cd WritingTools/macOS
    open WritingTools.xcodeproj
    ```

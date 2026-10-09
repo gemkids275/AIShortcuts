@@ -22,3 +22,11 @@ Windows_and_Linux/commands.json
 # Xcode user-specific data
 **/xcuserdata/
 **/project.xcworkspace/xcuserdata/
+# Local environments and secrets
+.venv/
+**/.venv/
+.env
+
+# Xcode build output
+DerivedData/
+*.xcuserstate

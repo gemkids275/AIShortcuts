@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Writing Tools is a dual-platform, system-wide AI writing assistant inspired by Apple Intelligence. It has two independent implementations:
+AI Shortcuts (formerly Writing Tools; GitHub repo `gemkids275/AIShortcuts`) is a dual-platform, system-wide AI writing assistant inspired by Apple Intelligence. It has two independent implementations:
 
 - **`macOS/`** — Native Swift/SwiftUI port (macOS 14+), built as a menu bar app
 - **`Windows_and_Linux/`** — Python/PySide6 cross-platform version
@@ -77,9 +77,9 @@ Entry point: `main.py` → instantiates `WritingToolApp` from `WritingToolApp.py
 |---|---|
 | `main.py` | QApplication setup, instantiates `WritingToolApp` |
 | `WritingToolApp.py` | Core app class; hotkey listener via `pynput`, text selection/replacement |
-| `aiprovider.py` | Base provider class + all provider implementations (Gemini, OpenAI-compatible, Ollama) |
+| `aiprovider.py` | Base provider class + all provider implementations (Gemini, OpenAI-compatible, Anthropic, Mistral, OpenRouter, Ollama) |
 | `ui/` | PySide6 UI modules (popup window, chat window, settings dialog, response output) |
-| `options.json` | Default command definitions (name, system prompt, icon) |
+| `commands.json` | User commands, created at runtime in the config dir (gitignored in the source tree); built-in defaults live in code and are migrated from the legacy `options.json` |
 | `locales/` | `gettext` translation files |
 
 **Adding a provider:** Subclass the base provider in `aiprovider.py`, implement the abstract methods, register in the provider selection logic in `WritingToolApp.py`.
@@ -94,7 +94,7 @@ Entry point: `main.py` → instantiates `WritingToolApp` from `WritingToolApp.py
 
 Built-in commands: Proofread, Rewrite, Friendly, Professional, Concise, Summary, Key Points, Table, Custom.
 
-- **Windows/Linux:** Defined in `options.json`; users can add custom buttons
+- **Windows/Linux:** Stored in `commands.json` (Command Manager: add, reorder, import/export, per-command shortcut and provider)
 - **macOS:** Editable via the command editor UI; stored in UserDefaults
 
 ### AI Provider Support (both platforms)
@@ -103,9 +103,9 @@ Built-in commands: Proofread, Rewrite, Friendly, Professional, Concise, Summary,
 |---|---|---|
 | Google Gemini | ✓ | ✓ |
 | OpenAI & compatible (Ollama, llama.cpp, KoboldCPP, etc.) | ✓ | ✓ |
-| Anthropic | — | ✓ |
-| Mistral | — | ✓ |
-| OpenRouter | — | ✓ |
+| Anthropic | ✓ | ✓ |
+| Mistral | ✓ | ✓ |
+| OpenRouter | ✓ | ✓ |
 | MLX (local, Apple Silicon) | — | ✓ |
 
 ### Localization
