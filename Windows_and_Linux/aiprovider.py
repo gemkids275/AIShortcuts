@@ -662,11 +662,11 @@ class GeminiProvider(AIProvider):
             DropdownSetting(
                 name="model_name",
                 display_name="Model",
-                default_value="gemma-3-27b-it",
+                default_value="gemma-4-31b-it",
                 description="Select Gemini model to use",
                 options=[
-                    ("⭐ Gemma 3 27B (very intelligent | unlimited usage)", "gemma-3-27b-it"),
-                    ("Gemma 3 4B (intelligent | unlimited usage)", "gemma-3-4b-it"),
+                    ("⭐ Gemma 4 31B (very intelligent | unlimited usage)", "gemma-4-31b-it"),
+                    ("Gemma 4 26B A4B (intelligent | unlimited usage)", "gemma-4-26b-a4b-it"),
                     ("Gemini Flash Latest (very intelligent | only 20 uses/day)", "gemini-flash-latest"),
                     ("Gemini Flash Lite Latest (intelligent | only 20 uses/day)", "gemini-flash-lite-latest"),
                 ],
@@ -748,10 +748,18 @@ class GeminiProvider(AIProvider):
     def cancel(self):
         self.close_requested = True
 
+    # Models removed from the Gemini API (HTTP 404) -> replacement
+    _RETIRED_MODELS = {
+        "gemma-3-27b-it": "gemma-4-31b-it",
+        "gemma-3-4b-it": "gemma-4-26b-a4b-it",
+    }
+
     def load_config(self, config: dict):
+        config = config.copy()
         if 'api_key' in config:
-            config = config.copy()
             config['api_key'] = deobfuscate_api_key(config['api_key'])
+        if config.get('model_name') in self._RETIRED_MODELS:
+            config['model_name'] = self._RETIRED_MODELS[config['model_name']]
         super().load_config(config)
 
     def save_config(self):
