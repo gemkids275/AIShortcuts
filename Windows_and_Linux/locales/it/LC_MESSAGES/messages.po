@@ -52,11 +52,11 @@ msgstr "Aiutato nell'aggiunta dell'impostazione di auto-avvio."
 
 #: ui/CustomPopupWindow.py:75 ui/CustomPopupWindow.py:74
 msgid "Describe your change..."
-msgstr "Describe your change..."
+msgstr "Descrivi la modifica..."
 
 #: ui/CustomPopupWindow.py:75 ui/CustomPopupWindow.py:74
 msgid "Ask your AI..."
-msgstr "Ask your AI..."
+msgstr "Chiedi alla tua IA..."
 
 #: ui/CustomPopupWindow.py:109
 msgid "Proofread"
@@ -117,8 +117,8 @@ msgstr "Scegli il tuo tema:"
 msgid "Gradient"
 msgstr "Gradiente"
 
-#: ui/OnboardingWindow.py:81 ui/SettingsWindow.py:239 ui/OnboardingWindow.py:83
-#: ui/SettingsWindow.py:244
+#: ui/OnboardingWindow.py:81 ui/SettingsWindow.py:239
+#: ui/OnboardingWindow.py:83 ui/SettingsWindow.py:244
 msgid "Plain"
 msgstr "Piatto"
 
@@ -220,8 +220,12 @@ msgstr "Cambia icona"
 msgid "Icon:"
 msgstr "Icona:"
 
-msgid "e.g., Proofread this:\n\n"
-msgstr "es. Correggi questo testo:\n\n"
+msgid ""
+"e.g., Proofread this:\n"
+"\n"
+msgstr ""
+"es. Correggi questo testo:\n"
+"\n"
 
 msgid "Prefix Text:"
 msgstr "Testo prefisso:"
@@ -251,7 +255,7 @@ msgid "Leave blank for default"
 msgstr "Lascia vuoto per il default"
 
 msgid "Model:"
-msgstr "Model:"
+msgstr "Modello:"
 
 msgid "Leave blank to use global key"
 msgstr "Lascia vuoto per usare la chiave globale"
@@ -263,7 +267,7 @@ msgid "Hide"
 msgstr "Nascondi"
 
 msgid "API Key:"
-msgstr "API Key:"
+msgstr "Chiave API:"
 
 msgid "Base URL:"
 msgstr "Base URL:"
@@ -307,8 +311,12 @@ msgstr "Riprendi"
 msgid "About AI Shortcuts"
 msgstr "Informazioni su AI Shortcuts"
 
-msgid "AI Shortcuts is a free, lightweight utility that enhances your writing with AI."
-msgstr "AI Shortcuts è uno strumento gratuito e leggero che potenzia la scrittura con l'IA."
+msgid ""
+"AI Shortcuts is a free, lightweight utility that enhances your writing with "
+"AI."
+msgstr ""
+"AI Shortcuts è uno strumento gratuito e leggero che potenzia la scrittura "
+"con l'IA."
 
 msgid "Version & Updates"
 msgstr "Versione e Aggiornamenti"
@@ -418,7 +426,9 @@ msgstr "Seleziona provider attivo:"
 msgid "Get OpenAI API Key"
 msgstr "Get API Key OpenAI"
 
-msgid "{0} API key is not configured. Please set your API key in Settings → AI Providers."
+msgid ""
+"{0} API key is not configured. Please set your API key in Settings → AI "
+"Providers."
 msgstr "API Key {0} non configurata. Impostala in Impostazioni → Provider AI."
 
 msgid "Error"
@@ -467,7 +477,7 @@ msgid "General Settings"
 msgstr "Impostazioni generali"
 
 msgid "Get API Key"
-msgstr "Get API Key"
+msgstr "Ottieni chiave API"
 
 msgid "Global Shortcut Key:"
 msgstr "Tasto di scelta rapida globale:"
@@ -531,3 +541,257 @@ msgstr "Lascia vuoto se non applicabile."
 
 msgid "Launch AI Shortcuts on system startup"
 msgstr "Avvia AI Shortcuts all'avvio del sistema"
+
+msgid ""
+"AI Shortcuts is already running.\n"
+"Check your system tray."
+msgstr ""
+"AI Shortcuts è già in esecuzione.\n"
+"Controlla la barra delle applicazioni."
+
+msgid ""
+"• Anthropic's Claude is renowned for high-quality writing, safe reasoning, and large context windows.\n"
+"• Ideal for complex analysis and creative writing tasks.\n"
+"• Supports Claude 3.5 Sonnet, Haiku, and Opus models."
+msgstr ""
+"• Claude di Anthropic è noto per la scrittura di alta qualità, il ragionamento sicuro e le ampie finestre di contesto.\n"
+"• Ideale per analisi complesse e scrittura creativa.\n"
+"• Supporta i modelli Claude 3.5 Sonnet, Haiku e Opus."
+
+msgid ""
+"• Mistral AI offers state-of-the-art open models with high efficiency.\n"
+"• Great performance in both European languages and coding.\n"
+"• Supports Mistral Large, Small, and vision-capable Pixtral."
+msgstr ""
+"• Mistral AI offre modelli aperti all'avanguardia ad alta efficienza.\n"
+"• Ottime prestazioni sia nelle lingue europee sia nella programmazione.\n"
+"• Supporta Mistral Large, Small e Pixtral con capacità visive."
+
+msgid ""
+"• OpenRouter provides unified access to over 100+ AI models (Claude, Llama, GPT, etc.).\n"
+"• Offers the most competitive pricing and many free-tier models.\n"
+"• Best for power users who want to switch models frequently."
+msgstr ""
+"• OpenRouter offre accesso unificato a oltre 100 modelli di IA (Claude, Llama, GPT, ecc.).\n"
+"• Prezzi molto competitivi e molti modelli gratuiti.\n"
+"• Ideale per utenti esperti che cambiano spesso modello."
+
+msgid ""
+"• Google’s Gemini 1.5 & 2.0 (Gemma) are multimodal models with world-class performance.\n"
+"• Offers extremely fast inference and massive context windows (up to 1M+ tokens).\n"
+"• Get a free API key to start using Gemini Flash and Pro models."
+msgstr ""
+"• Gemini 1.5 e 2.0 (Gemma) di Google sono modelli multimodali con prestazioni di livello mondiale.\n"
+"• Inferenza estremamente veloce e finestre di contesto enormi (oltre 1M di token).\n"
+"• Ottieni una chiave API gratuita per usare i modelli Gemini Flash e Pro."
+
+msgid ""
+"• Connect to ANY OpenAI-compatible service (e.g. OpenAI, Groq, Together AI, Perplexity).\n"
+"• Supports custom Base URLs, Organizations, and Project IDs.\n"
+"• Perfect for local LLM servers (LM Studio, LocalAI) or specialized providers."
+msgstr ""
+"• Collegati a QUALSIASI servizio compatibile con OpenAI (ad es. OpenAI, Groq, Together AI, Perplexity).\n"
+"• Supporta Base URL personalizzati, Organization e Project ID.\n"
+"• Ideale per server LLM locali (LM Studio, LocalAI) o provider specializzati."
+
+msgid "🔧 Custom"
+msgstr "🔧 Personalizzato"
+
+msgid "e.g., Proofread this:\\n\\n"
+msgstr "ad es. Correggi questo:\\n\\n"
+
+msgid "Custom OpenAI-compatible"
+msgstr "Compatibile OpenAI personalizzato"
+
+msgid "Button Name:"
+msgstr "Nome del pulsante:"
+
+msgid "What should your AI do with your selected text? (System Instruction)"
+msgstr "Cosa deve fare l'IA con il testo selezionato? (Istruzione di sistema)"
+
+msgid ""
+"Examples:\n"
+"    - Fix / improve / explain this code.\n"
+"    - Make it funny.\n"
+"    - Add emojis!\n"
+"    - Roast this!\n"
+"    - Translate to English.\n"
+"    - Make the text title case.\n"
+"    - If it's all caps, make it all small, and vice-versa.\n"
+"    - Write a reply to this.\n"
+"    - Analyse potential biases in this news article."
+msgstr ""
+"Esempi:\n"
+"    - Correggi / migliora / spiega questo codice.\n"
+"    - Rendilo divertente.\n"
+"    - Aggiungi emoji!\n"
+"    - Prendilo in giro!\n"
+"    - Traduci in inglese.\n"
+"    - Metti il testo con le iniziali maiuscole.\n"
+"    - Se è tutto maiuscolo, rendilo minuscolo e viceversa.\n"
+"    - Scrivi una risposta a questo.\n"
+"    - Analizza i possibili pregiudizi in questo articolo."
+
+msgid "How should your AI response be shown?"
+msgstr "Come mostrare la risposta dell'IA?"
+
+msgid "Replace the selected text"
+msgstr "Sostituisci il testo selezionato"
+
+msgid "In a pop-up window (with follow-up support)"
+msgstr "In una finestra popup (con domande successive)"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "AI Shortcuts"
+msgstr "AI Shortcuts"
+
+msgid "Reset Commands"
+msgstr "Ripristina comandi"
+
+msgid ""
+"Are you sure you want to restore all built-in commands? This will bring back"
+" any deleted system commands."
+msgstr ""
+"Vuoi davvero ripristinare tutti i comandi integrati? Verranno ripristinati i"
+" comandi di sistema eliminati."
+
+msgid "Customize your shortcut key (default: \"ctrl+space\"):"
+msgstr "Personalizza la scorciatoia (predefinita: \"ctrl+space\"):"
+
+msgid ""
+"Instantly optimize your writing with AI by selecting your text and invoking "
+"AI Shortcuts with \"ctrl+space\", anywhere."
+msgstr ""
+"Ottimizza subito la tua scrittura con l'IA: seleziona il testo e richiama AI"
+" Shortcuts con \"ctrl+space\", ovunque."
+
+msgid ""
+"Get a comprehensive summary of articles, YouTube videos, or documents by "
+"selecting all text (ctrl+a) and invoking AI Shortcuts."
+msgstr ""
+"Ottieni un riassunto completo di articoli, video YouTube o documenti "
+"selezionando tutto il testo (ctrl+a) e richiamando AI Shortcuts."
+
+msgid ""
+"Chat with world-class AI models anytime (even without selecting text) to "
+"brainstorm, code, or translate."
+msgstr ""
+"Chatta in qualsiasi momento con modelli di IA di livello mondiale (anche "
+"senza selezionare testo) per fare brainstorming, programmare o tradurre."
+
+msgid "Gemini 2.0, Claude 3.5, GPT-4o, Mistral Large"
+msgstr "Gemini 2.0, Claude 3.5, GPT-4o, Mistral Large"
+
+msgid "Local LLMs via Ollama & ANY OpenAI Compatible API!"
+msgstr "LLM locali tramite Ollama e QUALSIASI API compatibile con OpenAI!"
+
+msgid "Zoom In"
+msgstr "Ingrandisci"
+
+msgid "Zoom Out"
+msgstr "Riduci"
+
+msgid "Reset Zoom"
+msgstr "Reimposta zoom"
+
+msgid "Delete Command"
+msgstr "Elimina comando"
+
+msgid "Restore Built-in Commands"
+msgstr "Ripristina comandi integrati"
+
+msgid "This will restore all deleted system commands. Continue?"
+msgstr ""
+"Verranno ripristinati tutti i comandi di sistema eliminati. Continuare?"
+
+msgid "Checking for updates..."
+msgstr "Controllo aggiornamenti in corso..."
+
+msgid "Commands in this backup:"
+msgstr "Comandi in questo backup:"
+
+msgid "Select All"
+msgstr "Seleziona tutto"
+
+msgid "Select None"
+msgstr "Deseleziona tutto"
+
+msgid "Import Selected"
+msgstr "Importa selezionati"
+
+msgid "⚠ Replace All"
+msgstr "⚠ Sostituisci tutto"
+
+msgid "Done"
+msgstr "Fatto"
+
+msgid "Replace All Commands?"
+msgstr "Sostituire tutti i comandi?"
+
+msgid "A new version is available!"
+msgstr "È disponibile una nuova versione!"
+
+msgid "You're up to date."
+msgstr "Sei aggiornato."
+
+msgid "Nothing Selected"
+msgstr "Nessuna selezione"
+
+msgid "Please check at least one command to import."
+msgstr "Seleziona almeno un comando da importare."
+
+msgid "Are you sure you want to delete '{0}'?"
+msgstr "Vuoi davvero eliminare '{0}'?"
+
+msgid "Shortcut Conflict"
+msgstr "Conflitto di scorciatoia"
+
+msgid ""
+"⚠️  <b>Replace All</b> will remove <b>every</b> command currently installed "
+"(including System commands) and replace them with the {0} command(s) from "
+"this backup. <b>This cannot be undone.</b><br><br>Use <b>Import Selected</b>"
+" to add only the commands you choose, without removing anything."
+msgstr ""
+"⚠️  <b>Sostituisci tutto</b> rimuoverà <b>ogni</b> comando attualmente "
+"installato (inclusi i comandi di sistema) e li sostituirà con i {0} comandi "
+"di questo backup. <b>L'operazione non può essere annullata.</b><br><br>Usa "
+"<b>Importa selezionati</b> per aggiungere solo i comandi scelti, senza "
+"rimuovere nulla."
+
+msgid ""
+"This will permanently remove ALL {0} current command(s) (including System commands) and replace them with {1} command(s) from the backup.\n"
+"\n"
+"This cannot be undone. Are you sure?"
+msgstr ""
+"Verranno rimossi definitivamente TUTTI i {0} comandi attuali (inclusi i comandi di sistema) e sostituiti con {1} comandi dal backup.\n"
+"\n"
+"L'operazione non può essere annullata. Continuare?"
+
+msgid "All commands replaced with {0} command(s) from backup."
+msgstr "Tutti i comandi sono stati sostituiti con {0} comandi dal backup."
+
+msgid ""
+"\"{0}\" is already used by command \"{1}\".\n"
+"Please choose a different shortcut."
+msgstr ""
+"\"{0}\" è già usata dal comando \"{1}\".\n"
+"Scegli una scorciatoia diversa."
+
+msgid "e.g. Ctrl+Shift+P"
+msgstr "ad es. Ctrl+Shift+P"
+
+msgid "Clear shortcut"
+msgstr "Cancella scorciatoia"
+
+msgid ""
+"Invalid shortcut format.\n"
+"Use: Modifier+Key (e.g. Ctrl+Shift+P)\n"
+"Modifiers: Ctrl, Shift, Alt, Super/Win\n"
+"Keys: letters, digits, F1–F12, or special keys"
+msgstr ""
+"Formato della scorciatoia non valido.\n"
+"Usa: Modificatore+Tasto (ad es. Ctrl+Shift+P)\n"
+"Modificatori: Ctrl, Shift, Alt, Super/Win\n"
+"Tasti: lettere, cifre, F1–F12 o tasti speciali"

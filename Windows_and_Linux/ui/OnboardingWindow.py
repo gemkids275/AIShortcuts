@@ -59,7 +59,7 @@ class OnboardingWindow(QtWidgets.QWidget):
         features_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeft)
         self.content_layout.addWidget(features_label)
 
-        shortcut_label = QtWidgets.QLabel("Customize your shortcut key (default: \"ctrl+space\"):")
+        shortcut_label = QtWidgets.QLabel(_("Customize your shortcut key (default: \"ctrl+space\"):"))
         shortcut_label.setStyleSheet(f"font-size: 16px; color: {'#ffffff' if colorMode == 'dark' else '#333333'};")
         self.content_layout.addWidget(shortcut_label)
 

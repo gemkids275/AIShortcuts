@@ -52,11 +52,11 @@ msgstr ""
 
 #: ui/CustomPopupWindow.py:75 ui/CustomPopupWindow.py:74
 msgid "Describe your change..."
-msgstr ""
+msgstr "Describe your change..."
 
 #: ui/CustomPopupWindow.py:75 ui/CustomPopupWindow.py:74
 msgid "Ask your AI..."
-msgstr ""
+msgstr "Ask your AI..."
 
 #: ui/CustomPopupWindow.py:109
 msgid "Proofread"
@@ -97,7 +97,7 @@ msgstr ""
 
 #: ui/OnboardingWindow.py:45 ui/OnboardingWindow.py:47
 msgid "Supports an extensive range of AI models:"
-msgstr ""
+msgstr "Supports an extensive range of AI models:"
 
 #: ui/OnboardingWindow.py:53 ui/OnboardingWindow.py:55
 msgid "Gemini 2.0"
@@ -109,50 +109,50 @@ msgstr ""
 
 #: ui/OnboardingWindow.py:75 ui/OnboardingWindow.py:77
 msgid "Choose your theme:"
-msgstr ""
+msgstr "Choose your theme:"
 
 #: ui/OnboardingWindow.py:80 ui/OnboardingWindow.py:82
 msgid "Gradient"
-msgstr ""
+msgstr "Gradient"
 
-#: ui/OnboardingWindow.py:81 ui/SettingsWindow.py:239 ui/OnboardingWindow.py:83
-#: ui/SettingsWindow.py:244
+#: ui/OnboardingWindow.py:81 ui/SettingsWindow.py:239
+#: ui/OnboardingWindow.py:83 ui/SettingsWindow.py:244
 msgid "Plain"
-msgstr ""
+msgstr "Plain"
 
 #: ui/OnboardingWindow.py:90 ui/OnboardingWindow.py:92
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: ui/ResponseWindow.py:301 ui/ResponseWindow.py:303
 msgid "Response"
-msgstr ""
+msgstr "Response"
 
 #: ui/ResponseWindow.py:379 ui/ResponseWindow.py:385
 msgid "Select to copy with formatting"
-msgstr ""
+msgstr "Select to copy with formatting"
 
 #: ui/ResponseWindow.py:384 ui/ResponseWindow.py:390
 msgid "Copy as Markdown"
-msgstr ""
+msgstr "Copy as Markdown"
 
 #: ui/ResponseWindow.py:395 ui/ResponseWindow.py:507 ui/ResponseWindow.py:509
 #: ui/ResponseWindow.py:516 ui/ResponseWindow.py:520 ui/ResponseWindow.py:401
 #: ui/ResponseWindow.py:513 ui/ResponseWindow.py:515 ui/ResponseWindow.py:522
 #: ui/ResponseWindow.py:526
 msgid "Thinking"
-msgstr ""
+msgstr "Thinking"
 
 #: ui/ResponseWindow.py:429 ui/ResponseWindow.py:530 ui/ResponseWindow.py:435
 #: ui/ResponseWindow.py:536
 msgid "Ask a follow-up question"
-msgstr ""
+msgstr "Ask a follow-up question"
 
 #: ui/SettingsWindow.py:32 ui/SettingsWindow.py:151 ui/SettingsWindow.py:205
 #: WritingToolApp.py:568 ui/SettingsWindow.py:37 ui/SettingsWindow.py:156
 #: ui/SettingsWindow.py:210 WritingToolApp.py:569
 msgid "Settings"
-msgstr ""
+msgstr "Settings"
 
 #: ui/SettingsWindow.py:211 ui/SettingsWindow.py:216
 msgid "Start on Boot"
@@ -180,7 +180,7 @@ msgstr ""
 
 #: ui/SettingsWindow.py:307 ui/SettingsWindow.py:312
 msgid "Save"
-msgstr ""
+msgstr "Save"
 
 #: ui/SettingsWindow.py:326 ui/SettingsWindow.py:331
 msgid "Please restart Writing Tools for changes to take effect."
@@ -188,11 +188,11 @@ msgstr ""
 
 #: WritingToolApp.py:571 WritingToolApp.py:572
 msgid "About"
-msgstr ""
+msgstr "About"
 
 #: WritingToolApp.py:574 WritingToolApp.py:575
 msgid "Exit"
-msgstr ""
+msgstr "Exit"
 
 msgid "Select Icon"
 msgstr "Select Icon"
@@ -218,8 +218,12 @@ msgstr "Change Icon"
 msgid "Icon:"
 msgstr "Icon:"
 
-msgid "e.g., Proofread this:\n\n"
-msgstr "e.g., Proofread this:\n\n"
+msgid ""
+"e.g., Proofread this:\n"
+"\n"
+msgstr ""
+"e.g., Proofread this:\n"
+"\n"
 
 msgid "Prefix Text:"
 msgstr "Prefix Text:"
@@ -305,8 +309,12 @@ msgstr "Resume"
 msgid "About AI Shortcuts"
 msgstr "About AI Shortcuts"
 
-msgid "AI Shortcuts is a free, lightweight utility that enhances your writing with AI."
-msgstr "AI Shortcuts is a free, lightweight utility that enhances your writing with AI."
+msgid ""
+"AI Shortcuts is a free, lightweight utility that enhances your writing with "
+"AI."
+msgstr ""
+"AI Shortcuts is a free, lightweight utility that enhances your writing with "
+"AI."
 
 msgid "Version & Updates"
 msgstr "Version & Updates"
@@ -416,8 +424,12 @@ msgstr "Select Active Provider:"
 msgid "Get OpenAI API Key"
 msgstr "Get OpenAI API Key"
 
-msgid "{0} API key is not configured. Please set your API key in Settings → AI Providers."
-msgstr "{0} API key is not configured. Please set your API key in Settings → AI Providers."
+msgid ""
+"{0} API key is not configured. Please set your API key in Settings → AI "
+"Providers."
+msgstr ""
+"{0} API key is not configured. Please set your API key in Settings → AI "
+"Providers."
 
 msgid "Error"
 msgstr "Error"
@@ -529,3 +541,255 @@ msgstr "Leave blank if not applicable."
 
 msgid "Launch AI Shortcuts on system startup"
 msgstr "Launch AI Shortcuts on system startup"
+
+msgid ""
+"AI Shortcuts is already running.\n"
+"Check your system tray."
+msgstr ""
+"AI Shortcuts is already running.\n"
+"Check your system tray."
+
+msgid ""
+"• Anthropic's Claude is renowned for high-quality writing, safe reasoning, and large context windows.\n"
+"• Ideal for complex analysis and creative writing tasks.\n"
+"• Supports Claude 3.5 Sonnet, Haiku, and Opus models."
+msgstr ""
+"• Anthropic's Claude is renowned for high-quality writing, safe reasoning, and large context windows.\n"
+"• Ideal for complex analysis and creative writing tasks.\n"
+"• Supports Claude 3.5 Sonnet, Haiku, and Opus models."
+
+msgid ""
+"• Mistral AI offers state-of-the-art open models with high efficiency.\n"
+"• Great performance in both European languages and coding.\n"
+"• Supports Mistral Large, Small, and vision-capable Pixtral."
+msgstr ""
+"• Mistral AI offers state-of-the-art open models with high efficiency.\n"
+"• Great performance in both European languages and coding.\n"
+"• Supports Mistral Large, Small, and vision-capable Pixtral."
+
+msgid ""
+"• OpenRouter provides unified access to over 100+ AI models (Claude, Llama, GPT, etc.).\n"
+"• Offers the most competitive pricing and many free-tier models.\n"
+"• Best for power users who want to switch models frequently."
+msgstr ""
+"• OpenRouter provides unified access to over 100+ AI models (Claude, Llama, GPT, etc.).\n"
+"• Offers the most competitive pricing and many free-tier models.\n"
+"• Best for power users who want to switch models frequently."
+
+msgid ""
+"• Google’s Gemini 1.5 & 2.0 (Gemma) are multimodal models with world-class performance.\n"
+"• Offers extremely fast inference and massive context windows (up to 1M+ tokens).\n"
+"• Get a free API key to start using Gemini Flash and Pro models."
+msgstr ""
+"• Google’s Gemini 1.5 & 2.0 (Gemma) are multimodal models with world-class performance.\n"
+"• Offers extremely fast inference and massive context windows (up to 1M+ tokens).\n"
+"• Get a free API key to start using Gemini Flash and Pro models."
+
+msgid ""
+"• Connect to ANY OpenAI-compatible service (e.g. OpenAI, Groq, Together AI, Perplexity).\n"
+"• Supports custom Base URLs, Organizations, and Project IDs.\n"
+"• Perfect for local LLM servers (LM Studio, LocalAI) or specialized providers."
+msgstr ""
+"• Connect to ANY OpenAI-compatible service (e.g. OpenAI, Groq, Together AI, Perplexity).\n"
+"• Supports custom Base URLs, Organizations, and Project IDs.\n"
+"• Perfect for local LLM servers (LM Studio, LocalAI) or specialized providers."
+
+msgid "🔧 Custom"
+msgstr "🔧 Custom"
+
+msgid "e.g., Proofread this:\\n\\n"
+msgstr "e.g., Proofread this:\\n\\n"
+
+msgid "Custom OpenAI-compatible"
+msgstr "Custom OpenAI-compatible"
+
+msgid "Button Name:"
+msgstr "Button Name:"
+
+msgid "What should your AI do with your selected text? (System Instruction)"
+msgstr "What should your AI do with your selected text? (System Instruction)"
+
+msgid ""
+"Examples:\n"
+"    - Fix / improve / explain this code.\n"
+"    - Make it funny.\n"
+"    - Add emojis!\n"
+"    - Roast this!\n"
+"    - Translate to English.\n"
+"    - Make the text title case.\n"
+"    - If it's all caps, make it all small, and vice-versa.\n"
+"    - Write a reply to this.\n"
+"    - Analyse potential biases in this news article."
+msgstr ""
+"Examples:\n"
+"    - Fix / improve / explain this code.\n"
+"    - Make it funny.\n"
+"    - Add emojis!\n"
+"    - Roast this!\n"
+"    - Translate to English.\n"
+"    - Make the text title case.\n"
+"    - If it's all caps, make it all small, and vice-versa.\n"
+"    - Write a reply to this.\n"
+"    - Analyse potential biases in this news article."
+
+msgid "How should your AI response be shown?"
+msgstr "How should your AI response be shown?"
+
+msgid "Replace the selected text"
+msgstr "Replace the selected text"
+
+msgid "In a pop-up window (with follow-up support)"
+msgstr "In a pop-up window (with follow-up support)"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "AI Shortcuts"
+msgstr "AI Shortcuts"
+
+msgid "Reset Commands"
+msgstr "Reset Commands"
+
+msgid ""
+"Are you sure you want to restore all built-in commands? This will bring back"
+" any deleted system commands."
+msgstr ""
+"Are you sure you want to restore all built-in commands? This will bring back"
+" any deleted system commands."
+
+msgid "Customize your shortcut key (default: \"ctrl+space\"):"
+msgstr "Customize your shortcut key (default: \"ctrl+space\"):"
+
+msgid ""
+"Instantly optimize your writing with AI by selecting your text and invoking "
+"AI Shortcuts with \"ctrl+space\", anywhere."
+msgstr ""
+"Instantly optimize your writing with AI by selecting your text and invoking "
+"AI Shortcuts with \"ctrl+space\", anywhere."
+
+msgid ""
+"Get a comprehensive summary of articles, YouTube videos, or documents by "
+"selecting all text (ctrl+a) and invoking AI Shortcuts."
+msgstr ""
+"Get a comprehensive summary of articles, YouTube videos, or documents by "
+"selecting all text (ctrl+a) and invoking AI Shortcuts."
+
+msgid ""
+"Chat with world-class AI models anytime (even without selecting text) to "
+"brainstorm, code, or translate."
+msgstr ""
+"Chat with world-class AI models anytime (even without selecting text) to "
+"brainstorm, code, or translate."
+
+msgid "Gemini 2.0, Claude 3.5, GPT-4o, Mistral Large"
+msgstr "Gemini 2.0, Claude 3.5, GPT-4o, Mistral Large"
+
+msgid "Local LLMs via Ollama & ANY OpenAI Compatible API!"
+msgstr "Local LLMs via Ollama & ANY OpenAI Compatible API!"
+
+msgid "Zoom In"
+msgstr "Zoom In"
+
+msgid "Zoom Out"
+msgstr "Zoom Out"
+
+msgid "Reset Zoom"
+msgstr "Reset Zoom"
+
+msgid "Delete Command"
+msgstr "Delete Command"
+
+msgid "Restore Built-in Commands"
+msgstr "Restore Built-in Commands"
+
+msgid "This will restore all deleted system commands. Continue?"
+msgstr "This will restore all deleted system commands. Continue?"
+
+msgid "Checking for updates..."
+msgstr "Checking for updates..."
+
+msgid "Commands in this backup:"
+msgstr "Commands in this backup:"
+
+msgid "Select All"
+msgstr "Select All"
+
+msgid "Select None"
+msgstr "Select None"
+
+msgid "Import Selected"
+msgstr "Import Selected"
+
+msgid "⚠ Replace All"
+msgstr "⚠ Replace All"
+
+msgid "Done"
+msgstr "Done"
+
+msgid "Replace All Commands?"
+msgstr "Replace All Commands?"
+
+msgid "A new version is available!"
+msgstr "A new version is available!"
+
+msgid "You're up to date."
+msgstr "You're up to date."
+
+msgid "Nothing Selected"
+msgstr "Nothing Selected"
+
+msgid "Please check at least one command to import."
+msgstr "Please check at least one command to import."
+
+msgid "Are you sure you want to delete '{0}'?"
+msgstr "Are you sure you want to delete '{0}'?"
+
+msgid "Shortcut Conflict"
+msgstr "Shortcut Conflict"
+
+msgid ""
+"⚠️  <b>Replace All</b> will remove <b>every</b> command currently installed "
+"(including System commands) and replace them with the {0} command(s) from "
+"this backup. <b>This cannot be undone.</b><br><br>Use <b>Import Selected</b>"
+" to add only the commands you choose, without removing anything."
+msgstr ""
+"⚠️  <b>Replace All</b> will remove <b>every</b> command currently installed "
+"(including System commands) and replace them with the {0} command(s) from "
+"this backup. <b>This cannot be undone.</b><br><br>Use <b>Import Selected</b>"
+" to add only the commands you choose, without removing anything."
+
+msgid ""
+"This will permanently remove ALL {0} current command(s) (including System commands) and replace them with {1} command(s) from the backup.\n"
+"\n"
+"This cannot be undone. Are you sure?"
+msgstr ""
+"This will permanently remove ALL {0} current command(s) (including System commands) and replace them with {1} command(s) from the backup.\n"
+"\n"
+"This cannot be undone. Are you sure?"
+
+msgid "All commands replaced with {0} command(s) from backup."
+msgstr "All commands replaced with {0} command(s) from backup."
+
+msgid ""
+"\"{0}\" is already used by command \"{1}\".\n"
+"Please choose a different shortcut."
+msgstr ""
+"\"{0}\" is already used by command \"{1}\".\n"
+"Please choose a different shortcut."
+
+msgid "e.g. Ctrl+Shift+P"
+msgstr "e.g. Ctrl+Shift+P"
+
+msgid "Clear shortcut"
+msgstr "Clear shortcut"
+
+msgid ""
+"Invalid shortcut format.\n"
+"Use: Modifier+Key (e.g. Ctrl+Shift+P)\n"
+"Modifiers: Ctrl, Shift, Alt, Super/Win\n"
+"Keys: letters, digits, F1–F12, or special keys"
+msgstr ""
+"Invalid shortcut format.\n"
+"Use: Modifier+Key (e.g. Ctrl+Shift+P)\n"
+"Modifiers: Ctrl, Shift, Alt, Super/Win\n"
+"Keys: letters, digits, F1–F12, or special keys"

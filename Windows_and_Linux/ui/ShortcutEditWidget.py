@@ -2,6 +2,8 @@ from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtCore import Signal
 from ui.UIUtils import colorMode
 
+_ = lambda x: x  # Overridden by WritingToolApp.setup_translations
+
 _VALID_MODIFIERS = {"ctrl", "shift", "alt", "super", "win", "meta"}
 _MODIFIER_ORDER = ["ctrl", "shift", "alt", "super"]
 _MODIFIER_ALIASES = {"win": "super", "meta": "super"}
@@ -75,7 +77,7 @@ class ShortcutEditWidget(QtWidgets.QWidget):
         layout.setSpacing(6)
 
         self._line = QtWidgets.QLineEdit()
-        self._line.setPlaceholderText("e.g. Ctrl+Shift+P")
+        self._line.setPlaceholderText(_("e.g. Ctrl+Shift+P"))
         self._line.setCursor(QtCore.Qt.CursorShape.IBeamCursor)
         self._apply_style(error=False)
         self._line.editingFinished.connect(self._on_editing_finished)
@@ -85,7 +87,7 @@ class ShortcutEditWidget(QtWidgets.QWidget):
         self._clear_btn = QtWidgets.QPushButton("✕")
         self._clear_btn.setFixedSize(28, 28)
         self._clear_btn.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
-        self._clear_btn.setToolTip("Clear shortcut")
+        self._clear_btn.setToolTip(_("Clear shortcut"))
         self._clear_btn.setStyleSheet(f"""
             QPushButton {{
                 background: {'#444' if colorMode == 'dark' else '#eee'};
@@ -135,12 +137,12 @@ class ShortcutEditWidget(QtWidgets.QWidget):
         result = parse_and_validate(text)
         if result is None:
             self._apply_style(error=True)
-            self._line.setToolTip(
+            self._line.setToolTip(_(
                 "Invalid shortcut format.\n"
                 "Use: Modifier+Key (e.g. Ctrl+Shift+P)\n"
                 "Modifiers: Ctrl, Shift, Alt, Super/Win\n"
                 "Keys: letters, digits, F1–F12, or special keys"
-            )
+            ))
             return
 
         self._shortcut = result

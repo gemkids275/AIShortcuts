@@ -62,7 +62,7 @@ class ButtonEditDialog(QDialog):
         layout = QVBoxLayout(self)
         
         # Name
-        name_label = QLabel("Button Name:")
+        name_label = QLabel(_("Button Name:"))
         name_label.setStyleSheet(f"color: {'#fff' if colorMode == 'dark' else '#333'}; font-weight: bold;")
         self.name_input = QLineEdit()
         self.name_input.setStyleSheet(f"""
@@ -80,7 +80,7 @@ class ButtonEditDialog(QDialog):
         layout.addWidget(self.name_input)
         
         # Instruction (changed to a multiline QPlainTextEdit)
-        instruction_label = QLabel("What should your AI do with your selected text? (System Instruction)")
+        instruction_label = QLabel(_("What should your AI do with your selected text? (System Instruction)"))
         instruction_label.setStyleSheet(f"color: {'#fff' if colorMode == 'dark' else '#333'}; font-weight: bold;")
         self.instruction_input = QPlainTextEdit()
         self.instruction_input.setStyleSheet(f"""
@@ -94,7 +94,7 @@ class ButtonEditDialog(QDialog):
         """)
         self.instruction_input.setPlainText(self.button_data.get("instruction", ""))
         self.instruction_input.setMinimumHeight(100)
-        self.instruction_input.setPlaceholderText("""Examples:
+        self.instruction_input.setPlaceholderText(_("""Examples:
     - Fix / improve / explain this code.
     - Make it funny.
     - Add emojis!
@@ -103,18 +103,18 @@ class ButtonEditDialog(QDialog):
     - Make the text title case.
     - If it's all caps, make it all small, and vice-versa.
     - Write a reply to this.
-    - Analyse potential biases in this news article.""")
+    - Analyse potential biases in this news article."""))
         layout.addWidget(instruction_label)
         layout.addWidget(self.instruction_input)
         
         # open_in_window
-        display_label = QLabel("How should your AI response be shown?")
+        display_label = QLabel(_("How should your AI response be shown?"))
         display_label.setStyleSheet(f"color: {'#fff' if colorMode == 'dark' else '#333'}; font-weight: bold;")
         layout.addWidget(display_label)
         
         radio_layout = QHBoxLayout()
-        self.replace_radio = QRadioButton("Replace the selected text")
-        self.window_radio = QRadioButton("In a pop-up window (with follow-up support)")
+        self.replace_radio = QRadioButton(_("Replace the selected text"))
+        self.window_radio = QRadioButton(_("In a pop-up window (with follow-up support)"))
         for r in (self.replace_radio, self.window_radio):
             r.setStyleSheet(f"color: {'#fff' if colorMode == 'dark' else '#333'};")
         
@@ -127,8 +127,8 @@ class ButtonEditDialog(QDialog):
         
         # OK & Cancel
         btn_layout = QHBoxLayout()
-        ok_button = QPushButton("OK")
-        cancel_button = QPushButton("Cancel")
+        ok_button = QPushButton(_("OK"))
+        cancel_button = QPushButton(_("Cancel"))
         for btn in (ok_button, cancel_button):
             btn.setStyleSheet(f"""
                 QPushButton {{
@@ -315,7 +315,7 @@ class CustomPopupWindow(QtWidgets.QWidget):
         logging.debug('Setting up CustomPopupWindow UI')
         self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint | QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-        self.setWindowTitle("AI Shortcuts")
+        self.setWindowTitle(_("AI Shortcuts"))
         
         main_layout = QtWidgets.QVBoxLayout(self)
         main_layout.setContentsMargins(0,0,0,0)
@@ -736,8 +736,8 @@ class CustomPopupWindow(QtWidgets.QWidget):
         """Restore all built-in commands."""
         reply = QtWidgets.QMessageBox.question(
             self, 
-            "Reset Commands", 
-            "Are you sure you want to restore all built-in commands? This will bring back any deleted system commands.",
+            _("Reset Commands"), 
+            _("Are you sure you want to restore all built-in commands? This will bring back any deleted system commands."),
             QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No
         )
         if reply == QtWidgets.QMessageBox.Yes:

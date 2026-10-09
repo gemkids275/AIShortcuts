@@ -67,7 +67,7 @@ class WritingToolApp(QtWidgets.QApplication):
             QtWidgets.QMessageBox.warning(
                 None,
                 "AI Shortcuts",
-                "AI Shortcuts is already running.\nCheck your system tray."
+                gettext.gettext("AI Shortcuts is already running.\nCheck your system tray.")
             )
             sys.exit(0)
 
@@ -183,6 +183,7 @@ class WritingToolApp(QtWidgets.QApplication):
         ui.ResponseWindow._ = self._
         ui.OnboardingWindow._ = self._
         ui.CustomPopupWindow._ = self._
+        ui.ShortcutEditWidget._ = self._
 
     def retranslate_ui(self):
         self.update_tray_menu()

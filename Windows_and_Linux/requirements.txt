@@ -10,3 +10,4 @@ ollama
 anthropic
 mistralai>=2
 keyring
+polib
