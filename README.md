@@ -4,6 +4,8 @@
 
 A fork of [WritingTools](https://github.com/theJayTea/WritingTools) by theJayTea, maintained by [Nam Trần](https://github.com/gemkids275). Native on **macOS**, with pre-built binaries for **Windows** and **Linux**.
 
+[![Ko-fi](https://img.shields.io/badge/Support-Ko--fi-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/gemkids)
+
 <p align="center">
   <img src="docs/media/windows-proofread.gif" alt="Windows: select text, press the hotkey, choose Proofread" width="49%">
   <img src="docs/media/macos-proofread.gif" alt="macOS: select text, press the hotkey, choose a command" width="49%">
@@ -19,6 +21,7 @@ A fork of [WritingTools](https://github.com/theJayTea/WritingTools) by theJayTea
 - [Installation](#installation)
 - [Common issues](#common-issues)
 - [Privacy](#privacy)
+- [Support the project](#support-the-project)
 - [Credits](#credits) · [About the author](#about-the-author) · [License](#license)
 
 ## Why AI Shortcuts
@@ -177,6 +180,12 @@ Run `python Windows_and_Linux/bump_version.py <N>`, add a `## [<N>]` entry to `W
 - Text is sent only to the AI provider you configure, only when you trigger a command.
 - API keys are stored in the macOS Keychain, or in the OS keyring on Windows and Linux. Without a keyring, per-command keys fall back to a lightly obfuscated local file, not encrypted storage.
 - Use Ollama, MLX or another local model to keep everything on your device.
+
+## Support the project
+
+AI Shortcuts is free, open-source, and built in my spare time without subscriptions. If you find it helpful, starring the project, reporting bugs, or buying a coffee helps keep it going.
+
+[☕ Buy me a coffee on Ko-fi](https://ko-fi.com/gemkids)
 
 ## Credits
 
