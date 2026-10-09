@@ -1,341 +1,206 @@
 # AI Shortcuts — Writing Tools
 
-> **A customized & extended fork of [WritingTools](https://github.com/theJayTea/WritingTools) by theJayTea.**  
-> Maintained by **[Nam Trần](https://github.com/gemkids)** — a technology enthusiast.
+**Select text in any app, press a hotkey, and let AI fix, rewrite or summarize it in place.**
 
-**Instantly proofread, rewrite, summarize, and optimize your writing system-wide with AI — one hotkey, any app.**
+A fork of [WritingTools](https://github.com/theJayTea/WritingTools) by theJayTea, maintained by [Nam Trần](https://github.com/gemkids275). Native on **macOS**, with pre-built binaries for **Windows** and **Linux**.
 
----
+[![Ko-fi](https://img.shields.io/badge/Support-Ko--fi-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/gemkids)
 
-## 🗂 Table of Contents
+<p align="center">
+  <img src="docs/media/windows-proofread.gif" alt="Windows: select text, press the hotkey, choose Proofread" width="49%">
+  <img src="docs/media/macos-proofread.gif" alt="macOS: select text, press the hotkey, choose a command" width="49%">
+</p>
 
-- [What is this?](#-what-is-this)
-- [How to Use](#-how-to-use)
-- [What's new in this fork](#-whats-new-in-this-fork-macos)
-- [Features](#-features)
-- [AI Providers](#-ai-providers-macos)
-- [Installation](#-installation)
-- [Privacy](#-privacy)
-- [Original Project & Credits](#-original-project--credits)
-- [About the Author](#-about-the-author)
-- [License](#-license)
+## Contents
 
----
+- [Why AI Shortcuts](#why-ai-shortcuts)
+- [Features by platform](#features-by-platform)
+- [How to use](#how-to-use)
+- [What's new in this fork](#whats-new-in-this-fork)
+- [AI providers](#ai-providers)
+- [Installation](#installation)
+- [Common issues](#common-issues)
+- [Privacy](#privacy)
+- [Support the project](#support-the-project)
+- [Credits](#credits) · [About the author](#about-the-author) · [License](#license)
 
-## ✨ What is this?
+## Why AI Shortcuts
 
-**AI Shortcuts** is a personal fork of **WritingTools** — an Apple Intelligence-inspired, system-wide AI writing assistant for **macOS, Windows & Linux**.
+- **One hotkey, any app.** Select text, press the shortcut, pick a command. No copy-paste into a chat tab.
+- **Your commands.** Proofread, Rewrite, Summary, or any prompt you write. Reorder, back up and share them.
+- **Your model.** Cloud or local, with a different provider or model per command.
+- **Private by design.** No telemetry. Text only goes to the provider you chose.
 
-With one hotkey press, it lets you fix grammar, rewrite text, change tone, summarize content (webpages, YouTube transcripts, documents), and more — without ever leaving your current app.
+## Features by platform
 
-This fork builds on top of the original idea with significant macOS enhancements: more AI providers, image & file attachments, a richer native UI, and quality-of-life improvements throughout.
+| Feature | macOS | Windows | Linux |
+|---|:---:|:---:|:---:|
+| Built-in commands (Proofread, Rewrite, Friendly, Professional, Concise, Summary, Key Points, Table) | ✅ | ✅ | ✅ |
+| Custom instruction and chat mode (no selection needed) | ✅ | ✅ | ✅ |
+| Image and text-file attachments, follow-up questions | ✅ | ✅ | ✅ |
+| Command Manager: custom commands, drag-to-reorder, import/export, backup | ✅ | ✅ | ✅ |
+| Per-command shortcut and AI provider | ✅ | ✅ | ✅ |
+| Streaming responses, zoomable response window | ✅ | ✅ | ✅ |
+| Interface languages | 7 | 5 | 5 |
+| Local models: Ollama and OpenAI-compatible servers | ✅ | ✅ | ✅ |
+| On-device MLX models (Apple Silicon) | ✅ | — | — |
+| RTF-preserving Proofread | ✅ | — | — |
+| Global hotkeys | ✅ | ✅ | X11 only |
 
-> **🍎 macOS users:** This fork focuses on the native Swift/SwiftUI macOS version. Windows & Linux are inherited from the original project.
+Windows and Linux languages: English, Tiếng Việt, Italiano, 日本語, 简体中文.
 
----
+## How to use
 
-## 🚀 How to Use
+### Fix or improve selected text
 
-### 1. Fix or improve selected text
+1. Select text in any app.
+2. Press your hotkey (macOS `⌥ Space`, Windows/Linux `Ctrl+Space`).
+3. Pick a command: **Proofread**, **Rewrite**, **Friendly**, **Professional**, **Concise**, **Summary**, **Key Points** or **Table**.
+4. The result replaces your text (undo with `⌘Z` / `Ctrl+Z`) or opens in a response window you can keep chatting in.
 
-1. Select any text in any app
-2. Press your hotkey (default: `⌥ Space`)
-3. Choose a command — **Proofread**, **Rewrite**, **Friendly**, **Professional**, **Concise**, etc.
-4. The text is replaced instantly. Press `⌘Z` to undo.
+<p align="center"><img src="docs/media/macos-proofread.gif" alt="macOS proofread demo" width="70%"></p>
 
+### Custom instruction
 
+Select text (or select nothing for chat mode), press the hotkey and type what you want, such as _"translate to French"_ or _"make it a bullet list"_. **Enter** sends, **Shift+Enter** adds a new line.
 
-https://github.com/user-attachments/assets/21d1f770-2ec5-46de-857f-fb6fd0762906
+<p align="center"><img src="docs/media/macos-custom-instruction.gif" alt="Create and run a custom command" width="70%"></p>
 
+### Attach images or files
 
-<!-- VIDEO: basic usage demo -->
+Paste an image (`⌘V` / `Ctrl+V`) or click the paperclip to add an image or a text file. The AI sees both your instruction and the attachment, in the first prompt and in follow-ups.
 
----
+<p align="center"><img src="docs/media/macos-attachments.gif" alt="Ask a question about an attached image" width="70%"></p>
 
-### 2. Custom instruction
+### Summarize a page or video
 
-1. Select text (or skip selection to use chat mode)
-2. Press your hotkey
-3. Type your instruction in the input box — e.g. _"translate to French"_, _"add code comments"_, _"make it a bullet list"_
-4. Press **Enter** to send. Use **Shift+Enter** or **Alt+Enter** for a new line.
+Select everything on a page (`⌘A` / `Ctrl+A`), press the hotkey and choose **Summary**, **Key Points** or **Table**. For YouTube, open **Show transcript**, copy it, paste it anywhere, then select and run the command.
 
+### Manage your commands
 
-https://github.com/user-attachments/assets/610dfbc3-0814-4349-9429-f9040466f558
+Open **Settings → Commands** to add, edit, reorder, export and import commands, back up your whole setup, or restore the built-ins.
 
+<p align="center"><img src="docs/media/windows-commands.png" alt="Command Manager on Windows" width="60%"></p>
 
-<!-- VIDEO: custom instruction demo -->
+### Switch the interface language
 
----
+Pick a language in **Settings → General** and save.
 
-### 3. Attach images or files
+<p align="center"><img src="docs/media/windows-languages.gif" alt="Settings in five languages" width="60%"></p>
 
-1. Open the popup with your hotkey
-2. Attach content in any of these ways:
-   - **Paste** an image directly from your clipboard (`⌘V`)
-   - Click the **paperclip icon** to pick a file
-3. Type your instruction and press **Enter**
+### Linux
 
-> Supported: PNG, JPG, HEIC, and other image formats; plain text files.  
-> The AI will see both your instruction and the attached content.
+The Linux build runs on X11 desktops with the same hotkey, popup and response window.
 
+<p align="center"><img src="docs/media/linux-demo.gif" alt="Linux: popup, result and settings" width="70%"></p>
 
-https://github.com/user-attachments/assets/30e22e1a-361d-4767-b6da-6639ef5ca66e
+## What's new in this fork
 
+**Windows & Linux — first release (`win-v1`)**
+- New **Command Manager**, per-command shortcuts with conflict detection, and per-command AI overrides.
+- **Attachments** in prompts and follow-ups; a redesigned settings, popup and response window.
+- **Anthropic, Mistral and OpenRouter** join Gemini, OpenAI-compatible and Ollama.
+- **Five interface languages**, applied from Settings.
+- **Pre-built binaries** with SHA-256 checksums and build provenance, plus CI on every pull request. See the [changelog](Windows_and_Linux/CHANGELOG.md).
 
-<!-- VIDEO: attachment demo -->
+**macOS**
+- Image and text attachments, multi-line input, and a popup that can be dragged across screens.
+- Command import/export, full backup and restore, and drag-to-reorder.
+- Per-command providers and in-app language switching.
+- Fixed the onboarding deep link to **Privacy & Security** on recent macOS versions.
 
----
+## AI providers
 
-### 4. Summarize a webpage or document
+| Provider | Type | macOS | Windows / Linux |
+|---|---|:---:|:---:|
+| Google Gemini | Cloud, free tier | ✅ | ✅ |
+| OpenAI and compatible APIs | Cloud / local | ✅ | ✅ |
+| Anthropic Claude | Cloud | ✅ | ✅ |
+| Mistral AI | Cloud | ✅ | ✅ |
+| OpenRouter (100+ models) | Cloud | ✅ | ✅ |
+| Ollama, LM Studio, llama.cpp | Local | ✅ | ✅ |
+| MLX on Apple Silicon | On-device | ✅ | — |
 
-1. Select all text on the page (`⌘A`)
-2. Press your hotkey
-3. Choose **Summary**, **Key Points**, or **Table**
-4. A response window opens with the result — you can continue chatting from there
+Mix and match: cloud models for hard tasks, local models for private or offline work.
 
+## Installation
 
-<!-- VIDEO: summarize demo -->
+Grab the latest build from the [Releases page](https://github.com/gemkids275/WritingToolsV2/releases). macOS uses `v*` tags; Windows and Linux use `win-v*` tags.
 
----
+### macOS
 
-### 5. Summarize a YouTube video
+Requires macOS 14 (Sonoma) or later. Download the `.dmg`, drag the app to **Applications** and launch it. The first run guides you through **Accessibility** and **Screen Recording** permissions (manage them in **System Settings → Privacy & Security**).
 
-1. Open the video on YouTube
-2. Click **...** → **Show transcript** below the video
-3. Select all transcript text and copy
-4. Paste into any text field, select it, and invoke Writing Tools
-5. Choose **Summary** or **Key Points**
+### Windows
 
-<!-- VIDEO: YouTube transcript demo -->
+Download `AI-Shortcuts-windows-x64.exe` and run it. The binary is not code-signed, so SmartScreen may warn once: choose **More info → Run anyway**, or verify the checksum first. Settings live in `%APPDATA%\AIShortcuts`.
 
----
+### Linux
 
-### 6. Chat without selecting text
+```bash
+tar -xzf AI-Shortcuts-linux-x64.tar.gz
+./"AI Shortcuts"
+```
 
-1. Press your hotkey without selecting anything
-2. Type your question or request in the popup
-3. A chat window opens — keep the conversation going with follow-up questions
+Needs an **X11** session and `xclip` or `xsel`. Global hotkeys do not work on Wayland. Settings live in `~/.config/aishortcuts`.
 
-<!-- VIDEO: chat mode demo -->
+### Verify your download
 
----
+```bash
+sha256sum -c SHA256SUMS.txt --ignore-missing
+gh attestation verify <file> --repo gemkids275/WritingToolsV2
+```
 
-### 7. Manage & reorder commands
+### Run from source (Windows & Linux)
 
-1. Press your hotkey to open the popup
-2. Click the **pencil icon** (top right) to enter edit mode
-3. **Drag** any button to reorder it
-4. Click the **edit** or **trash** icon on a button to modify or delete it
-5. Click **Manage Commands** to add new ones or import/export
-<img width="372" height="335" alt="image" src="https://github.com/user-attachments/assets/8951870e-70cb-4038-b948-f8f1d8e04f3a" />
-
-<!-- VIDEO: command management demo -->
-
----
-
-## 🆕 What's New in This Fork
-
-On top of everything the original macOS port offers, this fork adds:
-
-### 📎 Attachments in Prompts
-- **Paste images directly** from clipboard into custom prompts
-- **Attach image files** (PNG, JPG, HEIC, etc.) via file picker or drag-and-drop
-- **Attach plain text files** — content is read and sent as context to the AI
-- Attachments also supported in **follow-up questions** in the response window
-- Unsupported file types show a clear error instead of failing silently
-
-### ✏️ Smarter Input
-- **Multi-line expandable input** — grows up to 5 lines, then scrolls
-- **Enter** to send, **Shift+Enter** or **Alt+Enter** to insert a new line
-- Input and attachments are **reset on each popup open**
-- Thin overlay scrollbar for clean aesthetics
-
-### 🧩 Command Management
-- **Drag-to-reorder** command buttons directly in the popup (edit mode)
-- **Import / export individual commands** as JSON files
-- **Export full config** (all commands + custom instruction) as a backup
-- **Import full config** to restore or share your setup
-- Per-command custom AI provider support
-
-### 🖥️ UI & UX
-- Wider popup (380px) for more breathing room
-- **Drag popup across multiple screens** — not locked to the originating display
-- Horizontal attachment strip with **drag-to-scroll** gesture
-- Response window follow-up input also supports attachments and multi-line
-
-### 🌐 Multi-language UI
-- UI localized in **7 languages**: English, German, French, Spanish, Vietnamese, Japanese, Simplified Chinese
-- **In-app language switcher** — change the interface language without touching system settings
-- Available on **all platforms** (macOS, Windows & Linux)
-
-### 🐛 Bug Fixes
-- **Fixed:** On newer macOS versions, the onboarding flow could not locate the correct path to **System Settings → Privacy & Security**, leaving users unable to grant Accessibility or Screen Recording permissions. The deep link now opens the correct pane directly.
-
----
-
-## 🛠 Common Issues
-
-### Commands not showing after selecting text
-
-When you select text and open the popup, but only see the text input box with no command buttons — this is almost always an **Accessibility permission issue**.
-
-AI Shortcuts needs Accessibility access to read your selected text. Without it, the app cannot detect what you've highlighted and won't display the command list.
-
-**How to fix:**
-
-1. Open **System Settings → Privacy & Security → Accessibility**
-2. Find **AI Shortcuts** in the list — if the toggle is OFF, turn it ON
-3. If AI Shortcuts is not in the list, or the issue persists after enabling:
-   - Select **AI Shortcuts** and click the **`−`** button to remove it
-   - Relaunch the app — it will prompt you to grant Accessibility permission again
-   - Click **Open System Settings**, then enable the toggle
-
-> **Note:** On macOS, the app must be added under its current name. If you previously had an older version listed (e.g. "WritingTools"), remove that entry and add the current version instead.
-
----
-
-## 🔮 What's Coming
-
-- **Windows & Linux parity** — Gradually bring the macOS-exclusive features (attachments, richer command management, more providers) to the Windows & Linux version
-- **Ongoing bug fixes** — Continuously improving stability and compatibility across macOS versions
-
----
-
-## 🌟 Features
-
-### For all platforms (inherited from original):
-- **Proofread** — Smart grammar & spelling correction
-- **Rewrite** — Improve phrasing while keeping your meaning
-- **Friendly / Professional** — Adjust tone instantly
-- **Concise** — Trim the fat from your writing
-- **Summarize** — Clear summaries of any text, webpage, or video transcript
-- **Key Points** — Extract the most important ideas
-- **Table** — Convert text into a formatted table (paste directly into Word/Notion)
-- **Custom Instructions** — Anything you can describe: _"translate to French"_, _"add code comments"_, _"make it title case"_
-- **Chat mode** — Press the hotkey without selecting text to chat with your AI
-- **Zero clipboard corruption** — Uses the Accessibility API, not the clipboard
-- **Privacy-first** — No telemetry, no tracking, API keys stored locally in Keychain
-
-### macOS exclusive:
-- Local **MLX models** on Apple Silicon — fully offline, no internet required
-- **Ollama** support via OpenAI-compatible endpoint
-- **RTF-preserving Proofread** — keeps bold, italics, lists, and links intact
-- **Command shortcuts** — assign keyboard shortcuts to any command
-- **Custom command editor** — create and edit your own AI buttons
-- Multiple themes including dark mode
-
----
-
-## 🧠 AI Providers (macOS)
-
-| Provider | Type | Notes |
-|---|---|---|
-| Google Gemini | Cloud | Free tier available; Gemini 2.0 Flash recommended |
-| OpenAI | Cloud | GPT-4o and compatible models |
-| Anthropic | Cloud | Claude 3.5 Sonnet, Claude 3 Opus, etc. |
-| Mistral AI | Cloud | Mistral Large, Small, and more |
-| OpenRouter | Cloud | Access 100+ models via one API key |
-| Ollama | Local | Any model via OpenAI-compatible endpoint |
-| MLX (Apple Silicon) | Local | On-device inference, zero latency, zero internet |
-
-> **Mix & match:** Use cloud models for power tasks, local models for private or offline work.
-
----
-
-## ✅ Installation
-
-### 🍎 macOS
-
-**Requirements:** macOS 14 (Sonoma) or later.
-
-1. Go to the [Releases](https://github.com/gemkids/WritingTools/releases) page and download the latest macOS `.dmg` file.
-2. Open the `.dmg`, drag `writing-tools.app` into your **Applications** folder.
-3. Launch the app — it will guide you through permissions and initial setup.
-
-**Permissions required (prompted on first launch):**
-- **Accessibility** — to read and replace selected text system-wide
-- **Screen Recording** — for apps that restrict text access via Accessibility API
-
-Manage these under **System Settings → Privacy & Security**.
-
-> **Hotkey conflict?** If your shortcut clashes with Spotlight or Input Source switching, set a custom hotkey in Settings and adjust **System Settings → Keyboard → Keyboard Shortcuts**.
-
----
-
-### 🪟 Windows & 🐧 Linux
-
-Pre-built binaries are published on the [Releases page](https://github.com/gemkids275/WritingToolsV2/releases) (tags `win-v*`; macOS uses `v*`). See the [Windows & Linux changelog](Windows_and_Linux/CHANGELOG.md).
-
-| Platform | Download | Notes |
-|---|---|---|
-| Windows 10/11 (x64) | `AI-Shortcuts-windows-x64.exe` | Unsigned: SmartScreen may warn on first run |
-| Linux (x64) | `AI-Shortcuts-linux-x64.tar.gz` | Needs X11 and `xclip` or `xsel`; global hotkeys do not work on Wayland |
-
-Verify a download with `sha256sum -c SHA256SUMS.txt --ignore-missing`. Settings are stored in `%APPDATA%\AIShortcuts` (Windows) or `~/.config/aishortcuts` (Linux).
-
-**Run from source:**
 ```bash
 cd Windows_and_Linux
 pip install -r requirements.txt
 python main.py
 ```
 
-**Release process (maintainers):** `python Windows_and_Linux/bump_version.py <N>`, add a `## [<N>]` entry to `Windows_and_Linux/CHANGELOG.md` and `Windows_and_Linux/release-notes/win-v<N>.md`, merge via PR (CI must pass), then push the tag `win-v<N>`. The release workflow builds both platforms and publishes the release with checksums and provenance attestations.
+<details>
+<summary>Release process (maintainers)</summary>
 
----
+Run `python Windows_and_Linux/bump_version.py <N>`, add a `## [<N>]` entry to `Windows_and_Linux/CHANGELOG.md` and a `Windows_and_Linux/release-notes/win-v<N>.md`, merge through a pull request (CI must pass), then push the tag `win-v<N>`. The release workflow builds both platforms and publishes checksums and provenance attestations. To refresh the assets of an existing release, run the **Release Windows & Linux** workflow manually with `release_tag` set to that tag.
 
-## 🔒 Privacy
+</details>
 
-- **No telemetry, no logging, no ads.** The app collects nothing.
-- API keys are stored in the **macOS Keychain** (not plain UserDefaults).
-- Text is only sent to your chosen AI provider when you explicitly trigger an action.
-- Use **local MLX or Ollama** to keep everything fully on-device.
-- Refer to your AI provider's privacy policy when using cloud models.
+## Common issues
 
----
+**macOS: only the input box shows, no command buttons.** AI Shortcuts needs Accessibility access to read your selection. Open **System Settings → Privacy & Security → Accessibility** and turn **AI Shortcuts** on. If it is already on, remove it with **−**, relaunch the app and grant the permission again. An older entry such as "WritingTools" must be removed first.
 
-## 📖 Original Project & Credits
+**Windows: the tray menu does not open.** After an app is force-closed, Windows can leave a stale icon in the hidden-icons flyout. Hover over the leftover icons to clear them, then right-click the current one.
 
-This fork is built on top of **[WritingTools](https://github.com/theJayTea/WritingTools)**, created by **[Jesai](https://github.com/theJayTea)** — a high school student from Bangalore who built one of the most innovative open-source AI utilities of 2024.
+**Linux: hotkeys or paste do nothing.** Use an X11 session and install `xclip` or `xsel`. Wayland blocks global hotkeys and simulated keystrokes.
 
-WritingTools was featured in 🔥 [**28+ global publications**](https://github.com/theJayTea/WritingTools/blob/main/Media%20Coverage.md) including [Beebom](https://beebom.com/high-schooler-app-brings-apple-inteligence-writing-tools-windows/), [XDA Developers](https://www.xda-developers.com/windows-pc-can-now-deliver-instant-free-writing-help-across-all-apps/), [How-To Geek](https://www.howtogeek.com/if-you-like-apple-intelligences-writing-tool-try-this-open-source-app-as-its-windows-counterpart/), and [Windows Central](https://www.windowscentral.com/software-apps/can-apple-catch-up-apple-intelligence-just-shipped-yet-free-apple-writing-tools-on-github-for-windows-and-linux-make-a-better-alternative). It was among the [**top 10 most trending AI programs on GitHub**](https://devface.ai/ranking/top_ai_developers/2024-10) in October 2024.
+## Privacy
 
-### Original macOS Port
-The native Swift/SwiftUI macOS version was built from scratch by **[Arya Mirsepasi](https://github.com/Aryamirsepasi)** — an incredible engineering effort that this fork builds upon.
+- **No telemetry, no analytics, no ads.**
+- Text is sent only to the AI provider you configure, only when you trigger a command.
+- API keys are stored in the macOS Keychain, or in the OS keyring on Windows and Linux. Without a keyring, per-command keys fall back to a lightly obfuscated local file, not encrypted storage.
+- Use Ollama, MLX or another local model to keep everything on your device.
 
-### Other notable contributors to the original project
-- **[momokrono](https://github.com/momokrono)** — Linux support, pynput, Ollama, localization
-- **[Cameron Redmore](https://github.com/CameronRedmore)** — OpenAI-compatible API, streamed responses, chat mode
-- **[Joaov41](https://github.com/Joaov41)** — Image processing in Gemini on macOS
-- **[gdmka](https://github.com/gdmka)** — Per-command custom provider, response window text size memory
-- **[drankush](https://github.com/drankush)** — Custom Base URL fix for OpenAI provider
+## Support the project
 
-Full contributor list: [theJayTea/WritingTools](https://github.com/theJayTea/WritingTools#-contributors)
+AI Shortcuts is free, open-source, and built in my spare time without subscriptions. If you find it helpful, starring the project, reporting bugs, or buying a coffee helps keep it going.
 
----
+[☕ Buy me a coffee on Ko-fi](https://ko-fi.com/gemkids)
 
-## 👨‍💻 About the Author
+## Credits
 
-**Nam Trần** — a web developer and technology enthusiast based in Vietnam.
+Built on **[WritingTools](https://github.com/theJayTea/WritingTools)** by **[Jesai](https://github.com/theJayTea)**, featured in [28+ publications](https://github.com/theJayTea/WritingTools/blob/main/Media%20Coverage.md) and among the [top trending AI projects on GitHub](https://devface.ai/ranking/top_ai_developers/2024-10) in October 2024. The native macOS port was built from scratch by **[Arya Mirsepasi](https://github.com/Aryamirsepasi)**.
 
-I'm primarily a web developer, so macOS and Swift are not my home turf. I built this in my spare time because I wanted a more powerful AI writing assistant that fits the way I work — and decided to share it openly in case it helps others too.
+Contributors to the original project: **[momokrono](https://github.com/momokrono)** (Linux, pynput, Ollama, localization), **[Cameron Redmore](https://github.com/CameronRedmore)** (OpenAI-compatible API, streaming, chat mode), **[Joaov41](https://github.com/Joaov41)** (images in Gemini on macOS), **[gdmka](https://github.com/gdmka)** (per-command provider, zoom memory), **[drankush](https://github.com/drankush)** (custom Base URL fix). Full list: [theJayTea/WritingTools](https://github.com/theJayTea/WritingTools#-contributors).
 
-This fork is completely free — no subscription, no maintenance fee, no catch. Every feature here was built on personal time and shared openly in the spirit of the original project.
+## About the author
 
-**Found a bug or have an idea?**  
-Feel free to [open an issue on GitHub](https://github.com/gemkids275/WritingToolsV2/issues). I check issues regularly and will fix anything that's important or genuinely useful. If you have a feature idea, share it — I'll consider building it if it's feasible.
+**Nam Trần** is a web developer in Vietnam. This fork started as a personal tool, built in spare time to fit the way they work, and is shared free of charge in the spirit of the original project.
 
-If any of this makes your workflow a little better, leaving a ⭐ on GitHub is the best way to say thanks. It costs nothing and means a lot.
+Found a bug or have an idea? [Open an issue](https://github.com/gemkids275/WritingToolsV2/issues). If it saves you time, a ⭐ on GitHub is the best thank-you.
 
-- GitHub: [github.com/gemkids275](https://github.com/gemkids275)
+**Copyright or legal concerns:** email **gemkids275@gmail.com** and the matter will be reviewed promptly.
 
-**⚠️ Copyright / Legal concerns**  
-If you have any concerns regarding copyright, intellectual property, or any other serious matter related to this project — please email me at **gemkids275@gmail.com**. I will review the issue promptly and take it down immediately if it affects the original authors or violates any rights.
+## License
 
----
-
-## 📄 License
-
-Distributed under the **GNU General Public License v3.0** — the same license as the original WritingTools project.
-
-See [LICENSE](LICENSE) for details.
+Distributed under the **GNU General Public License v3.0**, the same as the original project. See [LICENSE](LICENSE).
