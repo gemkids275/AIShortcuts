@@ -588,7 +588,7 @@ class OpenRouterProvider(AIProvider):
                 base_url="https://openrouter.ai/api/v1",
                 api_key=self.api_key,
                 default_headers={
-                    "HTTP-Referer": "https://github.com/gemkids275/WritingToolsV2",
+                    "HTTP-Referer": "https://github.com/gemkids275/AIShortcuts",
                     "X-Title": "AI Shortcuts",
                 }
             )

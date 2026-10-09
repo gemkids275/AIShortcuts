@@ -2,12 +2,12 @@ import SwiftUI
 
 private enum AboutURLs {
     static let emailNam = URL(string: "mailto:gemkids275@gmail.com")
-    static let repoNam = URL(string: "https://github.com/gemkids275/WritingToolsV2")
+    static let repoNam = URL(string: "https://github.com/gemkids275/AIShortcuts")
     static let emailJesai = URL(string: "mailto:jesaitarun@gmail.com")
     static let blissAI = URL(string: "https://play.google.com/store/apps/details?id=com.jesai.blissai")
     static let emailArya = URL(string: "mailto:developer@aryamirsepasi.com")
     static let proseKey = URL(string: "https://apps.apple.com/us/app/prosekey-ai/id6741180175")
-    static let releases = URL(string: "https://github.com/gemkids275/WritingToolsV2/releases")
+    static let releases = URL(string: "https://github.com/gemkids275/AIShortcuts/releases")
 }
 
 struct AboutView: View {

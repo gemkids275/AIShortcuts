@@ -6,8 +6,8 @@ from urllib.request import URLError, urlopen
 
 CURRENT_VERSION = 1
 VERSION_STR = "1"
-UPDATE_CHECK_URL = "https://raw.githubusercontent.com/gemkids275/WritingToolsV2/main/Windows_and_Linux/Latest_Version_for_Update_Check.txt"
-UPDATE_DOWNLOAD_URL = "https://github.com/gemkids275/WritingToolsV2/releases"
+UPDATE_CHECK_URL = "https://raw.githubusercontent.com/gemkids275/AIShortcuts/main/Windows_and_Linux/Latest_Version_for_Update_Check.txt"
+UPDATE_DOWNLOAD_URL = "https://github.com/gemkids275/AIShortcuts/releases"
 
 class UpdateChecker:
     def __init__(self, app):

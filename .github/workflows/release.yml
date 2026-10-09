@@ -5,7 +5,7 @@ name: Release Windows & Linux
 # (run `python Windows_and_Linux/bump_version.py <N>` before tagging).
 # Manual runs (workflow_dispatch) only build and upload artifacts, unless
 # `release_tag` names an EXISTING release (e.g. win-v1): then the build from the
-# selected branch replaces that release's assets and notes. The tag is not moved.
+# `main` branch replaces that release's assets and notes. The tag is not moved.
 on:
   push:
     tags:
@@ -27,7 +27,8 @@ jobs:
   release:
     name: Publish GitHub Release
     needs: build
-    if: startsWith(github.ref, 'refs/tags/win-v') || startsWith(inputs.release_tag, 'win-v')
+    # Tag pushes, or manual refreshes that run from `main` only.
+    if: startsWith(github.ref, 'refs/tags/win-v') || (github.ref == 'refs/heads/main' && startsWith(inputs.release_tag, 'win-v'))
     runs-on: ubuntu-22.04
     permissions:
       contents: write       # create the release
@@ -42,6 +43,7 @@ jobs:
           TAG_INPUT: ${{ inputs.release_tag }}
         run: |
           tag="${TAG_INPUT:-$GITHUB_REF_NAME}"
+          [[ "$tag" =~ ^win-v[0-9]+$ ]] || { echo "::error::Invalid release tag '$tag' (expected win-v<N>)"; exit 1; }
           version="${tag#win-v}"
           notes="Windows_and_Linux/release-notes/${tag}.md"
           test -f "$notes" || { echo "::error::Missing $notes - write the release notes before tagging"; exit 1; }

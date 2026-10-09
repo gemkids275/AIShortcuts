@@ -125,7 +125,7 @@ Mix and match: cloud models for hard tasks, local models for private or offline 
 
 ## Installation
 
-Grab the latest build from the [Releases page](https://github.com/gemkids275/WritingToolsV2/releases). macOS uses `v*` tags; Windows and Linux use `win-v*` tags.
+Grab the latest build from the [Releases page](https://github.com/gemkids275/AIShortcuts/releases). macOS uses `v*` tags; Windows and Linux use `win-v*` tags.
 
 ### macOS
 
@@ -148,7 +148,7 @@ Needs an **X11** session and `xclip` or `xsel`. Global hotkeys do not work on Wa
 
 ```bash
 sha256sum -c SHA256SUMS.txt --ignore-missing
-gh attestation verify <file> --repo gemkids275/WritingToolsV2
+gh attestation verify <file> --repo gemkids275/AIShortcuts
 ```
 
 ### Run from source (Windows & Linux)
@@ -197,7 +197,7 @@ Contributors to the original project: **[momokrono](https://github.com/momokrono
 
 **Nam Trần** is a web developer in Vietnam. This fork started as a personal tool, built in spare time to fit the way they work, and is shared free of charge in the spirit of the original project.
 
-Found a bug or have an idea? [Open an issue](https://github.com/gemkids275/WritingToolsV2/issues). If it saves you time, a ⭐ on GitHub is the best thank-you.
+Found a bug or have an idea? [Open an issue](https://github.com/gemkids275/AIShortcuts/issues). If it saves you time, a ⭐ on GitHub is the best thank-you.
 
 **Copyright or legal concerns:** email **gemkids275@gmail.com** and the matter will be reviewed promptly.
 

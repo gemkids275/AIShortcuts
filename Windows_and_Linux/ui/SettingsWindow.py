@@ -834,7 +834,7 @@ class SettingsWindow(QtWidgets.QWidget):
         nam_links.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         email_nam = QtWidgets.QLabel('<a href="mailto:gemkids275@gmail.com" style="color: #3b82f6; text-decoration: none;">Email Nam</a>')
         email_nam.setOpenExternalLinks(True)
-        github_nam = QtWidgets.QLabel('<a href="https://github.com/gemkids275/WritingToolsV2" style="color: #3b82f6; text-decoration: none;">GitHub Repo</a>')
+        github_nam = QtWidgets.QLabel('<a href="https://github.com/gemkids275/AIShortcuts" style="color: #3b82f6; text-decoration: none;">GitHub Repo</a>')
         github_nam.setOpenExternalLinks(True)
         nam_links.addWidget(email_nam)
         nam_links.addSpacing(15)
@@ -926,7 +926,7 @@ class SettingsWindow(QtWidgets.QWidget):
         """)
         self.btn_check_update.clicked.connect(self.on_check_update_clicked)
         
-        view_releases = QtWidgets.QLabel(f'<a href="https://github.com/gemkids275/WritingToolsV2/releases" style="color: #3b82f6; text-decoration: none;">{self.app._("View Releases")}</a>')
+        view_releases = QtWidgets.QLabel(f'<a href="https://github.com/gemkids275/AIShortcuts/releases" style="color: #3b82f6; text-decoration: none;">{self.app._("View Releases")}</a>')
         view_releases.setOpenExternalLinks(True)
         
         btn_layout.addWidget(self.btn_check_update)
