@@ -20,8 +20,8 @@ a first reply within a few days.
 
 ## Scope notes
 
-- API keys are stored in the macOS Keychain or the OS keyring. Without a keyring,
-  per-command keys fall back to a lightly obfuscated local file, which is not
-  encrypted storage.
+- On macOS, API keys are stored in the Keychain. On Windows and Linux, provider keys are saved
+  in the app's settings file with light obfuscation, which is not encryption. Keys set per
+  command use the OS keyring when available.
 - Release binaries ship with SHA-256 checksums and build provenance. Verify with
   `gh attestation verify <file> --repo gemkids275/AIShortcuts`.
