@@ -1,7 +1,9 @@
 name: CI
 
-# Required checks for every pull request. They must not be path-filtered:
-# a required check that never runs (e.g. on a docs-only PR) blocks the merge forever.
+# Runs on every pull request, but the heavy jobs only run when code or workflows
+# changed (see `changes`). The only required check is `CI result`, which always
+# reports: a workflow-level path filter or a skipped matrix job would leave a
+# required check pending forever and block docs-only PRs.
 on:
   pull_request:
   push:
@@ -18,8 +20,36 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  changes:
+    name: Detect code changes
+    runs-on: ubuntu-22.04
+    outputs:
+      code: ${{ steps.diff.outputs.code }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - id: diff
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if [ "$EVENT" != "pull_request" ]; then
+            echo "code=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if git diff --name-only "$BASE_SHA"...HEAD | grep -qE '^(Windows_and_Linux/|\.github/workflows/)'; then
+            echo "code=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "code=false" >> "$GITHUB_OUTPUT"
+            echo "No Windows/Linux code or workflow changes: skipping checks and builds."
+          fi
+
   checks:
     name: Checks (${{ matrix.os }})
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -72,5 +102,20 @@ jobs:
 
   build:
     name: Build
-    needs: checks
+    needs: [changes, checks]
+    if: needs.changes.outputs.code == 'true'
     uses: ./.github/workflows/_build.yml
+
+  # The single required status check. Passes when jobs succeeded or were skipped.
+  result:
+    name: CI result
+    needs: [changes, checks, build]
+    if: always()
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Fail if any job failed or was cancelled
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "Job results: $RESULTS"
+          case " $RESULTS " in *" failure "*|*" cancelled "*) exit 1;; esac
