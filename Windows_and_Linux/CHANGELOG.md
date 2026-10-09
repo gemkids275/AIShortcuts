@@ -32,6 +32,8 @@ First release of the AI Shortcuts fork for Windows and Linux. Published as pre-b
 - Ollama image attachments are sent as plain base64.
 - A corrupt `commands.json` is backed up as `commands.json.corrupt` instead of being overwritten.
 - The Linux build bundles pynput's X11 backend (the binary crashed on startup without it).
+- Gemini: the retired Gemma 3 models (404) are replaced by Gemma 4 and `flash-latest` options; saved configs are migrated automatically.
+- Translations are compiled at build time and bundled, so the selected language (en, vi, it, ja, zh) is actually applied. Remaining hardcoded UI strings are now translatable.
 
 ### Known limitations
 - Linux: global hotkeys and simulated copy/paste need X11; they do not work under Wayland. `xclip` or `xsel` must be installed.

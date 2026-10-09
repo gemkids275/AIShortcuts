@@ -1,5 +1,7 @@
 **AI Shortcuts for Windows & Linux — first release of this fork.** Select text in any app, press a hotkey, and let an AI proofread, rewrite or summarize it in place. macOS has its own releases (`v*` tags).
 
+> **Updated build (2026-10-09):** assets were rebuilt to fix retired Gemini models (Gemma 3) and to bundle translations so the selected language is applied. Version number is unchanged; verify with the attached `SHA256SUMS.txt`.
+
 ## Highlights
 - **Command Manager** — create, reorder, export/import and back up your commands (compatible with the macOS format).
 - **Per-command shortcuts** and **per-command AI override** (provider, model, or a custom OpenAI-compatible endpoint with its own key).
