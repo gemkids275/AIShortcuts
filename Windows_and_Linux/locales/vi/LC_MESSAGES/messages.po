@@ -1,3 +1,4 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
@@ -22,7 +23,7 @@ msgstr "Cài đặt chung"
 
 #: ui/SettingsWindow.py:68
 msgid "AI Providers"
-msgstr "AI Providers"
+msgstr "Nhà cung cấp AI"
 
 #: ui/SettingsWindow.py:69
 msgid "Commands"
@@ -38,7 +39,7 @@ msgstr "Cài đặt chung"
 
 #: ui/SettingsWindow.py:159
 msgid "Global Shortcut Key:"
-msgstr "Global Shortcut:"
+msgstr "Phím tắt toàn cục:"
 
 #: ui/SettingsWindow.py:175
 msgid "Launch Writing Tools on system startup"
@@ -54,15 +55,15 @@ msgstr "Gradient rực rỡ"
 
 #: ui/SettingsWindow.py:191
 msgid "Minimal Plain"
-msgstr "Tối giản (Plain)"
+msgstr "Tối giản"
 
 #: ui/SettingsWindow.py:205
 msgid "Enable Real-time Streaming (Recommended)"
-msgstr "Enable Streaming (Khuyên dùng)"
+msgstr "Bật streaming thời gian thực (Khuyên dùng)"
 
 #: ui/SettingsWindow.py:213
 msgid "Save Settings"
-msgstr "Save Settings"
+msgstr "Lưu cài đặt"
 
 #: ui/SettingsWindow.py:238
 msgid "Interface Language:"
@@ -74,7 +75,7 @@ msgstr "Select AI Provider:"
 
 #: ui/SettingsWindow.py:575 ui/SettingsWindow.py:615 ui/SettingsWindow.py:633
 msgid "Success"
-msgstr "Success"
+msgstr "Thành công"
 
 #: ui/SettingsWindow.py:1025
 msgid "Settings saved successfully."
@@ -85,8 +86,12 @@ msgid "About AI Shortcuts"
 msgstr "Giới thiệu AI Shortcuts"
 
 #: ui/SettingsWindow.py:782
-msgid "AI Shortcuts is a free, lightweight utility that enhances your writing with AI."
-msgstr "AI Shortcuts là một công cụ miễn phí, nhẹ nhàng giúp cải thiện khả năng viết lách của bạn bằng Trí tuệ nhân tạo (AI)."
+msgid ""
+"AI Shortcuts is a free, lightweight utility that enhances your writing with "
+"AI."
+msgstr ""
+"AI Shortcuts là một công cụ miễn phí, nhẹ nhàng giúp cải thiện khả năng viết"
+" lách của bạn bằng Trí tuệ nhân tạo (AI)."
 
 #: ui/SettingsWindow.py:795
 msgid "Creators"
@@ -204,10 +209,10 @@ msgid "Chat"
 msgstr "Trò chuyện"
 
 msgid "Describe your change..."
-msgstr "Describe your change..."
+msgstr "Mô tả thay đổi bạn muốn..."
 
 msgid "Ask your AI..."
-msgstr "Ask your AI..."
+msgstr "Hỏi AI của bạn..."
 
 msgid "There's an update! :D Download now."
 msgstr "Đã có bản cập nhật mới cực hot! 🔥 Tải về ngay."
@@ -243,13 +248,13 @@ msgid "OpenAI Compatible (For Experts)"
 msgstr "OpenAI Compatible (Dành cho chuyên gia)"
 
 msgid "Get API Key"
-msgstr "Get API Key"
+msgstr "Lấy API Key"
 
 msgid "Show"
-msgstr "Show"
+msgstr "Hiện"
 
 msgid "Hide"
-msgstr "Hide"
+msgstr "Ẩn"
 
 msgid "Model"
 msgstr "Model"
@@ -260,20 +265,50 @@ msgstr "API Key"
 msgid "🔧 Custom"
 msgstr "🔧 Tùy chỉnh"
 
-msgid "• Google’s Gemini 1.5 & 2.0 (Gemma) are multimodal models with world-class performance.\n• Offers extremely fast inference and massive context windows (up to 1M+ tokens).\n• Get a free API key to start using Gemini Flash and Pro models."
-msgstr "• Google Gemini 1.5 & 2.0 (Gemma) là các model đa phương thức với hiệu suất đẳng cấp thế giới.\n• Cung cấp tốc độ suy luận cực nhanh và cửa sổ ngữ cảnh khổng lồ (lên đến hơn 1 triệu token).\n• Nhận API Key miễn phí để bắt đầu sử dụng các mẫu Gemini Flash và Pro."
+msgid ""
+"• Google’s Gemini 1.5 & 2.0 (Gemma) are multimodal models with world-class performance.\n"
+"• Offers extremely fast inference and massive context windows (up to 1M+ tokens).\n"
+"• Get a free API key to start using Gemini Flash and Pro models."
+msgstr ""
+"• Google Gemini 1.5 & 2.0 (Gemma) là các model đa phương thức với hiệu suất đẳng cấp thế giới.\n"
+"• Cung cấp tốc độ suy luận cực nhanh và cửa sổ ngữ cảnh khổng lồ (lên đến hơn 1 triệu token).\n"
+"• Nhận API Key miễn phí để bắt đầu sử dụng các mẫu Gemini Flash và Pro."
 
-msgid "• Anthropic's Claude is renowned for high-quality writing, safe reasoning, and large context windows.\n• Ideal for complex analysis and creative writing tasks.\n• Supports Claude 3.5 Sonnet, Haiku, and Opus models."
-msgstr "• Claude của Anthropic nổi tiếng với khả năng viết lách chất lượng cao, lập luận an toàn và cửa sổ ngữ cảnh lớn.\n• Lý tưởng cho các phân tích phức tạp và tác vụ viết sáng tạo.\n• Hỗ trợ các mẫu Claude 3.5 Sonnet, Haiku và Opus."
+msgid ""
+"• Anthropic's Claude is renowned for high-quality writing, safe reasoning, and large context windows.\n"
+"• Ideal for complex analysis and creative writing tasks.\n"
+"• Supports Claude 3.5 Sonnet, Haiku, and Opus models."
+msgstr ""
+"• Claude của Anthropic nổi tiếng với khả năng viết lách chất lượng cao, lập luận an toàn và cửa sổ ngữ cảnh lớn.\n"
+"• Lý tưởng cho các phân tích phức tạp và tác vụ viết sáng tạo.\n"
+"• Hỗ trợ các mẫu Claude 3.5 Sonnet, Haiku và Opus."
 
-msgid "• Mistral AI offers state-of-the-art open models with high efficiency.\n• Great performance in both European languages and coding.\n• Supports Mistral Large, Small, and vision-capable Pixtral."
-msgstr "• Mistral AI cung cấp các model mã nguồn mở hiện đại với hiệu suất cao.\n• Hiệu năng tuyệt vời trong cả ngôn ngữ châu Âu và lập trình.\n• Hỗ trợ Mistral Large, Small và Pixtral có khả năng thị giác."
+msgid ""
+"• Mistral AI offers state-of-the-art open models with high efficiency.\n"
+"• Great performance in both European languages and coding.\n"
+"• Supports Mistral Large, Small, and vision-capable Pixtral."
+msgstr ""
+"• Mistral AI cung cấp các model mã nguồn mở hiện đại với hiệu suất cao.\n"
+"• Hiệu năng tuyệt vời trong cả ngôn ngữ châu Âu và lập trình.\n"
+"• Hỗ trợ Mistral Large, Small và Pixtral có khả năng thị giác."
 
-msgid "• OpenRouter provides unified access to over 100+ AI models (Claude, Llama, GPT, etc.).\n• Offers the most competitive pricing and many free-tier models.\n• Best for power users who want to switch models frequently."
-msgstr "• OpenRouter cung cấp quyền truy cập thống nhất vào hơn 100+ model AI (Claude, Llama, GPT, v.v.).\n• Cung cấp mức giá cạnh tranh nhất và nhiều model cấp miễn phí.\n• Tốt nhất cho người dùng nâng cao muốn thay đổi model thường xuyên."
+msgid ""
+"• OpenRouter provides unified access to over 100+ AI models (Claude, Llama, GPT, etc.).\n"
+"• Offers the most competitive pricing and many free-tier models.\n"
+"• Best for power users who want to switch models frequently."
+msgstr ""
+"• OpenRouter cung cấp quyền truy cập thống nhất vào hơn 100+ model AI (Claude, Llama, GPT, v.v.).\n"
+"• Cung cấp mức giá cạnh tranh nhất và nhiều model cấp miễn phí.\n"
+"• Tốt nhất cho người dùng nâng cao muốn thay đổi model thường xuyên."
 
-msgid "• Connect to ANY OpenAI-compatible service (e.g. OpenAI, Groq, Together AI, Perplexity).\n• Supports custom Base URLs, Organizations, and Project IDs.\n• Perfect for local LLM servers (LM Studio, LocalAI) or specialized providers."
-msgstr "• Kết nối với BẤT KỲ dịch vụ nào tương thích với OpenAI (ví dụ: OpenAI, Groq, Together AI, Perplexity).\n• Hỗ trợ URL cơ sở, Tổ chức và ID dự án tùy chỉnh.\n• Hoàn hảo cho các máy chủ LLM cục bộ (LM Studio, LocalAI) hoặc các nhà cung cấp chuyên biệt."
+msgid ""
+"• Connect to ANY OpenAI-compatible service (e.g. OpenAI, Groq, Together AI, Perplexity).\n"
+"• Supports custom Base URLs, Organizations, and Project IDs.\n"
+"• Perfect for local LLM servers (LM Studio, LocalAI) or specialized providers."
+msgstr ""
+"• Kết nối với BẤT KỲ dịch vụ nào tương thích với OpenAI (ví dụ: OpenAI, Groq, Together AI, Perplexity).\n"
+"• Hỗ trợ URL cơ sở, Tổ chức và ID dự án tùy chỉnh.\n"
+"• Hoàn hảo cho các máy chủ LLM cục bộ (LM Studio, LocalAI) hoặc các nhà cung cấp chuyên biệt."
 
 msgid "⭐ Gemma 3 27B (very intelligent | unlimited usage)"
 msgstr "⭐ Gemma 3 27B (Rất thông minh | không giới hạn)"
@@ -374,8 +409,12 @@ msgstr "Đổi biểu tượng"
 msgid "Icon:"
 msgstr "Biểu tượng:"
 
-msgid "e.g., Proofread this:\n\n"
-msgstr "VD: Kiểm tra văn bản này:\n\n"
+msgid ""
+"e.g., Proofread this:\n"
+"\n"
+msgstr ""
+"VD: Kiểm tra văn bản này:\n"
+"\n"
 
 msgid "Prefix Text:"
 msgstr "Văn bản mở đầu:"
@@ -399,7 +438,7 @@ msgid "Use custom AI provider for this command"
 msgstr "Dùng nhà cung cấp AI riêng cho lệnh này"
 
 msgid "Provider:"
-msgstr "Provider:"
+msgstr "Nhà cung cấp:"
 
 msgid "Leave blank for default"
 msgstr "Để trống để dùng mặc định"
@@ -484,3 +523,94 @@ msgstr "Để trống nếu không áp dụng."
 
 msgid "Launch AI Shortcuts on system startup"
 msgstr "Khởi động AI Shortcuts cùng hệ thống"
+
+msgid "Get OpenAI API Key"
+msgstr "Lấy OpenAI API Key"
+
+msgid ""
+"{0} API key is not configured. Please set your API key in Settings → AI "
+"Providers."
+msgstr ""
+"Chưa cấu hình API key cho {0}. Vui lòng nhập API key tại Cài đặt → AI "
+"Providers."
+
+msgid "Welcome to AI Shortcuts"
+msgstr "Chào mừng đến với AI Shortcuts"
+
+msgid "Choose your theme:"
+msgstr "Chọn giao diện:"
+
+msgid "Gradient"
+msgstr "Chuyển màu"
+
+msgid "Plain"
+msgstr "Đơn giản"
+
+msgid "Next"
+msgstr "Tiếp theo"
+
+msgid ""
+"Instantly optimize your writing with AI by selecting your text and invoking "
+"AI Shortcuts with \"ctrl+space\", anywhere."
+msgstr ""
+"Tối ưu bài viết ngay lập tức bằng AI: bôi đen văn bản rồi gọi AI Shortcuts "
+"bằng \"ctrl+space\" ở bất kỳ đâu."
+
+msgid ""
+"Get a comprehensive summary of articles, YouTube videos, or documents by "
+"selecting all text (ctrl+a) and invoking AI Shortcuts."
+msgstr ""
+"Tóm tắt đầy đủ bài báo, video YouTube hoặc tài liệu bằng cách chọn toàn bộ "
+"văn bản (ctrl+a) rồi gọi AI Shortcuts."
+
+msgid ""
+"Chat with world-class AI models anytime (even without selecting text) to "
+"brainstorm, code, or translate."
+msgstr ""
+"Trò chuyện với các model AI hàng đầu bất cứ lúc nào (kể cả khi không chọn "
+"văn bản) để lên ý tưởng, viết code hoặc dịch."
+
+msgid "Supports an extensive range of AI models:"
+msgstr "Hỗ trợ nhiều loại model AI:"
+
+msgid "Gemini 2.0, Claude 3.5, GPT-4o, Mistral Large"
+msgstr "Gemini 2.0, Claude 3.5, GPT-4o, Mistral Large"
+
+msgid "Local LLMs via Ollama & ANY OpenAI Compatible API!"
+msgstr "LLM chạy cục bộ qua Ollama và MỌI API tương thích OpenAI!"
+
+msgid "Copy All"
+msgstr "Sao chép tất cả"
+
+msgid "Export Command"
+msgstr "Xuất lệnh"
+
+msgid "Import Command"
+msgstr "Nhập lệnh"
+
+msgid "Export All Config"
+msgstr "Xuất toàn bộ cấu hình"
+
+msgid "Restore Config"
+msgstr "Khôi phục cấu hình"
+
+msgid "Command exported successfully."
+msgstr "Đã xuất lệnh thành công."
+
+msgid "Config exported successfully."
+msgstr "Đã xuất cấu hình thành công."
+
+msgid "Empty Backup"
+msgstr "Bản sao lưu trống"
+
+msgid "No commands found in this file."
+msgstr "Không tìm thấy lệnh nào trong tệp này."
+
+msgid "Error"
+msgstr "Lỗi"
+
+msgid "{0} command(s) imported."
+msgstr "Đã nhập {0} lệnh."
+
+msgid "Invalid file: {0}"
+msgstr "Tệp không hợp lệ: {0}"

@@ -14,6 +14,11 @@ def D(src, dest):
 
 
 def run_pyinstaller_build():
+    # .mo files are git-ignored build artifacts: compile them so translations are bundled.
+    from compile_translations import compile_all
+    if not compile_all():
+        sys.exit("No translations compiled")
+
     icon = 'icons/app_icon.ico' if IS_WINDOWS else 'icons/app_icon.png'
 
     excludes = [

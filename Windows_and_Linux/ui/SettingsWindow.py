@@ -229,10 +229,12 @@ class SettingsWindow(QtWidgets.QWidget):
         """)
         
         # Set current selection
-        current_locale = self.app.config.get('locale', 'vi')
+        # Mirror the language the app actually uses: saved locale, else system locale, else English.
+        current_locale = self.app.config.get('locale') or QtCore.QLocale.system().name().split('_')[0]
         idx = self.language_dropdown.findData(current_locale)
-        if idx != -1:
-            self.language_dropdown.setCurrentIndex(idx)
+        if idx == -1:
+            idx = self.language_dropdown.findData('en')
+        self.language_dropdown.setCurrentIndex(idx)
         
         lang_v_layout.addWidget(self.language_dropdown)
         layout.addWidget(lang_group)
