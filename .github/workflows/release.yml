@@ -71,7 +71,7 @@ jobs:
           tag_name: ${{ steps.meta.outputs.tag }}
           name: "AI Shortcuts v${{ steps.meta.outputs.version }} — Windows & Linux"
           body_path: ${{ steps.meta.outputs.notes }}
-          # Keep the macOS release as "Latest".
-          make_latest: "false"
+          # New tag pushes become "Latest"; manual refreshes keep the current flag.
+          make_latest: ${{ github.event_name == 'push' && 'true' || 'legacy' }}
           files: out/*
           fail_on_unmatched_files: true
