@@ -4,6 +4,7 @@
 
 A fork of [WritingTools](https://github.com/theJayTea/WritingTools) by theJayTea, maintained by [Nam Trần](https://github.com/gemkids275). Native on **macOS**, with pre-built binaries for **Windows** and **Linux**.
 
+[![Website](https://img.shields.io/badge/Website-aishortcuts.github.io-2563EB)](https://aishortcuts.github.io/)
 [![Ko-fi](https://img.shields.io/badge/Support-Ko--fi-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/gemkids)
 
 <p align="center">
@@ -125,7 +126,7 @@ Mix and match: cloud models for hard tasks, local models for private or offline 
 
 ## Installation
 
-Grab the latest build from the [Releases page](https://github.com/gemkids275/AIShortcuts/releases). macOS uses `v*` tags; Windows and Linux use `win-v*` tags.
+Visit the [website](https://aishortcuts.github.io/) or grab the latest build from the [Releases page](https://github.com/gemkids275/AIShortcuts/releases). macOS uses `v*` tags; Windows and Linux use `win-v*` tags.
 
 ### macOS
 
