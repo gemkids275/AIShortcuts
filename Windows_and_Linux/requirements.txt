@@ -1,5 +1,5 @@
 darkdetect
-google-generativeai
+google-genai
 openai
 pyperclip
 pynput
@@ -8,5 +8,5 @@ markdown2
 pyinstaller
 ollama
 anthropic
-mistralai
-
+mistralai>=2
+keyring
