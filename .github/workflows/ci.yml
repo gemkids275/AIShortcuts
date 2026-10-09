@@ -1,11 +1,9 @@
 name: CI
 
-# Required checks for pull requests that touch the Windows/Linux app.
+# Required checks for every pull request. They must not be path-filtered:
+# a required check that never runs (e.g. on a docs-only PR) blocks the merge forever.
 on:
   pull_request:
-    paths:
-      - "Windows_and_Linux/**"
-      - ".github/workflows/**"
   push:
     branches: [main]
     paths:
