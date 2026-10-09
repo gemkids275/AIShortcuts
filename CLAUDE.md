@@ -111,4 +111,5 @@ Built-in commands: Proofread, Rewrite, Friendly, Professional, Concise, Summary,
 ### Localization
 
 - **Windows/Linux:** `gettext` with `.po`/`.mo` files in `locales/`
+  - Every new UI string must be wrapped in `_()` and added to all five `.po` files (en, vi, it, ja, zh); `tests/test_translations.py` fails on any missing msgid. `.mo` files are gitignored and compiled at build time by `compile_translations.py`.
 - **macOS:** `.xcstrings` files; supports EN, DE, FR, ES
