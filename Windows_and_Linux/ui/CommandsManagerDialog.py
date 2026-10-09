@@ -301,9 +301,8 @@ class CommandsManagerDialog(QtWidgets.QDialog):
                     # Skip built-in with same ID to avoid duplicates
                     continue
 
-            # Shortcut conflict: clear if already used
-            if cmd.keyboard_shortcut and cmd.keyboard_shortcut in used_shortcuts:
-                cmd.keyboard_shortcut = None
+            # Shortcut conflict: clear if already used or equals app hotkey
+            self.app.command_manager.claim_shortcut(cmd, used_shortcuts, self.app.config.get("shortcut", ""))
 
             cmd.is_built_in = False
             self.app.command_manager.add_command(cmd)

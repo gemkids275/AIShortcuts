@@ -44,7 +44,7 @@ def run_pyinstaller_build():
     for mod in excludes:
         exclude_args += ["--exclude-module", mod]
 
-    version_file = 'Windows_and_Linux/version_info.txt'
+    version_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'version_info.txt')
     version_args = []
     if IS_WINDOWS and os.path.exists(version_file):
         version_args = [f"--version-file={version_file}"]
@@ -59,6 +59,8 @@ def run_pyinstaller_build():
         "--noconfirm",
         *exclude_args,
         *version_args,
+        "--collect-submodules", "keyring.backends",
+        "--hidden-import", "google.genai",
         "--add-data", D("icons", "icons"),
         "--add-data", D("locales", "locales"),
         "--add-data", D("background.png", "."),

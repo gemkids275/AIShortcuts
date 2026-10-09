@@ -91,7 +91,10 @@ class WritingToolApp(QtWidgets.QApplication):
 
         # Initialize Command Manager (replaces load_options)
         self.command_manager = CommandManager(self.config_dir)
-        self.command_manager.load()
+        self.command_manager.load(legacy_options_paths=[
+            os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), 'options.json'),
+            os.path.join(os.path.dirname(os.path.abspath(__file__)), 'options.json'),
+        ])
         
         self.onboarding_window = None
         self.popup_window = None
@@ -509,6 +512,9 @@ class WritingToolApp(QtWidgets.QApplication):
             setattr(tmp, key_attr, api_key_override)
         if base_url_override and base_url_attr:
             setattr(tmp, base_url_attr, base_url_override)
+            # Không gửi API key toàn cục tới một base URL khác nếu lệnh không có key riêng
+            if not api_key_override and key_attr and base_url_override != getattr(provider, base_url_attr, None):
+                setattr(tmp, key_attr, "not-needed")
 
         tmp.after_load()  # Re-initialize API client with new config
         return tmp

@@ -4,6 +4,7 @@ import uuid
 import logging
 from typing import List, Optional
 from models.command import Command
+from models.shortcut_conflict import normalize
 from models.secure_storage import save_command_api_key, get_command_api_key, delete_command_api_key
 
 class CommandManager:
@@ -56,11 +57,44 @@ class CommandManager:
         ))
         return commands
 
-    def load(self):
+    def _migrate_legacy_options(self, options_path: str) -> List[Command]:
+        """Chuyển options.json (định dạng Windows cũ) thành danh sách Command.
+
+        Built-in giữ nguyên mặc định; mọi mục không thuộc built-in (trừ 'Custom') thành custom command.
+        """
+        commands = self._get_default_commands()
+        built_in_names = {c.name for c in commands}
+        try:
+            with open(options_path, 'r', encoding='utf-8') as f:
+                legacy = json.load(f)
+        except Exception as e:
+            logging.error(f"Cannot read legacy options.json: {e}")
+            return commands
+        if not isinstance(legacy, dict):
+            return commands
+
+        for name, entry in legacy.items():
+            if name in built_in_names or name == "Custom" or not isinstance(entry, dict):
+                continue
+            commands.append(Command(
+                name=name,
+                prompt=entry.get("instruction", ""),
+                prefix=entry.get("prefix", ""),
+                icon=entry.get("icon", ""),
+                use_response_window=bool(entry.get("open_in_window", False)),
+            ))
+        return commands
+
+    def load(self, legacy_options_paths: Optional[List[str]] = None):
         """Tải lệnh từ commands.json hoặc nạp mặc định nếu không tồn tại."""
         if not os.path.exists(self.commands_path):
-            logging.info("commands.json not found. Initializing with defaults.")
-            self._commands = self._get_default_commands()
+            legacy = next((p for p in (legacy_options_paths or []) if os.path.exists(p)), None)
+            if legacy:
+                logging.info(f"commands.json not found. Migrating legacy options from {legacy}.")
+                self._commands = self._migrate_legacy_options(legacy)
+            else:
+                logging.info("commands.json not found. Initializing with defaults.")
+                self._commands = self._get_default_commands()
             self.save()
             return
 
@@ -83,6 +117,11 @@ class CommandManager:
                 self._deleted_built_in_ids = data.get("deleted_built_in_ids", [])
         except Exception as e:
             logging.error(f"Error loading commands.json: {e}")
+            # Giữ lại file hỏng để không bị save() ghi đè mất dữ liệu
+            try:
+                os.replace(self.commands_path, self.commands_path + ".corrupt")
+            except OSError as backup_err:
+                logging.error(f"Cannot back up corrupt commands.json: {backup_err}")
             self._commands = self._get_default_commands()
 
     def save(self):
@@ -132,8 +171,11 @@ class CommandManager:
         self.save()
 
     def restore_built_ins(self):
-        """Khôi phục toàn diện về trạng thái xuất xưởng."""
-        self._commands = self._get_default_commands()
+        """Khôi phục built-in đã xóa, giữ nguyên custom command và thứ tự hiện có."""
+        existing_ids = {c.id for c in self._commands}
+        for default in self._get_default_commands():
+            if default.id not in existing_ids:
+                self._commands.append(default)
         self._deleted_built_in_ids = []
         self.save()
 
@@ -248,5 +290,16 @@ class CommandManager:
             raise ValueError(str(e))
 
     def get_used_shortcuts(self) -> set:
-        """Trả về tập hợp các phím tắt đang được sử dụng."""
-        return {c.keyboard_shortcut for c in self.commands if c.keyboard_shortcut}
+        """Trả về tập hợp các phím tắt (đã chuẩn hóa) đang được sử dụng."""
+        return {normalize(c.keyboard_shortcut) for c in self.commands if c.keyboard_shortcut}
+
+    @staticmethod
+    def claim_shortcut(cmd: Command, used: set, app_hotkey: str = "") -> None:
+        """Xóa phím tắt của cmd nếu trùng app hotkey hoặc phím đã dùng; ngược lại đánh dấu đã dùng."""
+        if not cmd.keyboard_shortcut:
+            return
+        n = normalize(cmd.keyboard_shortcut)
+        if n in used or (app_hotkey and n == normalize(app_hotkey)):
+            cmd.keyboard_shortcut = None
+        else:
+            used.add(n)

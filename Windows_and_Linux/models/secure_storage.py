@@ -42,7 +42,7 @@ def _load_fallback() -> dict:
     if not os.path.exists(_FALLBACK_PATH):
         return {}
     try:
-        with open(_FALLBACK_PATH, "r") as f:
+        with open(_FALLBACK_PATH, "r", encoding="utf-8") as f:
             return json.load(f)
     except Exception:
         return {}
@@ -50,11 +50,10 @@ def _load_fallback() -> dict:
 def _save_fallback(data: dict):
     try:
         os.makedirs(_FALLBACK_DIR, exist_ok=True)
-        with open(_FALLBACK_PATH, "w") as f:
+        # Tạo file với quyền 0600 ngay từ đầu (Linux) để không có khoảng hở đọc được
+        fd = os.open(_FALLBACK_PATH, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
             json.dump(data, f)
-        # Chỉ owner mới có quyền đọc/ghi trên Linux
-        if os.name != "nt":
-            os.chmod(_FALLBACK_PATH, 0o600)
     except Exception as e:
         logging.error(f"Failed to save fallback secure storage: {e}")
 

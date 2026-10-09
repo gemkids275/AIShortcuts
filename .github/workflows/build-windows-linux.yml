@@ -1,0 +1,148 @@
+name: Build Windows & Linux
+
+# Tag `win-v<N>` builds both platforms and publishes a GitHub Release.
+# <N> must equal CURRENT_VERSION in Windows_and_Linux/update_checker.py
+# (run `python Windows_and_Linux/bump_version.py <N>` before tagging).
+# Manual runs (workflow_dispatch) only build and upload artifacts.
+on:
+  push:
+    tags:
+      - "win-v*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build (${{ matrix.name }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: windows
+            os: windows-latest
+          - name: linux
+            # Oldest supported LTS: binaries built here run on newer glibc too.
+            os: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: Windows_and_Linux
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: Windows_and_Linux/requirements.txt
+
+      - name: Check tag matches app version
+        if: startsWith(github.ref, 'refs/tags/win-v')
+        shell: bash
+        run: |
+          tag_version="${GITHUB_REF_NAME#win-v}"
+          code_version="$(python -c "import re;print(re.search(r'CURRENT_VERSION\s*=\s*(\d+)', open('update_checker.py', encoding='utf-8').read()).group(1))")"
+          file_version="$(tr -d '[:space:]' < Latest_Version_for_Update_Check.txt)"
+          echo "tag=$tag_version update_checker.py=$code_version Latest_Version file=$file_version"
+          [ "$tag_version" = "$code_version" ] && [ "$tag_version" = "$file_version" ] || {
+            echo "::error::Tag, CURRENT_VERSION and Latest_Version_for_Update_Check.txt must all be equal"; exit 1; }
+
+      - name: Install Linux system libraries (Qt runtime, Xvfb, clipboard)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            xvfb xclip libegl1 libdbus-1-3 libglib2.0-0 libfontconfig1 \
+            libxkbcommon-x11-0 libxcb-cursor0 libxcb-icccm4 libxcb-image0 \
+            libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-shape0 \
+            libxcb-xinerama0 libxcb-xkb1
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Build with PyInstaller
+        run: python pyinstaller-build-script.py
+
+      - name: Smoke test (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          export HOME="$RUNNER_TEMP/home" XDG_CONFIG_HOME="$RUNNER_TEMP/cfg" TMPDIR="$RUNNER_TEMP/tmp"
+          mkdir -p "$HOME" "$XDG_CONFIG_HOME" "$TMPDIR"
+          # exit code 124 = still running when timeout fired = did not crash on startup
+          set +e
+          xvfb-run -a timeout 15 "./dist/AI Shortcuts"
+          code=$?
+          set -e
+          [ "$code" = "124" ] || { echo "::error::App exited early with code $code"; exit 1; }
+          test -f "$XDG_CONFIG_HOME/aishortcuts/commands.json"
+
+      - name: Smoke test (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $env:APPDATA = Join-Path $env:RUNNER_TEMP "appdata"
+          $env:TEMP = Join-Path $env:RUNNER_TEMP "tmp"
+          $env:TMP = $env:TEMP
+          New-Item -ItemType Directory -Force $env:APPDATA, $env:TEMP | Out-Null
+          $p = Start-Process -FilePath ".\dist\AI Shortcuts.exe" -PassThru
+          Start-Sleep -Seconds 15
+          if ($p.HasExited) { throw "App exited early with code $($p.ExitCode)" }
+          if (-not (Test-Path (Join-Path $env:APPDATA "AIShortcuts\commands.json"))) { throw "commands.json not created" }
+          Stop-Process -Id $p.Id -Force
+          Get-Process -Name "AI Shortcuts" -ErrorAction SilentlyContinue | Stop-Process -Force
+
+      - name: Package (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          chmod +x "dist/AI Shortcuts"
+          mkdir -p ../out
+          tar -C dist -czf ../out/AI-Shortcuts-linux-x64.tar.gz "AI Shortcuts"
+
+      - name: Package (Windows)
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          mkdir -p ../out
+          cp "dist/AI Shortcuts.exe" ../out/AI-Shortcuts-windows-x64.exe
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ai-shortcuts-${{ matrix.name }}
+          path: out/*
+          if-no-files-found: error
+
+  release:
+    name: Publish GitHub Release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/win-v')
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: out
+          merge-multiple: true
+
+      - name: Generate checksums
+        working-directory: out
+        run: sha256sum * > SHA256SUMS.txt
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: "Windows & Linux ${{ github.ref_name }}"
+          generate_release_notes: true
+          # Keep the macOS release (v1.0) as "Latest".
+          make_latest: "false"
+          files: out/*
+          body: |
+            **Windows & Linux builds only.** macOS releases use `v*` tags.
+
+            - Windows: `AI-Shortcuts-windows-x64.exe`
+            - Linux (X11): extract `AI-Shortcuts-linux-x64.tar.gz`, run `./"AI Shortcuts"`.
+              Needs `xclip` or `xsel` installed. Global hotkeys do not work on Wayland.

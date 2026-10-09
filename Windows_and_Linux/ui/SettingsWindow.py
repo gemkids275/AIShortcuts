@@ -641,8 +641,7 @@ class SettingsWindow(QtWidgets.QWidget):
                 else:
                     continue
 
-            if cmd.keyboard_shortcut and cmd.keyboard_shortcut in used_shortcuts:
-                cmd.keyboard_shortcut = None
+            self.app.command_manager.claim_shortcut(cmd, used_shortcuts, self.app.config.get("shortcut", ""))
 
             cmd.is_built_in = False
             self.app.command_manager.add_command(cmd)
@@ -1196,10 +1195,7 @@ class ImportChoiceDialog(QtWidgets.QDialog):
                 cmd.id = str(uuid.uuid4())
                 cmd.name = cmd.name + " (Imported)"
 
-            if cmd.keyboard_shortcut and cmd.keyboard_shortcut in used_shortcuts:
-                cmd.keyboard_shortcut = None
-            elif cmd.keyboard_shortcut:
-                used_shortcuts.add(cmd.keyboard_shortcut)
+            self.app.command_manager.claim_shortcut(cmd, used_shortcuts, self.app.config.get("shortcut", ""))
 
             self.app.command_manager.add_command(cmd)
             added += 1
@@ -1221,6 +1217,9 @@ class ImportChoiceDialog(QtWidgets.QDialog):
         if confirm != QtWidgets.QMessageBox.StandardButton.Yes:
             return
 
+        used_shortcuts = set()
+        for cmd in self.commands:
+            self.app.command_manager.claim_shortcut(cmd, used_shortcuts, self.app.config.get("shortcut", ""))
         self.app.command_manager.replace_all_commands(self.commands)
         QtWidgets.QMessageBox.information(self, "Done", f"All commands replaced with {len(self.commands)} command(s) from backup.")
         self.accept()

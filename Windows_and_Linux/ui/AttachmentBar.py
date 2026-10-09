@@ -10,6 +10,8 @@ from models.attachment import Attachment, AttachmentType
 from ui.UIUtils import colorMode
 from ui.ImagePreview import show_image_preview
 
+MAX_TEXT_ATTACHMENT_CHARS = 200_000
+
 
 class AttachmentThumbnail(QWidget):
     remove_requested = Signal(int)
@@ -179,7 +181,7 @@ def attachment_from_file(path: str) -> Attachment | None:
     if ext in TEXT_EXTS:
         try:
             with open(path, 'r', encoding='utf-8', errors='replace') as f:
-                text = f.read()
+                text = f.read(MAX_TEXT_ATTACHMENT_CHARS)
             return Attachment(type=AttachmentType.TEXT, label=label, text=text, mime_type='text/plain')
         except OSError:
             return None

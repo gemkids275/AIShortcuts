@@ -402,9 +402,6 @@ class AnthropicProvider(AIProvider):
         if self.api_key:
             self.client = anthropic.Anthropic(api_key=self.api_key)
 
-    def before_load(self):
-        self.client = None
-
     def get_response(self, system_instruction: str, prompt: str, images: list = None, return_response: bool = False) -> str:
         self._require_client()
         self.close_requested = False
@@ -932,7 +929,7 @@ class OllamaProvider(AIProvider):
         # Add vision support
         kwargs = {}
         if images:
-            messages[-1]["images"] = images
+            messages[-1]["images"] = [b64 for _mime, b64 in images]
 
         try:
             response = self.client.chat(model=self.api_model, messages=messages, stream=False)
@@ -957,7 +954,7 @@ class OllamaProvider(AIProvider):
             {"role": "user", "content": prompt}
         ]
         if images:
-            messages[-1]["images"] = images
+            messages[-1]["images"] = [b64 for _mime, b64 in images]
 
         stream = self.client.chat(model=self.api_model, messages=messages, stream=True)
         for chunk in stream:
