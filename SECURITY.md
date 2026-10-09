@@ -25,3 +25,4 @@ a first reply within a few days.
   encrypted storage.
 - Release binaries ship with SHA-256 checksums and build provenance. Verify with
   `gh attestation verify <file> --repo gemkids275/AIShortcuts`.
+
