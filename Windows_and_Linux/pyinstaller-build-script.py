@@ -40,6 +40,15 @@ def run_pyinstaller_build():
     if IS_WINDOWS:
         excludes.append("PySide6.QtWinExtras")
 
+    # pynput picks its backend at runtime (importlib), so PyInstaller cannot see it.
+    pynput_backend = "_win32" if IS_WINDOWS else "_xorg"
+    hidden_args = [
+        "--hidden-import", f"pynput.keyboard.{pynput_backend}",
+        "--hidden-import", f"pynput.mouse.{pynput_backend}",
+    ]
+    if not IS_WINDOWS:
+        hidden_args += ["--collect-submodules", "Xlib"]
+
     exclude_args = []
     for mod in excludes:
         exclude_args += ["--exclude-module", mod]
@@ -58,6 +67,7 @@ def run_pyinstaller_build():
         "--clean",
         "--noconfirm",
         *exclude_args,
+        *hidden_args,
         *version_args,
         "--collect-submodules", "keyring.backends",
         "--hidden-import", "google.genai",

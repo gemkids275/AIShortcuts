@@ -1,0 +1,49 @@
+name: Release Windows & Linux
+
+# Tag `win-v<N>` builds both platforms and publishes a GitHub Release.
+# <N> must equal CURRENT_VERSION in Windows_and_Linux/update_checker.py
+# (run `python Windows_and_Linux/bump_version.py <N>` before tagging).
+# Manual runs (workflow_dispatch) only build and upload artifacts.
+on:
+  push:
+    tags:
+      - "win-v*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    uses: ./.github/workflows/_build.yml
+
+  release:
+    name: Publish GitHub Release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/win-v')
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: out
+          merge-multiple: true
+
+      - name: Generate checksums
+        working-directory: out
+        run: sha256sum * > SHA256SUMS.txt
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: "Windows & Linux ${{ github.ref_name }}"
+          generate_release_notes: true
+          # Keep the macOS release (v1.0) as "Latest".
+          make_latest: "false"
+          files: out/*
+          body: |
+            **Windows & Linux builds only.** macOS releases use `v*` tags.
+
+            - Windows: `AI-Shortcuts-windows-x64.exe`
+            - Linux (X11): extract `AI-Shortcuts-linux-x64.tar.gz`, run `./"AI Shortcuts"`.
+              Needs `xclip` or `xsel` installed. Global hotkeys do not work on Wayland.
