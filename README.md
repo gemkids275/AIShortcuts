@@ -179,7 +179,7 @@ Run `python Windows_and_Linux/bump_version.py <N>`, add a `## [<N>]` entry to `W
 
 - **No telemetry, no analytics, no ads.**
 - Text is sent only to the AI provider you configure, only when you trigger a command.
-- API keys are stored in the macOS Keychain, or in the OS keyring on Windows and Linux. Without a keyring, per-command keys fall back to a lightly obfuscated local file, not encrypted storage.
+- On macOS, API keys are stored in the Keychain. On Windows and Linux, provider keys are saved in the app's settings file with light obfuscation (not encryption), and keys set per command use the OS keyring when available.
 - Use Ollama, MLX or another local model to keep everything on your device.
 
 ## Support the project
