@@ -8,6 +8,6 @@ markdown2
 pyinstaller
 ollama
 anthropic
-mistralai>=2
+mistralai>=3.1.0
 keyring
 polib
