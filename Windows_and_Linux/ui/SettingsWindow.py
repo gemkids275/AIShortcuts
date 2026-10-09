@@ -109,10 +109,10 @@ class SettingsWindow(QtWidgets.QWidget):
         """)
         
         # Add Sidebar Items
-        item_general = QListWidgetItem("General")
-        item_providers = QListWidgetItem("AI Providers")
-        item_commands = QListWidgetItem("Commands")
-        item_about = QListWidgetItem("About")
+        item_general = QListWidgetItem(self.app._("General"))
+        item_providers = QListWidgetItem(self.app._("AI Providers"))
+        item_commands = QListWidgetItem(self.app._("Commands"))
+        item_about = QListWidgetItem(self.app._("About"))
         
         self.sidebar.addItem(item_general)
         self.sidebar.addItem(item_providers)
@@ -570,8 +570,8 @@ class SettingsWindow(QtWidgets.QWidget):
             return
 
         reply = QtWidgets.QMessageBox.question(
-            self, "Delete Command",
-            f"Are you sure you want to delete '{cmd.name}'?",
+            self, self.app._("Delete Command"),
+            self.app._("Are you sure you want to delete '{0}'?").format(cmd.name),
             QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No
         )
         if reply == QtWidgets.QMessageBox.Yes:
@@ -580,8 +580,8 @@ class SettingsWindow(QtWidgets.QWidget):
 
     def on_restore_commands_clicked(self):
         reply = QtWidgets.QMessageBox.question(
-            self, "Restore Built-in Commands",
-            "This will restore all deleted system commands. Continue?",
+            self, self.app._("Restore Built-in Commands"),
+            self.app._("This will restore all deleted system commands. Continue?"),
             QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No
         )
         if reply == QtWidgets.QMessageBox.Yes:
@@ -628,7 +628,7 @@ class SettingsWindow(QtWidgets.QWidget):
                 data = f.read()
             commands = self.app.command_manager.decode_import_bundle(data)
         except Exception as e:
-            QtWidgets.QMessageBox.critical(self, self.app._("Error"), f"Invalid file: {str(e)}")
+            QtWidgets.QMessageBox.critical(self, self.app._("Error"), self.app._("Invalid file: {0}").format(str(e)))
             return
 
         used_shortcuts = self.app.command_manager.get_used_shortcuts()
@@ -946,7 +946,7 @@ class SettingsWindow(QtWidgets.QWidget):
     def on_check_update_clicked(self):
         """Handle check for update button click."""
         self.btn_check_update.setEnabled(False)
-        self.update_status.setText("Checking for updates...")
+        self.update_status.setText(self.app._("Checking for updates..."))
         
         def do_check():
             try:
@@ -962,10 +962,10 @@ class SettingsWindow(QtWidgets.QWidget):
     def handle_update_result(self, update_available):
         """Update UI based on check result."""
         if update_available:
-            self.update_status.setText("A new version is available!")
+            self.update_status.setText(self.app._("A new version is available!"))
             self.update_status.setStyleSheet("font-size: 12px; color: #10b981; font-weight: bold;")
         else:
-            self.update_status.setText("You're up to date.")
+            self.update_status.setText(self.app._("You're up to date."))
             self.update_status.setStyleSheet("font-size: 12px; color: #888888;")
         self.btn_check_update.setEnabled(True)
 
@@ -984,8 +984,8 @@ class SettingsWindow(QtWidgets.QWidget):
                 cmd = self.app.command_manager.get_command(result.conflict_name)
                 conflict_name = cmd.name if cmd else result.conflict_name
                 QtWidgets.QMessageBox.warning(
-                    self, "Shortcut Conflict",
-                    f'"{new_shortcut}" is already used by command "{conflict_name}".\nPlease choose a different shortcut.'
+                    self, self.app._("Shortcut Conflict"),
+                    self.app._('"{0}" is already used by command "{1}".\nPlease choose a different shortcut.').format(new_shortcut, conflict_name)
                 )
                 return
 
@@ -1047,7 +1047,7 @@ class ImportChoiceDialog(QtWidgets.QDialog):
         super().__init__(parent)
         self.app = app
         self.commands = commands
-        self.setWindowTitle("Restore Config")
+        self.setWindowTitle(self.app._("Restore Config"))
         self.setMinimumWidth(520)
         self.setMinimumHeight(460)
         self._build_ui()
@@ -1068,17 +1068,17 @@ class ImportChoiceDialog(QtWidgets.QDialog):
         layout.setSpacing(16)
 
         # Title
-        title = QtWidgets.QLabel("Restore Config")
+        title = QtWidgets.QLabel(self.app._("Restore Config"))
         title.setStyleSheet(f"font-size: 17px; font-weight: bold; color: {fg};")
         layout.addWidget(title)
 
         # Warning banner
         warn = QtWidgets.QLabel(
-            f"⚠️  <b>Replace All</b> will remove <b>every</b> command currently installed "
-            f"(including System commands) and replace them with the {len(self.commands)} "
-            f"command(s) from this backup. <b>This cannot be undone.</b><br><br>"
-            f"Use <b>Import Selected</b> to add only the commands you choose, "
-            f"without removing anything."
+            self.app._("⚠️  <b>Replace All</b> will remove <b>every</b> command currently installed "
+                "(including System commands) and replace them with the {0} "
+                "command(s) from this backup. <b>This cannot be undone.</b><br><br>"
+                "Use <b>Import Selected</b> to add only the commands you choose, "
+                "without removing anything.").format(len(self.commands))
         )
         warn.setWordWrap(True)
         warn.setTextFormat(QtCore.Qt.RichText)
@@ -1091,7 +1091,7 @@ class ImportChoiceDialog(QtWidgets.QDialog):
         layout.addWidget(warn)
 
         # Command list with checkboxes
-        list_label = QtWidgets.QLabel("Commands in this backup:")
+        list_label = QtWidgets.QLabel(self.app._("Commands in this backup:"))
         list_label.setStyleSheet(f"font-size: 13px; color: {muted};")
         layout.addWidget(list_label)
 
@@ -1127,8 +1127,8 @@ class ImportChoiceDialog(QtWidgets.QDialog):
             f"border: none; font-size: 12px; padding: 2px 6px; }} "
             f"QPushButton:hover {{ text-decoration: underline; }}"
         )
-        all_btn  = QtWidgets.QPushButton("Select All")
-        none_btn = QtWidgets.QPushButton("Select None")
+        all_btn  = QtWidgets.QPushButton(self.app._("Select All"))
+        none_btn = QtWidgets.QPushButton(self.app._("Select None"))
         all_btn.setStyleSheet(btn_style_small)
         none_btn.setStyleSheet(btn_style_small)
         all_btn.clicked.connect(lambda: self._set_all(QtCore.Qt.Checked))
@@ -1142,7 +1142,7 @@ class ImportChoiceDialog(QtWidgets.QDialog):
         btn_layout = QtWidgets.QHBoxLayout()
         btn_layout.setSpacing(10)
 
-        cancel_btn = QtWidgets.QPushButton("Cancel")
+        cancel_btn = QtWidgets.QPushButton(self.app._("Cancel"))
         cancel_btn.setStyleSheet(
             f"QPushButton {{ background-color: {'#444' if is_dark else '#eee'}; "
             f"color: {fg}; border: 1px solid {border}; border-radius: 5px; padding: 9px 18px; }}"
@@ -1150,7 +1150,7 @@ class ImportChoiceDialog(QtWidgets.QDialog):
         )
         cancel_btn.clicked.connect(self.reject)
 
-        import_sel_btn = QtWidgets.QPushButton("Import Selected")
+        import_sel_btn = QtWidgets.QPushButton(self.app._("Import Selected"))
         import_sel_btn.setStyleSheet(
             "QPushButton { background-color: #2e7d32; color: white; border: none; "
             "border-radius: 5px; padding: 9px 18px; font-weight: bold; } "
@@ -1158,7 +1158,7 @@ class ImportChoiceDialog(QtWidgets.QDialog):
         )
         import_sel_btn.clicked.connect(self._import_selected)
 
-        replace_all_btn = QtWidgets.QPushButton("⚠ Replace All")
+        replace_all_btn = QtWidgets.QPushButton(self.app._("⚠ Replace All"))
         replace_all_btn.setStyleSheet(
             "QPushButton { background-color: #b71c1c; color: white; border: none; "
             "border-radius: 5px; padding: 9px 18px; font-weight: bold; } "
@@ -1186,7 +1186,7 @@ class ImportChoiceDialog(QtWidgets.QDialog):
     def _import_selected(self):
         selected = self._checked_commands()
         if not selected:
-            QtWidgets.QMessageBox.warning(self, "Nothing Selected", "Please check at least one command to import.")
+            QtWidgets.QMessageBox.warning(self, self.app._("Nothing Selected"), self.app._("Please check at least one command to import."))
             return
 
         used_shortcuts = self.app.command_manager.get_used_shortcuts()
@@ -1202,17 +1202,17 @@ class ImportChoiceDialog(QtWidgets.QDialog):
             self.app.command_manager.add_command(cmd)
             added += 1
 
-        QtWidgets.QMessageBox.information(self, "Done", f"{added} command(s) imported.")
+        QtWidgets.QMessageBox.information(self, self.app._("Done"), self.app._("{0} command(s) imported.").format(added))
         self.accept()
 
     def _replace_all(self):
         confirm = QtWidgets.QMessageBox.warning(
             self,
-            "Replace All Commands?",
-            f"This will permanently remove ALL {len(self.app.command_manager.commands)} current command(s) "
-            f"(including System commands) and replace them with "
-            f"{len(self.commands)} command(s) from the backup.\n\n"
-            f"This cannot be undone. Are you sure?",
+            self.app._("Replace All Commands?"),
+            self.app._("This will permanently remove ALL {0} current command(s) "
+                "(including System commands) and replace them with "
+                "{1} command(s) from the backup.\n\n"
+                "This cannot be undone. Are you sure?").format(len(self.app.command_manager.commands), len(self.commands)),
             QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.Cancel,
             QtWidgets.QMessageBox.StandardButton.Cancel
         )
@@ -1223,5 +1223,5 @@ class ImportChoiceDialog(QtWidgets.QDialog):
         for cmd in self.commands:
             self.app.command_manager.claim_shortcut(cmd, used_shortcuts, self.app.config.get("shortcut", ""))
         self.app.command_manager.replace_all_commands(self.commands)
-        QtWidgets.QMessageBox.information(self, "Done", f"All commands replaced with {len(self.commands)} command(s) from backup.")
+        QtWidgets.QMessageBox.information(self, self.app._("Done"), self.app._("All commands replaced with {0} command(s) from backup.").format(len(self.commands)))
         self.accept()

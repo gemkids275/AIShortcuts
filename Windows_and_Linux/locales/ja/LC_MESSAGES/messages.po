@@ -1,3 +1,4 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
@@ -100,10 +101,10 @@ msgid "Chat"
 msgstr "チャット"
 
 msgid "Describe your change..."
-msgstr "Describe your change..."
+msgstr "変更内容を入力..."
 
 msgid "Ask your AI..."
-msgstr "Ask your AI..."
+msgstr "AIに質問..."
 
 msgid "There's an update! :D Download now."
 msgstr "新しいアップデートがあります！🚀 今すぐダウンロード。"
@@ -139,7 +140,7 @@ msgid "OpenAI Compatible (For Experts)"
 msgstr "OpenAI Compatible (エキスパート向け)"
 
 msgid "Get API Key"
-msgstr "Get API Key"
+msgstr "APIキーを取得"
 
 msgid "Show"
 msgstr "表示"
@@ -156,20 +157,50 @@ msgstr "API Key"
 msgid "🔧 Custom"
 msgstr "🔧 カスタム"
 
-msgid "• Google’s Gemini 1.5 & 2.0 (Gemma) are multimodal models with world-class performance.\n• Offers extremely fast inference and massive context windows (up to 1M+ tokens).\n• Get a free API key to start using Gemini Flash and Pro models."
-msgstr "• GoogleのGemini 1.5 & 2.0 (Gemma) は、世界クラスのパフォーマンスを備えたマルチモーダルModelです。\n• 非常に高速な推論と巨大なコンテキストウィンドウ (最大100万トークン以上) を提供します。\n• 無料のAPI Keyを取得して、Gemini FlashおよびPro Modelの使用を開始してください。"
+msgid ""
+"• Google’s Gemini 1.5 & 2.0 (Gemma) are multimodal models with world-class performance.\n"
+"• Offers extremely fast inference and massive context windows (up to 1M+ tokens).\n"
+"• Get a free API key to start using Gemini Flash and Pro models."
+msgstr ""
+"• GoogleのGemini 1.5 & 2.0 (Gemma) は、世界クラスのパフォーマンスを備えたマルチモーダルModelです。\n"
+"• 非常に高速な推論と巨大なコンテキストウィンドウ (最大100万トークン以上) を提供します。\n"
+"• 無料のAPI Keyを取得して、Gemini FlashおよびPro Modelの使用を開始してください。"
 
-msgid "• Anthropic's Claude is renowned for high-quality writing, safe reasoning, and large context windows.\n• Ideal for complex analysis and creative writing tasks.\n• Supports Claude 3.5 Sonnet, Haiku, and Opus models."
-msgstr "• AnthropicのClaudeは、高品質な文章作成、安全な推論、および大きなコンテキストウィンドウで有名です。\n• 複雑な分析やクリエイティブな執筆タスクに最適です。\n• Claude 3.5 Sonnet、Haiku、およびOpusModelをサポートしています。"
+msgid ""
+"• Anthropic's Claude is renowned for high-quality writing, safe reasoning, and large context windows.\n"
+"• Ideal for complex analysis and creative writing tasks.\n"
+"• Supports Claude 3.5 Sonnet, Haiku, and Opus models."
+msgstr ""
+"• AnthropicのClaudeは、高品質な文章作成、安全な推論、および大きなコンテキストウィンドウで有名です。\n"
+"• 複雑な分析やクリエイティブな執筆タスクに最適です。\n"
+"• Claude 3.5 Sonnet、Haiku、およびOpusModelをサポートしています。"
 
-msgid "• Mistral AI offers state-of-the-art open models with high efficiency.\n• Great performance in both European languages and coding.\n• Supports Mistral Large, Small, and vision-capable Pixtral."
-msgstr "• Mistral AIは、高効率で最先端のオープンModelを提供します。\n• ヨーロッパ言語とコーディングの両方で優れたパフォーマンスを発揮します。\n• Mistral Large、Small、およびビジョン対応のPixtralをサポートしています。"
+msgid ""
+"• Mistral AI offers state-of-the-art open models with high efficiency.\n"
+"• Great performance in both European languages and coding.\n"
+"• Supports Mistral Large, Small, and vision-capable Pixtral."
+msgstr ""
+"• Mistral AIは、高効率で最先端のオープンModelを提供します。\n"
+"• ヨーロッパ言語とコーディングの両方で優れたパフォーマンスを発揮します。\n"
+"• Mistral Large、Small、およびビジョン対応のPixtralをサポートしています。"
 
-msgid "• OpenRouter provides unified access to over 100+ AI models (Claude, Llama, GPT, etc.).\n• Offers the most competitive pricing and many free-tier models.\n• Best for power users who want to switch models frequently."
-msgstr "• OpenRouterは、100以上のAIModel (Claude、Llama、GPTなど) への統合アクセスを提供します。\n• 最も競争力のある価格設定と多くの無料枠Modelを提供します。\n• Modelを頻繁に切り替えたいパワーユーザーに最適です。"
+msgid ""
+"• OpenRouter provides unified access to over 100+ AI models (Claude, Llama, GPT, etc.).\n"
+"• Offers the most competitive pricing and many free-tier models.\n"
+"• Best for power users who want to switch models frequently."
+msgstr ""
+"• OpenRouterは、100以上のAIModel (Claude、Llama、GPTなど) への統合アクセスを提供します。\n"
+"• 最も競争力のある価格設定と多くの無料枠Modelを提供します。\n"
+"• Modelを頻繁に切り替えたいパワーユーザーに最適です。"
 
-msgid "• Connect to ANY OpenAI-compatible service (e.g. OpenAI, Groq, Together AI, Perplexity).\n• Supports custom Base URLs, Organizations, and Project IDs.\n• Perfect for local LLM servers (LM Studio, LocalAI) or specialized providers."
-msgstr "• OpenAI互換のあらゆるサービス (OpenAI、Groq、Together AI、Perplexityなど) に接続します。\n• カスタムベースURL、組織、およびプロジェクトIDをサポートします。\n• ローカルLLMサーバー (LM Studio, LocalAI) や専門的なProviderに最適です。"
+msgid ""
+"• Connect to ANY OpenAI-compatible service (e.g. OpenAI, Groq, Together AI, Perplexity).\n"
+"• Supports custom Base URLs, Organizations, and Project IDs.\n"
+"• Perfect for local LLM servers (LM Studio, LocalAI) or specialized providers."
+msgstr ""
+"• OpenAI互換のあらゆるサービス (OpenAI、Groq、Together AI、Perplexityなど) に接続します。\n"
+"• カスタムベースURL、組織、およびプロジェクトIDをサポートします。\n"
+"• ローカルLLMサーバー (LM Studio, LocalAI) や専門的なProviderに最適です。"
 
 msgid "⭐ Gemma 3 27B (very intelligent | unlimited usage)"
 msgstr "⭐ Gemma 3 27B (非常に知的 | 無制限)"
@@ -247,7 +278,7 @@ msgid "Thinking"
 msgstr "AIが考え中..."
 
 msgid "Select Icon"
-msgstr "Select Icon"
+msgstr "アイコンを選択"
 
 msgid "Search icons..."
 msgstr "Search Icons..."
@@ -270,8 +301,12 @@ msgstr "アイコンを変更"
 msgid "Icon:"
 msgstr "アイコン："
 
-msgid "e.g., Proofread this:\n\n"
-msgstr "例：このテキストを校正してください:\n\n"
+msgid ""
+"e.g., Proofread this:\n"
+"\n"
+msgstr ""
+"例：このテキストを校正してください:\n"
+"\n"
 
 msgid "Prefix Text:"
 msgstr "プレフィックステキスト："
@@ -354,7 +389,9 @@ msgstr "再開"
 msgid "About AI Shortcuts"
 msgstr "AI Shortcutsについて"
 
-msgid "AI Shortcuts is a free, lightweight utility that enhances your writing with AI."
+msgid ""
+"AI Shortcuts is a free, lightweight utility that enhances your writing with "
+"AI."
 msgstr "AI Shortcutsは、AIでライティングを強化する無料の軽量ツールです。"
 
 msgid "Version & Updates"
@@ -453,7 +490,9 @@ msgstr "アクティブProviderを選択："
 msgid "Get OpenAI API Key"
 msgstr "OpenAI API Keyを取得"
 
-msgid "{0} API key is not configured. Please set your API key in Settings → AI Providers."
+msgid ""
+"{0} API key is not configured. Please set your API key in Settings → AI "
+"Providers."
 msgstr "{0} API Keyが設定されていません。設定 → AIProviderで設定してください。"
 
 msgid "Error"
@@ -512,3 +551,195 @@ msgstr "該当しない場合は空白のまま。"
 
 msgid "Launch AI Shortcuts on system startup"
 msgstr "システム起動時にAI Shortcutsを起動する"
+
+msgid ""
+"AI Shortcuts is already running.\n"
+"Check your system tray."
+msgstr ""
+"AI Shortcuts はすでに実行中です。\n"
+"システムトレイを確認してください。"
+
+msgid "e.g., Proofread this:\\n\\n"
+msgstr "例: これを校正:\\n\\n"
+
+msgid "Custom OpenAI-compatible"
+msgstr "カスタム（OpenAI互換）"
+
+msgid "Button Name:"
+msgstr "ボタン名:"
+
+msgid "What should your AI do with your selected text? (System Instruction)"
+msgstr "選択したテキストに対してAIに何をさせますか？（システム指示）"
+
+msgid ""
+"Examples:\n"
+"    - Fix / improve / explain this code.\n"
+"    - Make it funny.\n"
+"    - Add emojis!\n"
+"    - Roast this!\n"
+"    - Translate to English.\n"
+"    - Make the text title case.\n"
+"    - If it's all caps, make it all small, and vice-versa.\n"
+"    - Write a reply to this.\n"
+"    - Analyse potential biases in this news article."
+msgstr ""
+"例:\n"
+"    - このコードを修正・改善・説明して。\n"
+"    - 面白くして。\n"
+"    - 絵文字を追加して！\n"
+"    - これを皮肉って！\n"
+"    - 英語に翻訳して。\n"
+"    - 各単語の先頭を大文字にして。\n"
+"    - すべて大文字なら小文字に、その逆も。\n"
+"    - これに対する返信を書いて。\n"
+"    - このニュース記事の偏りを分析して。"
+
+msgid "How should your AI response be shown?"
+msgstr "AIの応答をどのように表示しますか？"
+
+msgid "Replace the selected text"
+msgstr "選択したテキストを置換"
+
+msgid "In a pop-up window (with follow-up support)"
+msgstr "ポップアップウィンドウで表示（追加質問に対応）"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "AI Shortcuts"
+msgstr "AI Shortcuts"
+
+msgid "Reset Commands"
+msgstr "コマンドをリセット"
+
+msgid ""
+"Are you sure you want to restore all built-in commands? This will bring back"
+" any deleted system commands."
+msgstr "すべての組み込みコマンドを復元しますか？削除したシステムコマンドが元に戻ります。"
+
+msgid "Customize your shortcut key (default: \"ctrl+space\"):"
+msgstr "ショートカットキーをカスタマイズ（デフォルト: \"ctrl+space\"）:"
+
+msgid "Next"
+msgstr "次へ"
+
+msgid ""
+"Instantly optimize your writing with AI by selecting your text and invoking "
+"AI Shortcuts with \"ctrl+space\", anywhere."
+msgstr "テキストを選択して、どこでも \"ctrl+space\" で AI Shortcuts を呼び出すだけで、文章をAIで即座に最適化できます。"
+
+msgid ""
+"Get a comprehensive summary of articles, YouTube videos, or documents by "
+"selecting all text (ctrl+a) and invoking AI Shortcuts."
+msgstr "全文を選択（ctrl+a）して AI Shortcuts を呼び出すと、記事、YouTube動画、ドキュメントの包括的な要約が得られます。"
+
+msgid ""
+"Chat with world-class AI models anytime (even without selecting text) to "
+"brainstorm, code, or translate."
+msgstr "テキストを選択しなくても、いつでも世界最高水準のAIモデルとチャットして、アイデア出し、コーディング、翻訳ができます。"
+
+msgid "Supports an extensive range of AI models:"
+msgstr "幅広いAIモデルに対応:"
+
+msgid "Gemini 2.0, Claude 3.5, GPT-4o, Mistral Large"
+msgstr "Gemini 2.0, Claude 3.5, GPT-4o, Mistral Large"
+
+msgid "Local LLMs via Ollama & ANY OpenAI Compatible API!"
+msgstr "Ollama経由のローカルLLMや、あらゆるOpenAI互換APIに対応！"
+
+msgid "Delete Command"
+msgstr "コマンドを削除"
+
+msgid "Restore Built-in Commands"
+msgstr "組み込みコマンドを復元"
+
+msgid "This will restore all deleted system commands. Continue?"
+msgstr "削除されたシステムコマンドをすべて復元します。続行しますか？"
+
+msgid "Checking for updates..."
+msgstr "アップデートを確認中..."
+
+msgid "Commands in this backup:"
+msgstr "このバックアップ内のコマンド:"
+
+msgid "Select All"
+msgstr "すべて選択"
+
+msgid "Select None"
+msgstr "選択をすべて解除"
+
+msgid "Import Selected"
+msgstr "選択項目をインポート"
+
+msgid "⚠ Replace All"
+msgstr "⚠ すべて置換"
+
+msgid "Done"
+msgstr "完了"
+
+msgid "Replace All Commands?"
+msgstr "すべてのコマンドを置換しますか？"
+
+msgid "A new version is available!"
+msgstr "新しいバージョンがあります！"
+
+msgid "You're up to date."
+msgstr "最新の状態です。"
+
+msgid "Nothing Selected"
+msgstr "何も選択されていません"
+
+msgid "Please check at least one command to import."
+msgstr "インポートするコマンドを1つ以上選択してください。"
+
+msgid "Are you sure you want to delete '{0}'?"
+msgstr "'{0}' を削除してもよろしいですか？"
+
+msgid "Shortcut Conflict"
+msgstr "ショートカットの競合"
+
+msgid ""
+"⚠️  <b>Replace All</b> will remove <b>every</b> command currently installed "
+"(including System commands) and replace them with the {0} command(s) from "
+"this backup. <b>This cannot be undone.</b><br><br>Use <b>Import Selected</b>"
+" to add only the commands you choose, without removing anything."
+msgstr ""
+"⚠️  <b>すべて置換</b>は、現在インストールされている<b>すべて</b>のコマンド（システムコマンドを含む）を削除し、このバックアップの "
+"{0} "
+"個のコマンドに置き換えます。<b>この操作は元に戻せません。</b><br><br>何も削除せず、選んだコマンドだけを追加するには<b>選択項目をインポート</b>を使用してください。"
+
+msgid ""
+"This will permanently remove ALL {0} current command(s) (including System commands) and replace them with {1} command(s) from the backup.\n"
+"\n"
+"This cannot be undone. Are you sure?"
+msgstr ""
+"現在の {0} 個のコマンド（システムコマンドを含む）をすべて完全に削除し、バックアップの {1} 個のコマンドに置き換えます。\n"
+"\n"
+"この操作は元に戻せません。よろしいですか？"
+
+msgid "All commands replaced with {0} command(s) from backup."
+msgstr "すべてのコマンドをバックアップの {0} 個のコマンドに置き換えました。"
+
+msgid ""
+"\"{0}\" is already used by command \"{1}\".\n"
+"Please choose a different shortcut."
+msgstr ""
+"\"{0}\" はコマンド \"{1}\" ですでに使用されています。\n"
+"別のショートカットを選択してください。"
+
+msgid "e.g. Ctrl+Shift+P"
+msgstr "例: Ctrl+Shift+P"
+
+msgid "Clear shortcut"
+msgstr "ショートカットをクリア"
+
+msgid ""
+"Invalid shortcut format.\n"
+"Use: Modifier+Key (e.g. Ctrl+Shift+P)\n"
+"Modifiers: Ctrl, Shift, Alt, Super/Win\n"
+"Keys: letters, digits, F1–F12, or special keys"
+msgstr ""
+"ショートカットの形式が正しくありません。\n"
+"形式: 修飾キー+キー（例: Ctrl+Shift+P）\n"
+"修飾キー: Ctrl, Shift, Alt, Super/Win\n"
+"キー: 英字、数字、F1–F12、または特殊キー"

@@ -299,7 +299,7 @@ class CommandEditorDialog(QtWidgets.QDialog):
         if self._app:
             providers = [p.provider_name for p in self._app.providers]
             self.provider_combo.addItems(providers)
-        self.provider_combo.addItem("Custom OpenAI-compatible")
+        self.provider_combo.addItem(_("Custom OpenAI-compatible"))
         self.provider_combo.currentTextChanged.connect(self._on_provider_changed)
         over_form.addRow(QtWidgets.QLabel(_("Provider:")), self.provider_combo)
 

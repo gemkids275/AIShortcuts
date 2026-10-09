@@ -1,3 +1,4 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
@@ -22,7 +23,7 @@ msgstr "常规"
 
 #: ui/SettingsWindow.py:69 ui/SettingsWindow.py:264
 msgid "AI Providers"
-msgstr "AI Providers"
+msgstr "AI 服务商"
 
 #: ui/SettingsWindow.py:70
 msgid "Commands"
@@ -100,7 +101,7 @@ msgid "Chat"
 msgstr "聊天 (Chat)"
 
 msgid "Describe your change..."
-msgstr "Describe your change..."
+msgstr "描述你的修改..."
 
 msgid "Ask your AI..."
 msgstr "Ask your AI... (Ask your AI...)"
@@ -156,20 +157,50 @@ msgstr "API Key"
 msgid "🔧 Custom"
 msgstr "🔧 自定义"
 
-msgid "• Google’s Gemini 1.5 & 2.0 (Gemma) are multimodal models with world-class performance.\n• Offers extremely fast inference and massive context windows (up to 1M+ tokens).\n• Get a free API key to start using Gemini Flash and Pro models."
-msgstr "• Google 的 Gemini 1.5 和 2.0 (Gemma) 是具有世界级性能的多模态模型。\n• 提供极快的推理速度和海量的上下文窗口 (高达 100 万+ token)。\n• 获取免费 API Key以开始使用 Gemini Flash 和 Pro Model。"
+msgid ""
+"• Google’s Gemini 1.5 & 2.0 (Gemma) are multimodal models with world-class performance.\n"
+"• Offers extremely fast inference and massive context windows (up to 1M+ tokens).\n"
+"• Get a free API key to start using Gemini Flash and Pro models."
+msgstr ""
+"• Google 的 Gemini 1.5 和 2.0 (Gemma) 是具有世界级性能的多模态模型。\n"
+"• 提供极快的推理速度和海量的上下文窗口 (高达 100 万+ token)。\n"
+"• 获取免费 API Key以开始使用 Gemini Flash 和 Pro Model。"
 
-msgid "• Anthropic's Claude is renowned for high-quality writing, safe reasoning, and large context windows.\n• Ideal for complex analysis and creative writing tasks.\n• Supports Claude 3.5 Sonnet, Haiku, and Opus models."
-msgstr "• Anthropic 的 Claude 以高质量写作、安全推理和大上下文窗口而闻名。\n• 非常适合复杂的分析和创意写作任务。\n• 支持 Claude 3.5 Sonnet、Haiku 和 Opus Model。"
+msgid ""
+"• Anthropic's Claude is renowned for high-quality writing, safe reasoning, and large context windows.\n"
+"• Ideal for complex analysis and creative writing tasks.\n"
+"• Supports Claude 3.5 Sonnet, Haiku, and Opus models."
+msgstr ""
+"• Anthropic 的 Claude 以高质量写作、安全推理和大上下文窗口而闻名。\n"
+"• 非常适合复杂的分析和创意写作任务。\n"
+"• 支持 Claude 3.5 Sonnet、Haiku 和 Opus Model。"
 
-msgid "• Mistral AI offers state-of-the-art open models with high efficiency.\n• Great performance in both European languages and coding.\n• Supports Mistral Large, Small, and vision-capable Pixtral."
-msgstr "• Mistral AI 提供具有高效率的最先进开源Model。\n• 在欧洲语言和编程方面均表现出色。\n• 支持 Mistral Large、Small 和具有视觉能力的 Pixtral。"
+msgid ""
+"• Mistral AI offers state-of-the-art open models with high efficiency.\n"
+"• Great performance in both European languages and coding.\n"
+"• Supports Mistral Large, Small, and vision-capable Pixtral."
+msgstr ""
+"• Mistral AI 提供具有高效率的最先进开源Model。\n"
+"• 在欧洲语言和编程方面均表现出色。\n"
+"• 支持 Mistral Large、Small 和具有视觉能力的 Pixtral。"
 
-msgid "• OpenRouter provides unified access to over 100+ AI models (Claude, Llama, GPT, etc.).\n• Offers the most competitive pricing and many free-tier models.\n• Best for power users who want to switch models frequently."
-msgstr "• OpenRouter 提供对 100 多种 AI 模型 (Claude、Llama、GPT 等) 的统一访问。\n• 提供最具竞争力的价格和许多免费层级模型。\n• 最适合希望频繁切换Model的重度用户。"
+msgid ""
+"• OpenRouter provides unified access to over 100+ AI models (Claude, Llama, GPT, etc.).\n"
+"• Offers the most competitive pricing and many free-tier models.\n"
+"• Best for power users who want to switch models frequently."
+msgstr ""
+"• OpenRouter 提供对 100 多种 AI 模型 (Claude、Llama、GPT 等) 的统一访问。\n"
+"• 提供最具竞争力的价格和许多免费层级模型。\n"
+"• 最适合希望频繁切换Model的重度用户。"
 
-msgid "• Connect to ANY OpenAI-compatible service (e.g. OpenAI, Groq, Together AI, Perplexity).\n• Supports custom Base URLs, Organizations, and Project IDs.\n• Perfect for local LLM servers (LM Studio, LocalAI) or specialized providers."
-msgstr "• 连接到任何兼容 OpenAI 的服务 (例如 OpenAI、Groq、Together AI、Perplexity)。\n• 支持自定义Base URL、Organization和Project ID。\n• 非常适合本地 LLM 服务器 (LM Studio、LocalAI) 或专业Provider。"
+msgid ""
+"• Connect to ANY OpenAI-compatible service (e.g. OpenAI, Groq, Together AI, Perplexity).\n"
+"• Supports custom Base URLs, Organizations, and Project IDs.\n"
+"• Perfect for local LLM servers (LM Studio, LocalAI) or specialized providers."
+msgstr ""
+"• 连接到任何兼容 OpenAI 的服务 (例如 OpenAI、Groq、Together AI、Perplexity)。\n"
+"• 支持自定义Base URL、Organization和Project ID。\n"
+"• 非常适合本地 LLM 服务器 (LM Studio、LocalAI) 或专业Provider。"
 
 msgid "⭐ Gemma 3 27B (very intelligent | unlimited usage)"
 msgstr "⭐ Gemma 3 27B (非常智力 | 无限制使用)"
@@ -270,8 +301,12 @@ msgstr "更改图标"
 msgid "Icon:"
 msgstr "图标："
 
-msgid "e.g., Proofread this:\n\n"
-msgstr "例如：校对此文本:\n\n"
+msgid ""
+"e.g., Proofread this:\n"
+"\n"
+msgstr ""
+"例如：校对此文本:\n"
+"\n"
 
 msgid "Prefix Text:"
 msgstr "前缀文本："
@@ -354,7 +389,9 @@ msgstr "恢复"
 msgid "About AI Shortcuts"
 msgstr "关于AI Shortcuts"
 
-msgid "AI Shortcuts is a free, lightweight utility that enhances your writing with AI."
+msgid ""
+"AI Shortcuts is a free, lightweight utility that enhances your writing with "
+"AI."
 msgstr "AI Shortcuts是一款免费、轻量级的AI写作增强工具。"
 
 msgid "Version & Updates"
@@ -453,7 +490,9 @@ msgstr "选择活动提供商："
 msgid "Get OpenAI API Key"
 msgstr "获取OpenAI API Key"
 
-msgid "{0} API key is not configured. Please set your API key in Settings → AI Providers."
+msgid ""
+"{0} API key is not configured. Please set your API key in Settings → AI "
+"Providers."
 msgstr "{0} API Key未配置。请在设置 → AI提供商中设置您的API Key。"
 
 msgid "Error"
@@ -512,3 +551,194 @@ msgstr "如不适用请留空。"
 
 msgid "Launch AI Shortcuts on system startup"
 msgstr "在系统启动时启动AI Shortcuts"
+
+msgid ""
+"AI Shortcuts is already running.\n"
+"Check your system tray."
+msgstr ""
+"AI Shortcuts 已在运行。\n"
+"请检查系统托盘。"
+
+msgid "e.g., Proofread this:\\n\\n"
+msgstr "例如：校对以下内容：\\n\\n"
+
+msgid "Custom OpenAI-compatible"
+msgstr "自定义（兼容 OpenAI）"
+
+msgid "Button Name:"
+msgstr "按钮名称:"
+
+msgid "What should your AI do with your selected text? (System Instruction)"
+msgstr "希望 AI 如何处理所选文本？（系统指令）"
+
+msgid ""
+"Examples:\n"
+"    - Fix / improve / explain this code.\n"
+"    - Make it funny.\n"
+"    - Add emojis!\n"
+"    - Roast this!\n"
+"    - Translate to English.\n"
+"    - Make the text title case.\n"
+"    - If it's all caps, make it all small, and vice-versa.\n"
+"    - Write a reply to this.\n"
+"    - Analyse potential biases in this news article."
+msgstr ""
+"示例：\n"
+"    - 修复 / 改进 / 解释这段代码。\n"
+"    - 让它更有趣。\n"
+"    - 添加表情符号！\n"
+"    - 吐槽一下！\n"
+"    - 翻译成英文。\n"
+"    - 将文本改为标题大小写。\n"
+"    - 如果全是大写就改为小写，反之亦然。\n"
+"    - 为此写一条回复。\n"
+"    - 分析这篇新闻文章可能存在的偏见。"
+
+msgid "How should your AI response be shown?"
+msgstr "如何显示 AI 的回复？"
+
+msgid "Replace the selected text"
+msgstr "替换所选文本"
+
+msgid "In a pop-up window (with follow-up support)"
+msgstr "在弹出窗口中显示（支持追问）"
+
+msgid "OK"
+msgstr "确定"
+
+msgid "AI Shortcuts"
+msgstr "AI Shortcuts"
+
+msgid "Reset Commands"
+msgstr "重置命令"
+
+msgid ""
+"Are you sure you want to restore all built-in commands? This will bring back"
+" any deleted system commands."
+msgstr "确定要恢复所有内置命令吗？这将找回已删除的系统命令。"
+
+msgid "Customize your shortcut key (default: \"ctrl+space\"):"
+msgstr "自定义快捷键（默认：\"ctrl+space\"）："
+
+msgid "Next"
+msgstr "下一步"
+
+msgid ""
+"Instantly optimize your writing with AI by selecting your text and invoking "
+"AI Shortcuts with \"ctrl+space\", anywhere."
+msgstr "选中文本，在任何地方按 \"ctrl+space\" 调用 AI Shortcuts，即可用 AI 立即优化你的文字。"
+
+msgid ""
+"Get a comprehensive summary of articles, YouTube videos, or documents by "
+"selecting all text (ctrl+a) and invoking AI Shortcuts."
+msgstr "选中全部文本（ctrl+a）并调用 AI Shortcuts，即可获得文章、YouTube 视频或文档的完整摘要。"
+
+msgid ""
+"Chat with world-class AI models anytime (even without selecting text) to "
+"brainstorm, code, or translate."
+msgstr "随时（即使未选中文本）与世界一流的 AI 模型聊天，进行头脑风暴、编程或翻译。"
+
+msgid "Supports an extensive range of AI models:"
+msgstr "支持多种 AI 模型："
+
+msgid "Gemini 2.0, Claude 3.5, GPT-4o, Mistral Large"
+msgstr "Gemini 2.0, Claude 3.5, GPT-4o, Mistral Large"
+
+msgid "Local LLMs via Ollama & ANY OpenAI Compatible API!"
+msgstr "通过 Ollama 使用本地 LLM，并支持任何兼容 OpenAI 的 API！"
+
+msgid "Delete Command"
+msgstr "删除命令"
+
+msgid "Restore Built-in Commands"
+msgstr "恢复内置命令"
+
+msgid "This will restore all deleted system commands. Continue?"
+msgstr "这将恢复所有已删除的系统命令。是否继续？"
+
+msgid "Checking for updates..."
+msgstr "正在检查更新..."
+
+msgid "Commands in this backup:"
+msgstr "此备份中的命令："
+
+msgid "Select All"
+msgstr "全选"
+
+msgid "Select None"
+msgstr "全不选"
+
+msgid "Import Selected"
+msgstr "导入所选项"
+
+msgid "⚠ Replace All"
+msgstr "⚠ 全部替换"
+
+msgid "Done"
+msgstr "完成"
+
+msgid "Replace All Commands?"
+msgstr "替换所有命令？"
+
+msgid "A new version is available!"
+msgstr "有新版本可用！"
+
+msgid "You're up to date."
+msgstr "已是最新版本。"
+
+msgid "Nothing Selected"
+msgstr "未选择任何项"
+
+msgid "Please check at least one command to import."
+msgstr "请至少勾选一个要导入的命令。"
+
+msgid "Are you sure you want to delete '{0}'?"
+msgstr "确定要删除“{0}”吗？"
+
+msgid "Shortcut Conflict"
+msgstr "快捷键冲突"
+
+msgid ""
+"⚠️  <b>Replace All</b> will remove <b>every</b> command currently installed "
+"(including System commands) and replace them with the {0} command(s) from "
+"this backup. <b>This cannot be undone.</b><br><br>Use <b>Import Selected</b>"
+" to add only the commands you choose, without removing anything."
+msgstr ""
+"⚠️  <b>全部替换</b>将删除当前安装的<b>所有</b>命令（包括系统命令），并替换为此备份中的 {0} "
+"个命令。<b>此操作无法撤销。</b><br><br>如只想添加所选命令而不删除任何内容，请使用<b>导入所选项</b>。"
+
+msgid ""
+"This will permanently remove ALL {0} current command(s) (including System commands) and replace them with {1} command(s) from the backup.\n"
+"\n"
+"This cannot be undone. Are you sure?"
+msgstr ""
+"这将永久删除当前全部 {0} 个命令（包括系统命令），并替换为备份中的 {1} 个命令。\n"
+"\n"
+"此操作无法撤销。确定吗？"
+
+msgid "All commands replaced with {0} command(s) from backup."
+msgstr "已用备份中的 {0} 个命令替换全部命令。"
+
+msgid ""
+"\"{0}\" is already used by command \"{1}\".\n"
+"Please choose a different shortcut."
+msgstr ""
+"“{0}”已被命令“{1}”使用。\n"
+"请选择其他快捷键。"
+
+msgid "e.g. Ctrl+Shift+P"
+msgstr "例如：Ctrl+Shift+P"
+
+msgid "Clear shortcut"
+msgstr "清除快捷键"
+
+msgid ""
+"Invalid shortcut format.\n"
+"Use: Modifier+Key (e.g. Ctrl+Shift+P)\n"
+"Modifiers: Ctrl, Shift, Alt, Super/Win\n"
+"Keys: letters, digits, F1–F12, or special keys"
+msgstr ""
+"快捷键格式无效。\n"
+"格式：修饰键+按键（例如 Ctrl+Shift+P）\n"
+"修饰键：Ctrl、Shift、Alt、Super/Win\n"
+"按键：字母、数字、F1–F12 或特殊键"

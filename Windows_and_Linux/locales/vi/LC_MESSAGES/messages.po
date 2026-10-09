@@ -614,3 +614,171 @@ msgstr "Đã nhập {0} lệnh."
 
 msgid "Invalid file: {0}"
 msgstr "Tệp không hợp lệ: {0}"
+
+msgid ""
+"AI Shortcuts is already running.\n"
+"Check your system tray."
+msgstr ""
+"AI Shortcuts đang chạy.\n"
+"Hãy kiểm tra khay hệ thống."
+
+msgid "e.g., Proofread this:\\n\\n"
+msgstr "ví dụ: Sửa lỗi đoạn này:\\n\\n"
+
+msgid "Custom OpenAI-compatible"
+msgstr "OpenAI tùy chỉnh (tương thích)"
+
+msgid "Button Name:"
+msgstr "Tên nút:"
+
+msgid "What should your AI do with your selected text? (System Instruction)"
+msgstr "AI nên làm gì với văn bản bạn đã chọn? (Chỉ dẫn hệ thống)"
+
+msgid ""
+"Examples:\n"
+"    - Fix / improve / explain this code.\n"
+"    - Make it funny.\n"
+"    - Add emojis!\n"
+"    - Roast this!\n"
+"    - Translate to English.\n"
+"    - Make the text title case.\n"
+"    - If it's all caps, make it all small, and vice-versa.\n"
+"    - Write a reply to this.\n"
+"    - Analyse potential biases in this news article."
+msgstr ""
+"Ví dụ:\n"
+"    - Sửa / cải thiện / giải thích đoạn code này.\n"
+"    - Làm cho nó hài hước.\n"
+"    - Thêm emoji!\n"
+"    - Châm biếm đoạn này!\n"
+"    - Dịch sang tiếng Anh.\n"
+"    - Viết hoa chữ cái đầu mỗi từ.\n"
+"    - Nếu toàn chữ hoa thì chuyển sang chữ thường và ngược lại.\n"
+"    - Viết câu trả lời cho nội dung này.\n"
+"    - Phân tích các thiên kiến có thể có trong bài báo này."
+
+msgid "How should your AI response be shown?"
+msgstr "Hiển thị phản hồi của AI như thế nào?"
+
+msgid "Replace the selected text"
+msgstr "Thay thế văn bản đã chọn"
+
+msgid "In a pop-up window (with follow-up support)"
+msgstr "Trong cửa sổ bật lên (hỗ trợ hỏi tiếp)"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "AI Shortcuts"
+msgstr "AI Shortcuts"
+
+msgid "Reset Commands"
+msgstr "Đặt lại lệnh"
+
+msgid ""
+"Are you sure you want to restore all built-in commands? This will bring back"
+" any deleted system commands."
+msgstr ""
+"Bạn có chắc muốn khôi phục tất cả lệnh có sẵn? Các lệnh hệ thống đã xóa sẽ "
+"được đưa trở lại."
+
+msgid "Customize your shortcut key (default: \"ctrl+space\"):"
+msgstr "Tùy chỉnh phím tắt (mặc định: \"ctrl+space\"):"
+
+msgid "Delete Command"
+msgstr "Xóa lệnh"
+
+msgid "Restore Built-in Commands"
+msgstr "Khôi phục lệnh có sẵn"
+
+msgid "This will restore all deleted system commands. Continue?"
+msgstr "Thao tác này sẽ khôi phục tất cả lệnh hệ thống đã xóa. Tiếp tục?"
+
+msgid "Checking for updates..."
+msgstr "Đang kiểm tra cập nhật..."
+
+msgid "Commands in this backup:"
+msgstr "Các lệnh trong bản sao lưu này:"
+
+msgid "Select All"
+msgstr "Chọn tất cả"
+
+msgid "Select None"
+msgstr "Bỏ chọn tất cả"
+
+msgid "Import Selected"
+msgstr "Nhập mục đã chọn"
+
+msgid "⚠ Replace All"
+msgstr "⚠ Thay thế tất cả"
+
+msgid "Done"
+msgstr "Hoàn tất"
+
+msgid "Replace All Commands?"
+msgstr "Thay thế tất cả lệnh?"
+
+msgid "A new version is available!"
+msgstr "Có phiên bản mới!"
+
+msgid "You're up to date."
+msgstr "Bạn đang dùng phiên bản mới nhất."
+
+msgid "Nothing Selected"
+msgstr "Chưa chọn mục nào"
+
+msgid "Please check at least one command to import."
+msgstr "Vui lòng chọn ít nhất một lệnh để nhập."
+
+msgid "Are you sure you want to delete '{0}'?"
+msgstr "Bạn có chắc muốn xóa '{0}'?"
+
+msgid "Shortcut Conflict"
+msgstr "Xung đột phím tắt"
+
+msgid ""
+"⚠️  <b>Replace All</b> will remove <b>every</b> command currently installed "
+"(including System commands) and replace them with the {0} command(s) from "
+"this backup. <b>This cannot be undone.</b><br><br>Use <b>Import Selected</b>"
+" to add only the commands you choose, without removing anything."
+msgstr ""
+"⚠️  <b>Thay thế tất cả</b> sẽ xóa <b>mọi</b> lệnh hiện có (kể cả lệnh hệ "
+"thống) và thay bằng {0} lệnh trong bản sao lưu này. <b>Không thể hoàn "
+"tác.</b><br><br>Dùng <b>Nhập mục đã chọn</b> để chỉ thêm các lệnh bạn chọn "
+"mà không xóa gì."
+
+msgid ""
+"This will permanently remove ALL {0} current command(s) (including System commands) and replace them with {1} command(s) from the backup.\n"
+"\n"
+"This cannot be undone. Are you sure?"
+msgstr ""
+"Thao tác này sẽ xóa vĩnh viễn TẤT CẢ {0} lệnh hiện có (kể cả lệnh hệ thống) và thay bằng {1} lệnh từ bản sao lưu.\n"
+"\n"
+"Không thể hoàn tác. Bạn có chắc không?"
+
+msgid "All commands replaced with {0} command(s) from backup."
+msgstr "Đã thay thế tất cả lệnh bằng {0} lệnh từ bản sao lưu."
+
+msgid ""
+"\"{0}\" is already used by command \"{1}\".\n"
+"Please choose a different shortcut."
+msgstr ""
+"\"{0}\" đã được lệnh \"{1}\" sử dụng.\n"
+"Vui lòng chọn phím tắt khác."
+
+msgid "e.g. Ctrl+Shift+P"
+msgstr "ví dụ: Ctrl+Shift+P"
+
+msgid "Clear shortcut"
+msgstr "Xóa phím tắt"
+
+msgid ""
+"Invalid shortcut format.\n"
+"Use: Modifier+Key (e.g. Ctrl+Shift+P)\n"
+"Modifiers: Ctrl, Shift, Alt, Super/Win\n"
+"Keys: letters, digits, F1–F12, or special keys"
+msgstr ""
+"Định dạng phím tắt không hợp lệ.\n"
+"Dùng: Phím bổ trợ+Phím (ví dụ Ctrl+Shift+P)\n"
+"Phím bổ trợ: Ctrl, Shift, Alt, Super/Win\n"
+"Phím: chữ cái, chữ số, F1–F12 hoặc phím đặc biệt"
