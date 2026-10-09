@@ -264,14 +264,23 @@ Manage these under **System Settings → Privacy & Security**.
 
 ### 🪟 Windows & 🐧 Linux
 
-Refer to the [original WritingTools project](https://github.com/theJayTea/WritingTools) for Windows & Linux installation. The `Windows_and_Linux/` folder in this repo contains an updated version with additional AI providers.
+Pre-built binaries are published on the [Releases page](https://github.com/gemkids275/WritingToolsV2/releases) (tags `win-v*`; macOS uses `v*`). See the [Windows & Linux changelog](Windows_and_Linux/CHANGELOG.md).
 
-**Quick start:**
+| Platform | Download | Notes |
+|---|---|---|
+| Windows 10/11 (x64) | `AI-Shortcuts-windows-x64.exe` | Unsigned: SmartScreen may warn on first run |
+| Linux (x64) | `AI-Shortcuts-linux-x64.tar.gz` | Needs X11 and `xclip` or `xsel`; global hotkeys do not work on Wayland |
+
+Verify a download with `sha256sum -c SHA256SUMS.txt --ignore-missing`. Settings are stored in `%APPDATA%\AIShortcuts` (Windows) or `~/.config/aishortcuts` (Linux).
+
+**Run from source:**
 ```bash
 cd Windows_and_Linux
 pip install -r requirements.txt
 python main.py
 ```
+
+**Release process (maintainers):** `python Windows_and_Linux/bump_version.py <N>`, add a `## [<N>]` entry to `Windows_and_Linux/CHANGELOG.md` and `Windows_and_Linux/release-notes/win-v<N>.md`, merge via PR (CI must pass), then push the tag `win-v<N>`. The release workflow builds both platforms and publishes the release with checksums and provenance attestations.
 
 ---
 
