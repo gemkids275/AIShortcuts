@@ -23,8 +23,22 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/win-v')
     runs-on: ubuntu-22.04
     permissions:
-      contents: write
+      contents: write       # create the release
+      id-token: write       # build provenance attestation
+      attestations: write
     steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve version and release notes
+        id: meta
+        run: |
+          version="${GITHUB_REF_NAME#win-v}"
+          notes="Windows_and_Linux/release-notes/${GITHUB_REF_NAME}.md"
+          test -f "$notes" || { echo "::error::Missing $notes - write the release notes before tagging"; exit 1; }
+          grep -q "^## \[${version}\]" Windows_and_Linux/CHANGELOG.md || { echo "::error::CHANGELOG.md has no entry for [${version}]"; exit 1; }
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "notes=$notes" >> "$GITHUB_OUTPUT"
+
       - uses: actions/download-artifact@v4
         with:
           path: out
@@ -34,16 +48,16 @@ jobs:
         working-directory: out
         run: sha256sum * > SHA256SUMS.txt
 
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: out/*
+
       - uses: softprops/action-gh-release@v2
         with:
-          name: "Windows & Linux ${{ github.ref_name }}"
-          generate_release_notes: true
-          # Keep the macOS release (v1.0) as "Latest".
+          name: "AI Shortcuts v${{ steps.meta.outputs.version }} — Windows & Linux"
+          body_path: ${{ steps.meta.outputs.notes }}
+          # Keep the macOS release as "Latest".
           make_latest: "false"
           files: out/*
-          body: |
-            **Windows & Linux builds only.** macOS releases use `v*` tags.
-
-            - Windows: `AI-Shortcuts-windows-x64.exe`
-            - Linux (X11): extract `AI-Shortcuts-linux-x64.tar.gz`, run `./"AI Shortcuts"`.
-              Needs `xclip` or `xsel` installed. Global hotkeys do not work on Wayland.
+          fail_on_unmatched_files: true
