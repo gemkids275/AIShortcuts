@@ -11,7 +11,7 @@ permissions:
 jobs:
   build:
     name: Build (macOS)
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v7
 
@@ -21,6 +21,12 @@ jobs:
           versions="$(grep -o 'MARKETING_VERSION = [^;]*' "macOS/AI Shortcuts.xcodeproj/project.pbxproj" | sed 's/.*= //' | sort -u)"
           [[ "$versions" != *$'\n'* ]] || { echo "::error::MARKETING_VERSION differs between configurations: $versions"; exit 1; }
           echo "version=$versions" >> "$GITHUB_OUTPUT"
+
+      # The project file format (objectVersion 77) needs Xcode 16 or newer.
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -s /Applications/Xcode_16.4.app
+          xcodebuild -version
 
       - uses: actions/cache@v4
         with:
