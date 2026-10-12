@@ -1,5 +1,5 @@
 import XCTest
-@testable import WritingTools
+@testable import AI_Shortcuts
 
 final class NormalizedInlineReplacementTests: XCTestCase {
 
