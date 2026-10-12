@@ -1,0 +1,59 @@
+name: Build macOS (reusable)
+
+# Builds the unsigned macOS app, then ad-hoc signs it and packs a DMG with
+# macOS/export_app.sh. Called by ci.yml (pull requests) and release-mac.yml (tags).
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build (macOS)
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Resolve app version
+        id: ver
+        run: |
+          versions="$(grep -o 'MARKETING_VERSION = [^;]*' "macOS/AI Shortcuts.xcodeproj/project.pbxproj" | sed 's/.*= //' | sort -u)"
+          [ "$(echo "$versions" | wc -l)" = "1" ] || { echo "::error::MARKETING_VERSION differs between configurations: $versions"; exit 1; }
+          echo "version=$versions" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@v4
+        with:
+          path: macOS/build/SourcePackages
+          key: spm-${{ runner.os }}-${{ hashFiles('macOS/AI Shortcuts.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved', 'macOS/AI Shortcuts.xcodeproj/project.pbxproj') }}
+          restore-keys: spm-${{ runner.os }}-
+
+      # Project signing is "Apple Development"; the runner has no certificate, so
+      # signing is disabled here and export_app.sh applies the ad-hoc signature.
+      - name: Build (Release, unsigned)
+        working-directory: macOS
+        run: |
+          xcodebuild build \
+            -project "AI Shortcuts.xcodeproj" \
+            -scheme "AI Shortcuts" \
+            -configuration Release \
+            -destination "generic/platform=macOS" \
+            -derivedDataPath build \
+            -clonedSourcePackagesDirPath build/SourcePackages \
+            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+
+      - name: Sign ad-hoc and package DMG
+        working-directory: macOS
+        run: |
+          app="build/Build/Products/Release/AI Shortcuts.app"
+          test -d "$app"
+          bash export_app.sh "$app"
+          mkdir -p ../out
+          mv "build/Build/Products/Release/AI Shortcuts.dmg" "../out/AI_Shortcuts_v${{ steps.ver.outputs.version }}.dmg"
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: ai-shortcuts-macos
+          path: out/*
+          if-no-files-found: error
+          retention-days: 7
