@@ -57,7 +57,7 @@ class KeychainMigrationManager {
 
             // Use nonisolated bootstrap save/read because migration runs at startup
             // before async contexts are available.
-            let saveSucceeded = keychain.bootstrapSave(value, forKey: newKey, synchronizable: true)
+            let saveSucceeded = keychain.bootstrapSave(value, forKey: newKey, synchronizable: false)
             guard saveSucceeded else {
                 failedKeys.append(oldKey)
                 logger.error("Failed to migrate \(oldKey): keychain write failed")

@@ -1,0 +1,39 @@
+name: Test macOS (reusable)
+
+# Runs the macOS unit tests (hosted in the ad-hoc signed app). Called by ci.yml.
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Unit tests (macOS)
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Select Xcode
+        run: |
+          xcode=/Applications/Xcode_26.3.app
+          [ -d "$xcode" ] || { echo "::error::$xcode missing on this runner"; ls -d /Applications/Xcode*; exit 1; }
+          sudo xcode-select -s "$xcode"
+          xcodebuild -version
+
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: macOS/build/SourcePackages
+          key: spm-${{ runner.os }}-${{ hashFiles('macOS/AI Shortcuts.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+
+      - name: Test
+        working-directory: macOS
+        run: |
+          xcodebuild test \
+            -project "AI Shortcuts.xcodeproj" \
+            -scheme "AI Shortcuts" \
+            -destination "platform=macOS" \
+            -derivedDataPath build \
+            -clonedSourcePackagesDirPath build/SourcePackages \
+            -disableAutomaticPackageResolution \
+            CODE_SIGN_IDENTITY="-" CODE_SIGNING_ALLOWED=YES

@@ -2,6 +2,10 @@ import Foundation
 import SwiftUI
 
 struct CommandModel: Codable, Identifiable, Equatable {
+    /// Written in place of the real key when a custom-provider command is encoded, so exports
+    /// show the field. It must never be read back as a key (it would overwrite the real one).
+    static let exportedApiKeyPlaceholder = "YOUR_API_KEY_HERE"
+
     let id: UUID
     var name: String
     var prompt: String
@@ -72,8 +76,10 @@ struct CommandModel: Codable, Identifiable, Equatable {
         customProviderModel = try c.decodeIfPresent(String.self, forKey: .customProviderModel)
 
         let legacyContainer = try decoder.container(keyedBy: LegacyCodingKeys.self)
-        if let legacyKey = try legacyContainer.decodeIfPresent(String.self, forKey: .customProviderApiKey),
-           !legacyKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+        if let legacyKey = try legacyContainer.decodeIfPresent(String.self, forKey: .customProviderApiKey)?
+            .trimmingCharacters(in: .whitespacesAndNewlines),
+           !legacyKey.isEmpty,
+           legacyKey != Self.exportedApiKeyPlaceholder {
             KeychainManager.shared.saveCustomProviderApiKeySync(legacyKey, for: id)
         }
     }
@@ -99,7 +105,7 @@ struct CommandModel: Codable, Identifiable, Equatable {
             // If it's a custom provider, encode a placeholder key for export transparency
             // so the user sees the field and understands they need to re-enter it.
             if providerOverride == "custom" {
-                try c.encode("YOUR_API_KEY_HERE", forKey: .customProviderApiKey)
+                try c.encode(Self.exportedApiKeyPlaceholder, forKey: .customProviderApiKey)
             }
         }
         

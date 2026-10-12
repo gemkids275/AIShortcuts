@@ -1,5 +1,5 @@
 import XCTest
-@testable import WritingTools
+@testable import AI_Shortcuts
 
 final class CommandModelCodingTests: XCTestCase {
 
@@ -78,9 +78,9 @@ final class CommandModelCodingTests: XCTestCase {
         XCTAssertTrue(decoded[1].useResponseWindow)
     }
 
-    // MARK: - Compact encoding (false booleans are omitted)
+    // MARK: - Encoding (booleans are always written for export transparency)
 
-    func testFalseBoolsAreOmittedFromEncoding() throws {
+    func testFalseBoolsAreEncodedExplicitly() throws {
         let command = CommandModel(
             name: "Compact",
             prompt: "test",
@@ -90,11 +90,10 @@ final class CommandModelCodingTests: XCTestCase {
         let data = try JSONEncoder().encode(command)
         let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
 
-        // False boolean fields should be omitted for compact storage
-        XCTAssertNil(json?["useResponseWindow"])
-        XCTAssertNil(json?["isBuiltIn"])
-        XCTAssertNil(json?["hasShortcut"])
-        XCTAssertNil(json?["preserveFormatting"])
+        XCTAssertEqual(json?["useResponseWindow"] as? Bool, false)
+        XCTAssertEqual(json?["isBuiltIn"] as? Bool, false)
+        XCTAssertEqual(json?["hasShortcut"] as? Bool, false)
+        XCTAssertEqual(json?["preserveFormatting"] as? Bool, false)
         // Nil optionals should also be omitted
         XCTAssertNil(json?["providerOverride"])
         XCTAssertNil(json?["modelOverride"])
@@ -191,5 +190,52 @@ final class CommandModelCodingTests: XCTestCase {
         let a = CommandModel(id: id, name: "A", prompt: "p", icon: "i")
         let b = CommandModel(id: id, name: "B", prompt: "p", icon: "i")
         XCTAssertNotEqual(a, b)
+    }
+
+    // MARK: - Custom provider key survives persistence round trip
+
+    func testCustomProviderKeyIsNotOverwrittenByExportPlaceholder() throws {
+        let id = UUID()
+        defer { KeychainManager.shared.deleteCustomProviderApiKeySync(for: id) }
+        let command = CommandModel(
+            id: id,
+            name: "Custom",
+            prompt: "p",
+            icon: "pencil",
+            providerOverride: "custom",
+            customProviderBaseURL: "https://example.test",
+            customProviderModel: "m"
+        )
+        KeychainManager.shared.saveCustomProviderApiKeySync("real-secret", for: id)
+
+        let data = try JSONEncoder().encode([command])
+        _ = try JSONDecoder().decode([CommandModel].self, from: data)
+
+        XCTAssertEqual(KeychainManager.shared.retrieveCustomProviderApiKeySync(for: id), "real-secret")
+    }
+
+    func testPlaceholderWithSurroundingWhitespaceIsAlsoIgnored() throws {
+        let id = UUID()
+        defer { KeychainManager.shared.deleteCustomProviderApiKeySync(for: id) }
+        KeychainManager.shared.saveCustomProviderApiKeySync("real-secret", for: id)
+        let json = """
+        [{"id":"\(id.uuidString)","name":"L","prompt":"p","icon":"pencil",
+          "providerOverride":"custom","customProviderApiKey":"  YOUR_API_KEY_HERE  "}]
+        """
+        _ = try JSONDecoder().decode([CommandModel].self, from: Data(json.utf8))
+
+        XCTAssertEqual(KeychainManager.shared.retrieveCustomProviderApiKeySync(for: id), "real-secret")
+    }
+
+    func testRealLegacyKeyInJSONIsStillMigrated() throws {
+        let id = UUID()
+        defer { KeychainManager.shared.deleteCustomProviderApiKeySync(for: id) }
+        let json = """
+        [{"id":"\(id.uuidString)","name":"L","prompt":"p","icon":"pencil",
+          "providerOverride":"custom","customProviderApiKey":"legacy-key"}]
+        """
+        _ = try JSONDecoder().decode([CommandModel].self, from: Data(json.utf8))
+
+        XCTAssertEqual(KeychainManager.shared.retrieveCustomProviderApiKeySync(for: id), "legacy-key")
     }
 }

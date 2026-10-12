@@ -1,0 +1,72 @@
+name: Build macOS (reusable)
+
+# Builds the unsigned macOS app, then ad-hoc signs it and packs a DMG with
+# macOS/export_app.sh. Called by ci.yml (pull requests) and release-mac.yml (tags).
+# Third-party actions are pinned by commit SHA; the Xcode version and the Swift
+# package versions (Package.resolved) are pinned so a release is reproducible.
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build (macOS)
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Resolve app version
+        id: ver
+        run: |
+          versions="$(grep -o 'MARKETING_VERSION = [^;]*' "macOS/AI Shortcuts.xcodeproj/project.pbxproj" | sed 's/.*= //' | sort -u)"
+          [[ "$versions" != *$'\n'* ]] || { echo "::error::MARKETING_VERSION differs between configurations: $versions"; exit 1; }
+          echo "version=$versions" >> "$GITHUB_OUTPUT"
+
+      # Needs Xcode 26 (Swift 6.2 packages, .icon asset) and a macOS 26 host: actool
+      # crashes on older hosts while compiling the .icon file.
+      - name: Select Xcode
+        run: |
+          xcode=/Applications/Xcode_26.3.app
+          [ -d "$xcode" ] || { echo "::error::$xcode missing on this runner"; ls -d /Applications/Xcode*; exit 1; }
+          sudo xcode-select -s "$xcode"
+          xcodebuild -version
+
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: macOS/build/SourcePackages
+          key: spm-${{ runner.os }}-${{ hashFiles('macOS/AI Shortcuts.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+
+      # Project signing is "Apple Development"; the runner has no certificate, so
+      # signing is disabled here and export_app.sh applies the ad-hoc signature.
+      - name: Build (Release, unsigned)
+        working-directory: macOS
+        run: |
+          xcodebuild build \
+            -project "AI Shortcuts.xcodeproj" \
+            -scheme "AI Shortcuts" \
+            -configuration Release \
+            -destination "generic/platform=macOS" \
+            -derivedDataPath build \
+            -clonedSourcePackagesDirPath build/SourcePackages \
+            -disableAutomaticPackageResolution \
+            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+
+      - name: Sign ad-hoc and package DMG
+        working-directory: macOS
+        env:
+          VERSION: ${{ steps.ver.outputs.version }}
+        run: |
+          app="build/Build/Products/Release/AI Shortcuts.app"
+          test -d "$app"
+          bash export_app.sh "$app"
+          mkdir -p ../out
+          mv "build/Build/Products/Release/AI Shortcuts.dmg" "../out/AI_Shortcuts_v${VERSION}.dmg"
+
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: ai-shortcuts-macos
+          path: out/*
+          if-no-files-found: error
+          retention-days: 7

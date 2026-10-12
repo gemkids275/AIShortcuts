@@ -1,0 +1,128 @@
+name: Release macOS
+
+# Tag `mac-v<X.Y>` builds the macOS DMG and publishes a GitHub Release.
+# <X.Y> must equal MARKETING_VERSION in the Xcode project, the tagged commit must be
+# on `main`, and macOS/release-notes/mac-v<X.Y>.md must exist
+# (run `macOS/bump_version.sh <X.Y>` before tagging).
+# The update notice for existing users is a separate, later step: after the release
+# exists, run `macOS/announce_update.sh <X.Y>` and merge that change.
+# Manual runs (workflow_dispatch) only build and upload artifacts, unless
+# `release_tag` names a tag (e.g. mac-v1.1): then the build from the `main` branch
+# creates that release. The tag must not exist yet, or must already point at the
+# commit being built.
+on:
+  push:
+    tags:
+      - "mac-v*"
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Release tag to create or refresh with this build (e.g. mac-v1.1). Leave empty to only build artifacts."
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+# Two runs for the same tag must not mix assets in one release.
+concurrency:
+  group: release-mac-${{ inputs.release_tag || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  meta:
+    name: Validate version and notes
+    runs-on: ubuntu-22.04
+    outputs:
+      tag: ${{ steps.meta.outputs.tag }}
+      version: ${{ steps.meta.outputs.version }}
+      notes: ${{ steps.meta.outputs.notes }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+
+      - id: meta
+        env:
+          TAG_INPUT: ${{ inputs.release_tag }}
+        run: |
+          if [ "${GITHUB_EVENT_NAME}" = "push" ]; then tag="$GITHUB_REF_NAME"; else tag="$TAG_INPUT"; fi
+          if [ -z "$tag" ]; then
+            echo "tag=" >> "$GITHUB_OUTPUT"
+            echo "No release tag: build only."
+            exit 0
+          fi
+          [[ "$tag" =~ ^mac-v[0-9]+\.[0-9]+(\.[0-9]+)?$ ]] || { echo "::error::Invalid release tag '$tag' (expected mac-v<X.Y>)"; exit 1; }
+          version="${tag#mac-v}"
+          notes="macOS/release-notes/${tag}.md"
+          test -f "$notes" || { echo "::error::Missing $notes - write the release notes before tagging"; exit 1; }
+          project_version="$(grep -o 'MARKETING_VERSION = [^;]*' "macOS/AI Shortcuts.xcodeproj/project.pbxproj" | sed 's/.*= //' | sort -u)"
+          echo "tag=$version MARKETING_VERSION=$project_version"
+          [ "$version" = "$project_version" ] || {
+            echo "::error::Tag and MARKETING_VERSION must be equal (run macOS/bump_version.sh)"; exit 1; }
+          if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
+            git merge-base --is-ancestor "$GITHUB_SHA" origin/main || {
+              echo "::error::Tagged commit is not on main: merge the pull request first"; exit 1; }
+          else
+            existing="$(git rev-parse -q --verify "refs/tags/${tag}^{commit}" || true)"
+            if [ -n "$existing" ] && [ "$existing" != "$GITHUB_SHA" ]; then
+              echo "::error::Tag $tag points at $existing, not at the commit being built ($GITHUB_SHA)"; exit 1
+            fi
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "notes=$notes" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: meta
+    uses: ./.github/workflows/_build-mac.yml
+
+  release:
+    name: Publish GitHub Release
+    needs: [meta, build]
+    # Tag pushes, or manual runs from `main` only.
+    if: needs.meta.outputs.tag != '' && (github.event_name == 'push' || github.ref == 'refs/heads/main')
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write       # create the release
+      id-token: write       # build provenance attestation
+      attestations: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          path: out
+          merge-multiple: true
+
+      - name: Generate checksums
+        working-directory: out
+        run: sha256sum * > SHA256SUMS.txt
+
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be # v2
+        with:
+          subject-path: out/*
+
+      - uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2
+        with:
+          tag_name: ${{ needs.meta.outputs.tag }}
+          # A new tag is created on the commit that was built, not on whatever main is now.
+          target_commitish: ${{ github.sha }}
+          name: "AI Shortcuts v${{ needs.meta.outputs.version }} — macOS"
+          body_path: ${{ needs.meta.outputs.notes }}
+          # Never take the "Latest" flag from the Windows & Linux release.
+          make_latest: "false"
+          files: out/*
+          fail_on_unmatched_files: true
+
+      - name: Verify published assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.meta.outputs.tag }}
+          VERSION: ${{ needs.meta.outputs.version }}
+        run: |
+          assets="$(gh release view "$TAG" --json assets --jq '.assets[].name')"
+          echo "$assets"
+          echo "$assets" | grep -qx "AI_Shortcuts_v${VERSION}.dmg" && echo "$assets" | grep -qx "SHA256SUMS.txt" || {
+            echo "::error::Release $TAG is missing the DMG or SHA256SUMS.txt"; exit 1; }
