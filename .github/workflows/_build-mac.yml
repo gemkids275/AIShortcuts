@@ -6,6 +6,11 @@ name: Build macOS (reusable)
 # package versions (Package.resolved) are pinned so a release is reproducible.
 on:
   workflow_call:
+    secrets:
+      MAC_SIGNING_P12_BASE64:
+        required: false
+      MAC_SIGNING_P12_PASSWORD:
+        required: false
 
 permissions:
   contents: read
@@ -53,7 +58,17 @@ jobs:
             -disableAutomaticPackageResolution \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
 
-      - name: Sign ad-hoc and package DMG
+      # With the certificate secrets the app keeps one stable identity across releases, so
+      # macOS keeps its Accessibility / Screen Recording grants. Without them (pull requests,
+      # forks) the app is signed ad-hoc.
+      - name: Import signing certificate
+        working-directory: macOS
+        env:
+          MAC_SIGNING_P12_BASE64: ${{ secrets.MAC_SIGNING_P12_BASE64 }}
+          MAC_SIGNING_P12_PASSWORD: ${{ secrets.MAC_SIGNING_P12_PASSWORD }}
+        run: ./import_signing_cert.sh
+
+      - name: Sign and package DMG
         working-directory: macOS
         env:
           VERSION: ${{ steps.ver.outputs.version }}
@@ -61,8 +76,17 @@ jobs:
           app="build/Build/Products/Release/AI Shortcuts.app"
           test -d "$app"
           bash export_app.sh "$app"
+          codesign -dv "$app" 2>&1 | grep -E "Signature|Authority|Identifier"
+          codesign -d -r- "$app" 2>&1 | grep designated
+          if [ -n "${SIGN_IDENTITY:-}" ] && codesign -dv "$app" 2>&1 | grep -q "Signature=adhoc"; then
+            echo "::error::Signing certificate was configured but the app is signed ad-hoc"; exit 1
+          fi
           mkdir -p ../out
           mv "build/Build/Products/Release/AI Shortcuts.dmg" "../out/AI_Shortcuts_v${VERSION}.dmg"
+
+      - name: Remove signing keychain
+        if: always()
+        run: security delete-keychain "$RUNNER_TEMP/signing.keychain-db" 2>/dev/null || true
 
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:

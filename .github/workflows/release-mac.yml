@@ -76,6 +76,7 @@ jobs:
   build:
     needs: meta
     uses: ./.github/workflows/_build-mac.yml
+    secrets: inherit
 
   release:
     name: Publish GitHub Release

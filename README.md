@@ -130,7 +130,7 @@ Visit the [website](https://aishortcuts.github.io/) or grab the latest build fro
 
 ### macOS
 
-Requires macOS 14 (Sonoma) or later. Download the `.dmg`, drag the app to **Applications** and launch it. The first run guides you through **Accessibility** and **Screen Recording** permissions (manage them in **System Settings → Privacy & Security**). The app is ad-hoc signed, not notarized: if macOS says it is "damaged" or cannot be opened, run `xattr -cr "/Applications/AI Shortcuts.app"` once. After an update you may need to grant the Accessibility and Screen Recording permissions again.
+Requires macOS 14 (Sonoma) or later. Download the `.dmg`, drag the app to **Applications** and launch it. The first run guides you through **Accessibility** and **Screen Recording** permissions (manage them in **System Settings → Privacy & Security**). The app is signed with a fixed self-signed certificate (so permissions survive updates), not notarized: if macOS says it is "damaged" or cannot be opened, run `xattr -cr "/Applications/AI Shortcuts.app"` once. If permissions stop working after an update, run `tccutil reset Accessibility com.gemkids.writing-tools` and `tccutil reset ScreenCapture com.gemkids.writing-tools`, then grant them again.
 
 ### Windows
 
@@ -170,7 +170,7 @@ Run `python Windows_and_Linux/bump_version.py <N>`, add a `## [<N>]` entry to `W
 <details>
 <summary>macOS release process (maintainers)</summary>
 
-Run `macOS/bump_version.sh <X.Y>`, add `macOS/release-notes/mac-v<X.Y>.md`, merge through a pull request (CI builds the app and runs the unit tests), then push the tag `mac-v<X.Y>` on the merged `main` commit. The **Release macOS** workflow builds the DMG on a macOS 26 runner, ad-hoc signs it and publishes it with checksums and a provenance attestation; it never takes the "Latest" flag from the Windows & Linux release. When the release exists, run `macOS/announce_update.sh <X.Y>` and merge that change: it updates the file the in-app update checker reads, so users are told to update only once the download is available. A manual run of the workflow with `release_tag` creates the release for a tag that does not exist yet (or already points at the built commit).
+Run `macOS/bump_version.sh <X.Y>`, add `macOS/release-notes/mac-v<X.Y>.md`, merge through a pull request (CI builds the app and runs the unit tests), then push the tag `mac-v<X.Y>` on the merged `main` commit. The **Release macOS** workflow builds the DMG on a macOS 26 runner, signs it with the certificate stored in the `MAC_SIGNING_P12_BASE64` / `MAC_SIGNING_P12_PASSWORD` secrets (ad-hoc when they are missing) and publishes it with checksums and a provenance attestation; it never takes the "Latest" flag from the Windows & Linux release. When the release exists, run `macOS/announce_update.sh <X.Y>` and merge that change: it updates the file the in-app update checker reads, so users are told to update only once the download is available. A manual run of the workflow with `release_tag` creates the release for a tag that does not exist yet (or already points at the built commit).
 
 </details>
 
