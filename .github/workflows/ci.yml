@@ -43,13 +43,13 @@ jobs:
             exit 0
           fi
           changed="$(git diff --name-only "$BASE_SHA"...HEAD)"
-          if echo "$changed" | grep -qE '^(Windows_and_Linux/|\.github/workflows/)'; then
+          if echo "$changed" | grep -qE '^(Windows_and_Linux/|\.github/workflows/(ci|_build|release)\.yml)'; then
             echo "code=true" >> "$GITHUB_OUTPUT"
           else
             echo "code=false" >> "$GITHUB_OUTPUT"
             echo "No Windows/Linux code or workflow changes: skipping checks and builds."
           fi
-          if echo "$changed" | grep -qE '^(macOS/|\.github/workflows/)'; then
+          if echo "$changed" | grep -qE '^(macOS/|\.github/workflows/(ci|_build-mac|release-mac)\.yml)'; then
             echo "mac=true" >> "$GITHUB_OUTPUT"
           else
             echo "mac=false" >> "$GITHUB_OUTPUT"

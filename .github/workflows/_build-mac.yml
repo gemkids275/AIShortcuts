@@ -19,7 +19,7 @@ jobs:
         id: ver
         run: |
           versions="$(grep -o 'MARKETING_VERSION = [^;]*' "macOS/AI Shortcuts.xcodeproj/project.pbxproj" | sed 's/.*= //' | sort -u)"
-          [ "$(echo "$versions" | wc -l)" = "1" ] || { echo "::error::MARKETING_VERSION differs between configurations: $versions"; exit 1; }
+          [[ "$versions" != *$'\n'* ]] || { echo "::error::MARKETING_VERSION differs between configurations: $versions"; exit 1; }
           echo "version=$versions" >> "$GITHUB_OUTPUT"
 
       - uses: actions/cache@v4
