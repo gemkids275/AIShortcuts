@@ -214,6 +214,19 @@ final class CommandModelCodingTests: XCTestCase {
         XCTAssertEqual(KeychainManager.shared.retrieveCustomProviderApiKeySync(for: id), "real-secret")
     }
 
+    func testPlaceholderWithSurroundingWhitespaceIsAlsoIgnored() throws {
+        let id = UUID()
+        defer { KeychainManager.shared.deleteCustomProviderApiKeySync(for: id) }
+        KeychainManager.shared.saveCustomProviderApiKeySync("real-secret", for: id)
+        let json = """
+        [{"id":"\(id.uuidString)","name":"L","prompt":"p","icon":"pencil",
+          "providerOverride":"custom","customProviderApiKey":"  YOUR_API_KEY_HERE  "}]
+        """
+        _ = try JSONDecoder().decode([CommandModel].self, from: Data(json.utf8))
+
+        XCTAssertEqual(KeychainManager.shared.retrieveCustomProviderApiKeySync(for: id), "real-secret")
+    }
+
     func testRealLegacyKeyInJSONIsStillMigrated() throws {
         let id = UUID()
         defer { KeychainManager.shared.deleteCustomProviderApiKeySync(for: id) }

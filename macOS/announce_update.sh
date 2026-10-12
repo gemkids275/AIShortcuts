@@ -14,10 +14,15 @@ fi
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
-assets="$(gh release view "mac-v$VERSION" --json assets --jq '.assets[].name')" || {
+draft="$(gh release view "mac-v$VERSION" --json isDraft --jq '.isDraft')" || {
     echo "Release mac-v$VERSION not found. Publish it first."
     exit 1
 }
+[ "$draft" = "false" ] || {
+    echo "Release mac-v$VERSION is still a draft. Publish it first."
+    exit 1
+}
+assets="$(gh release view "mac-v$VERSION" --json assets --jq '.assets[].name')"
 echo "$assets" | grep -qx "AI_Shortcuts_v$VERSION.dmg" || {
     echo "Release mac-v$VERSION has no AI_Shortcuts_v$VERSION.dmg asset."
     exit 1
