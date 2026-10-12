@@ -11,7 +11,7 @@ permissions:
 jobs:
   build:
     name: Build (macOS)
-    runs-on: macos-15
+    runs-on: macos-26
     steps:
       - uses: actions/checkout@v7
 
@@ -22,7 +22,8 @@ jobs:
           [[ "$versions" != *$'\n'* ]] || { echo "::error::MARKETING_VERSION differs between configurations: $versions"; exit 1; }
           echo "version=$versions" >> "$GITHUB_OUTPUT"
 
-      # The project (objectVersion 77) and its Swift packages need Xcode 26 (Swift 6.2).
+      # Needs Xcode 26 (Swift 6.2 packages, .icon asset) and a macOS 26 host: actool
+      # crashes on older hosts while compiling the .icon file.
       - name: Select Xcode
         run: |
           xcode="$(ls -d /Applications/Xcode_26*.app 2>/dev/null | grep -vi beta | sort -V | tail -1)"
