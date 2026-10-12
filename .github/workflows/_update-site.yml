@@ -1,0 +1,49 @@
+name: Update website downloads
+
+# Reusable. Points the website download buttons at the newest release of each
+# platform and pushes the change to the site repo with a write-enabled deploy key
+# (secret SITE_DEPLOY_KEY, public half registered on aishortcuts/aishortcuts.github.io).
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: update-site-downloads
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: Update website links
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check out the website
+        env:
+          SITE_DEPLOY_KEY: ${{ secrets.SITE_DEPLOY_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SITE_DEPLOY_KEY" > ~/.ssh/site_deploy
+          chmod 600 ~/.ssh/site_deploy
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          GIT_SSH_COMMAND="ssh -i ~/.ssh/site_deploy -o IdentitiesOnly=yes" \
+            git clone --depth 1 git@github.com:aishortcuts/aishortcuts.github.io.git site
+
+      - name: Rewrite download links
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/update_site_downloads.py site
+
+      - name: Commit and push
+        run: |
+          cd site
+          if git diff --quiet; then
+            echo "Website already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "chore: update download links to the latest releases"
+          GIT_SSH_COMMAND="ssh -i ~/.ssh/site_deploy -o IdentitiesOnly=yes" git push origin HEAD:main

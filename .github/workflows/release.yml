@@ -75,3 +75,9 @@ jobs:
           make_latest: ${{ github.event_name == 'push' && 'true' || 'legacy' }}
           files: out/*
           fail_on_unmatched_files: true
+
+  site:
+    name: Update website downloads
+    needs: release
+    uses: ./.github/workflows/_update-site.yml
+    secrets: inherit
