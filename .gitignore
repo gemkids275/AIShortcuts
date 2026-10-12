@@ -30,3 +30,9 @@ Windows_and_Linux/commands.json
 # Xcode build output
 DerivedData/
 *.xcuserstate
+
+# Private signing material must never be committed
+*.p12
+*.pem
+signing.p12.base64
+p12.password

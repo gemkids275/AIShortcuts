@@ -4,7 +4,7 @@ set -e
 # --- Configuration ---
 # This script prepares a macOS .app for distribution by:
 # 1. Clearing quarantine attributes
-# 2. Re-signing the app with an ad-hoc signature (crucial for M1/M2/M3 chips)
+# 2. Re-signing the app (ad-hoc by default, or with SIGN_IDENTITY/SIGN_KEYCHAIN)
 # 3. Packaging it into a DMG with an /Applications shortcut
 
 APP_PATH="$1"
@@ -34,8 +34,17 @@ xattr -cr "$APP_PATH"
 
 # 2. Ad-hoc Signing (Fixes 'Can't be opened' errors on Apple Silicon)
 # We use the commands from your feedback
-echo "→ Signing application with ad-hoc signature..."
-codesign --deep --force --sign - "$APP_PATH"
+SIGN_IDENTITY="${SIGN_IDENTITY:--}"
+sign_args=(--deep --force --sign "$SIGN_IDENTITY")
+if [ -n "${SIGN_KEYCHAIN:-}" ]; then
+    sign_args+=(--keychain "$SIGN_KEYCHAIN")
+fi
+if [ "$SIGN_IDENTITY" = "-" ]; then
+    echo "→ Signing application with ad-hoc signature..."
+else
+    echo "→ Signing application with certificate $SIGN_IDENTITY..."
+fi
+codesign "${sign_args[@]}" "$APP_PATH"
 
 # 3. Create DMG structure with shortcut
 echo "→ Creating DMG staging area..."

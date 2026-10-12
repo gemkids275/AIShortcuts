@@ -1,0 +1,12 @@
+[req]
+distinguished_name = dn
+x509_extensions = v3
+prompt = no
+[dn]
+CN = AI Shortcuts Release Signing
+O = AI Shortcuts
+[v3]
+basicConstraints = critical,CA:false
+keyUsage = critical,digitalSignature
+extendedKeyUsage = critical,codeSigning
+subjectKeyIdentifier = hash

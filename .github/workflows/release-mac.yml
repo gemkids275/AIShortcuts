@@ -20,6 +20,10 @@ on:
         description: "Release tag to create or refresh with this build (e.g. mac-v1.1). Leave empty to only build artifacts."
         required: false
         default: ""
+      sign_check:
+        description: "Only check that the signing certificate works (a few minutes, no build, no release)."
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -75,13 +79,48 @@ jobs:
 
   build:
     needs: meta
+    if: ${{ !inputs.sign_check }}
     uses: ./.github/workflows/_build-mac.yml
+    secrets: inherit
+
+  # Quick health check of the signing certificate: signs two different binaries and
+  # requires the same designated requirement (a stable app identity), not a code hash.
+  sign-check:
+    name: Check signing certificate
+    if: ${{ inputs.sign_check }}
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Import signing certificate
+        working-directory: macOS
+        env:
+          MAC_SIGNING_P12_BASE64: ${{ secrets.MAC_SIGNING_P12_BASE64 }}
+          MAC_SIGNING_P12_PASSWORD: ${{ secrets.MAC_SIGNING_P12_PASSWORD }}
+        run: ./import_signing_cert.sh
+
+      - name: Sign two different binaries
+        run: |
+          [ -n "${SIGN_IDENTITY:-}" ] || { echo "::error::No signing certificate configured"; exit 1; }
+          security list-keychains -d user
+          security find-identity -p codesigning
+          for n in 1 2; do
+            printf 'int main(void){return %s;}\n' "$n" > "t$n.c"
+            clang "t$n.c" -o "t$n"
+            codesign --force --sign "$SIGN_IDENTITY" --keychain "$SIGN_KEYCHAIN" -i com.gemkids.writing-tools "t$n"
+            codesign -dv "t$n" 2>&1 | grep -E "Signature|Authority|Identifier"
+            codesign -d -r- "t$n" 2>&1 | grep designated | sed 's/^# //' > "dr$n.txt"
+            cat "dr$n.txt"
+          done
+          ! grep -q cdhash dr1.txt || { echo "::error::Designated requirement is a code hash, not stable"; exit 1; }
+          cmp dr1.txt dr2.txt || { echo "::error::Designated requirement differs between builds"; exit 1; }
+          echo "Stable identity confirmed."
 
   release:
     name: Publish GitHub Release
     needs: [meta, build]
     # Tag pushes, or manual runs from `main` only.
-    if: needs.meta.outputs.tag != '' && (github.event_name == 'push' || github.ref == 'refs/heads/main')
+    if: ${{ !inputs.sign_check && needs.meta.outputs.tag != '' && (github.event_name == 'push' || github.ref == 'refs/heads/main') }}
     runs-on: ubuntu-22.04
     permissions:
       contents: write       # create the release
