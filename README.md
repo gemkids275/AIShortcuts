@@ -109,6 +109,8 @@ The Linux build runs on X11 desktops with the same hotkey, popup and response wi
 - Command import/export, full backup and restore, and drag-to-reorder.
 - Per-command providers and in-app language switching.
 - Fixed the onboarding deep link to **Privacy & Security** on recent macOS versions.
+- **Pre-built DMG** (`mac-v1.1`) built on CI, signed with a fixed certificate so Accessibility and Screen Recording permissions survive updates, with checksums and build provenance.
+- Fixed custom-provider API keys being lost or overwritten by the export placeholder.
 
 ## AI providers
 
@@ -126,7 +128,7 @@ Mix and match: cloud models for hard tasks, local models for private or offline 
 
 ## Installation
 
-Visit the [website](https://aishortcuts.github.io/) or grab the latest build from the [Releases page](https://github.com/gemkids275/AIShortcuts/releases). macOS uses `mac-v*` tags (the first macOS release is `v1.0`); Windows and Linux use `win-v*` tags.
+Visit the [website](https://aishortcuts.github.io/) or grab the latest build from the [Releases page](https://github.com/gemkids275/AIShortcuts/releases). macOS uses `mac-v*` tags (starting with `mac-v1.1`; the earlier `v1.0` was the original macOS release); Windows and Linux use `win-v*` tags.
 
 ### macOS
 
