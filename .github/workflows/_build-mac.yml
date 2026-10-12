@@ -22,10 +22,12 @@ jobs:
           [[ "$versions" != *$'\n'* ]] || { echo "::error::MARKETING_VERSION differs between configurations: $versions"; exit 1; }
           echo "version=$versions" >> "$GITHUB_OUTPUT"
 
-      # The project file format (objectVersion 77) needs Xcode 16 or newer.
+      # The project (objectVersion 77) and its Swift packages need Xcode 26 (Swift 6.2).
       - name: Select Xcode
         run: |
-          sudo xcode-select -s /Applications/Xcode_16.4.app
+          xcode="$(ls -d /Applications/Xcode_26*.app 2>/dev/null | grep -vi beta | sort -V | tail -1)"
+          [ -n "$xcode" ] || { echo "::error::No Xcode 26 on this runner"; ls -d /Applications/Xcode*; exit 1; }
+          sudo xcode-select -s "$xcode"
           xcodebuild -version
 
       - uses: actions/cache@v4
