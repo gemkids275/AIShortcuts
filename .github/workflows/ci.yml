@@ -32,6 +32,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      # A leaked signing key would let anyone sign as the app: never allow one in the repo.
+      - name: Block private keys and certificates
+        run: |
+          if git ls-files | grep -Ei '(^|/)(p12\.password|signing\.p12(\.base64)?)$|\.(p12|pfx|pem|key)$'; then
+            echo "::error::Private key or certificate material is tracked by git"; exit 1
+          fi
+
       - id: diff
         env:
           EVENT: ${{ github.event_name }}

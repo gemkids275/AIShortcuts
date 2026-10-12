@@ -1,0 +1,7 @@
+# Everything here is private signing material and must never be committed.
+# Only this file, the README and the helper script are tracked.
+*
+!.gitignore
+!README.md
+!create_certificate.sh
+!cert.cnf
