@@ -24,6 +24,11 @@ security import "$p12" -k "$keychain" -P "$MAC_SIGNING_P12_PASSWORD" -T /usr/bin
 rm "$p12"
 security set-key-partition-list -S apple-tool:,apple: -s -k "$keychain_password" "$keychain" > /dev/null
 
+# codesign resolves identities through the keychain search list.
+existing="$(security list-keychains -d user | tr -d '"')"
+# shellcheck disable=SC2086
+security list-keychains -d user -s "$keychain" $existing
+
 # codesign only accepts identities the system trusts for code signing. This runs on a
 # throwaway CI runner (passwordless sudo), so trusting our own certificate there is safe.
 cert="$RUNNER_TEMP/signing-cert.pem"
