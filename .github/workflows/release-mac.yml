@@ -165,3 +165,9 @@ jobs:
           echo "$assets"
           echo "$assets" | grep -qx "AI_Shortcuts_v${VERSION}.dmg" && echo "$assets" | grep -qx "SHA256SUMS.txt" || {
             echo "::error::Release $TAG is missing the DMG or SHA256SUMS.txt"; exit 1; }
+
+  site:
+    name: Update website downloads
+    needs: release
+    uses: ./.github/workflows/_update-site.yml
+    secrets: inherit
