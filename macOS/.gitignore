@@ -53,3 +53,5 @@ codebase.md
 # Temporary files
 *.swp
 *.lock
+# Keep resolved Swift package versions so CI and releases build the same dependencies
+!*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved

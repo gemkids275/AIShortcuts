@@ -49,7 +49,7 @@ jobs:
             echo "code=false" >> "$GITHUB_OUTPUT"
             echo "No Windows/Linux code or workflow changes: skipping checks and builds."
           fi
-          if echo "$changed" | grep -qE '^(macOS/|\.github/workflows/(ci|_build-mac|release-mac)\.yml)'; then
+          if echo "$changed" | grep -qE '^(macOS/|\.github/workflows/(ci|_build-mac|_test-mac|release-mac)\.yml)'; then
             echo "mac=true" >> "$GITHUB_OUTPUT"
           else
             echo "mac=false" >> "$GITHUB_OUTPUT"
@@ -122,10 +122,16 @@ jobs:
     if: needs.changes.outputs.mac == 'true'
     uses: ./.github/workflows/_build-mac.yml
 
+  test-mac:
+    name: Test macOS
+    needs: changes
+    if: needs.changes.outputs.mac == 'true'
+    uses: ./.github/workflows/_test-mac.yml
+
   # The single required status check. Passes when jobs succeeded or were skipped.
   result:
     name: CI result
-    needs: [changes, checks, build, build-mac]
+    needs: [changes, checks, build, build-mac, test-mac]
     if: always()
     runs-on: ubuntu-22.04
     steps:

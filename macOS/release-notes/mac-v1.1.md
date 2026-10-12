@@ -3,6 +3,7 @@
 ## What's new
 - **Fix: API keys lost after restart.** Keys are now stored reliably in the local Keychain.
 - **Fix: false "update available" alert.** A failed update check (for example an HTTP 404) is no longer read as a version number.
+- **Fix: custom provider API keys** are no longer replaced by a placeholder after the app reloads its commands. Keys that were already overwritten must be entered again.
 - **Localization:** settings screens and components now use localized strings (English, German, French, Spanish).
 
 ## Download
@@ -13,6 +14,8 @@
    ```bash
    xattr -cr "/Applications/AI Shortcuts.app"
    ```
+
+3. The app is re-signed for every release, so macOS may ask for the **Accessibility** and **Screen Recording** permissions again after updating. If a permission looks enabled but does not work, remove AI Shortcuts from the list in **System Settings → Privacy & Security** and add it back.
 
 ### Verify your download
 ```bash

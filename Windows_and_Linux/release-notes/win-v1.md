@@ -1,4 +1,4 @@
-**AI Shortcuts for Windows & Linux — first release of this fork.** Select text in any app, press a hotkey, and let an AI proofread, rewrite or summarize it in place. macOS has its own releases (`v*` tags).
+**AI Shortcuts for Windows & Linux — first release of this fork.** Select text in any app, press a hotkey, and let an AI proofread, rewrite or summarize it in place. macOS has its own releases (`mac-v*` tags).
 
 > **Updated build (2026-10-09):** assets were rebuilt to fix retired Gemini models (Gemma 3) and to bundle translations so the selected language is applied. Version number is unchanged; verify with the attached `SHA256SUMS.txt`.
 

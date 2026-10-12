@@ -126,11 +126,11 @@ Mix and match: cloud models for hard tasks, local models for private or offline 
 
 ## Installation
 
-Visit the [website](https://aishortcuts.github.io/) or grab the latest build from the [Releases page](https://github.com/gemkids275/AIShortcuts/releases). macOS uses `v*` tags; Windows and Linux use `win-v*` tags.
+Visit the [website](https://aishortcuts.github.io/) or grab the latest build from the [Releases page](https://github.com/gemkids275/AIShortcuts/releases). macOS uses `mac-v*` tags (the first macOS release is `v1.0`); Windows and Linux use `win-v*` tags.
 
 ### macOS
 
-Requires macOS 14 (Sonoma) or later. Download the `.dmg`, drag the app to **Applications** and launch it. The first run guides you through **Accessibility** and **Screen Recording** permissions (manage them in **System Settings → Privacy & Security**).
+Requires macOS 14 (Sonoma) or later. Download the `.dmg`, drag the app to **Applications** and launch it. The first run guides you through **Accessibility** and **Screen Recording** permissions (manage them in **System Settings → Privacy & Security**). The app is ad-hoc signed, not notarized: if macOS says it is "damaged" or cannot be opened, run `xattr -cr "/Applications/AI Shortcuts.app"` once. After an update you may need to grant the Accessibility and Screen Recording permissions again.
 
 ### Windows
 
@@ -164,6 +164,13 @@ python main.py
 <summary>Release process (maintainers)</summary>
 
 Run `python Windows_and_Linux/bump_version.py <N>`, add a `## [<N>]` entry to `Windows_and_Linux/CHANGELOG.md` and a `Windows_and_Linux/release-notes/win-v<N>.md`, merge through a pull request (CI must pass), then push the tag `win-v<N>`. The release workflow builds both platforms and publishes checksums and provenance attestations. To refresh the assets of an existing release, run the **Release Windows & Linux** workflow manually with `release_tag` set to that tag.
+
+</details>
+
+<details>
+<summary>macOS release process (maintainers)</summary>
+
+Run `macOS/bump_version.sh <X.Y>`, add `macOS/release-notes/mac-v<X.Y>.md`, merge through a pull request (CI builds the app and runs the unit tests), then push the tag `mac-v<X.Y>` on the merged `main` commit. The **Release macOS** workflow builds the DMG on a macOS 26 runner, ad-hoc signs it and publishes it with checksums and a provenance attestation; it never takes the "Latest" flag from the Windows & Linux release. When the release exists, run `macOS/announce_update.sh <X.Y>` and merge that change: it updates the file the in-app update checker reads, so users are told to update only once the download is available. A manual run of the workflow with `release_tag` creates the release for a tag that does not exist yet (or already points at the built commit).
 
 </details>
 
