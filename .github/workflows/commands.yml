@@ -1,0 +1,43 @@
+name: Commands
+
+# Checks every pull request that touches the shared command gallery: the validator's
+# own tests, the rules for each file in commands/ (no provider or key fields, no links,
+# no key-like strings) and that the Windows/Linux importer accepts every file.
+# Contributed files are untrusted input: this runs with read-only permissions and
+# never receives secrets (pull_request, not pull_request_target).
+on:
+  pull_request:
+    paths:
+      - "commands/**"
+      - ".github/scripts/validate_commands.py"
+      - ".github/scripts/test_validate_commands.py"
+      - ".github/workflows/commands.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: commands-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate shared commands
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Validator tests
+        run: python -m unittest discover -s .github/scripts
+
+      - name: Validate commands/
+        run: python .github/scripts/validate_commands.py commands
+
+      - name: Windows and Linux importer accepts every file
+        working-directory: Windows_and_Linux
+        run: python -m unittest tests.test_command_manager

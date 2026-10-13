@@ -29,6 +29,10 @@ Open `macOS/WritingTools.xcodeproj` in Xcode (macOS 14+) and run the
 `WritingTools` scheme. Run the tests with
 `xcodebuild test -scheme WritingTools -project macOS/WritingTools.xcodeproj`.
 
+## Share a command
+
+Useful ready-made commands live in [commands/](commands/) and are listed on the [website](https://aishortcuts.github.io/commands/). Export your command from the app, add the `gallery` block and open a pull request with the **command** template; the format, the rules and the local check are described in [commands/README.md](commands/README.md). If you would rather not touch Git, open a [Suggest a command](https://github.com/gemkids275/AIShortcuts/issues/new?template=command_suggestion.yml) issue.
+
 ## Pull requests
 
 - Branch from `main` and open the PR against `main`.

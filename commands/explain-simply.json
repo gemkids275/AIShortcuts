@@ -1,0 +1,29 @@
+{
+  "appIdentifier": "AIShortcuts",
+  "version": 1,
+  "exportDate": 813000000.0,
+  "commands": [
+    {
+      "id": "F59A14C5-53E1-44AB-87E6-625D4D3746B6",
+      "name": "Explain simply",
+      "prompt": "Explain the selected text in simple, plain language for someone new to the topic. Use short sentences, define any jargon the first time it appears, and add one concrete example. Answer in the same language as the text.",
+      "icon": "lightbulb",
+      "useResponseWindow": true,
+      "isBuiltIn": false,
+      "hasShortcut": false,
+      "preserveFormatting": false
+    }
+  ],
+  "gallery": {
+    "category": "learning",
+    "description": {
+      "en": "Explains the selected text in plain words anyone can follow.",
+      "vi": "Giải thích đoạn văn đã chọn bằng lời đơn giản, ai cũng hiểu."
+    },
+    "tags": [
+      "explain",
+      "learn"
+    ],
+    "author": "gemkids275"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "appIdentifier": "AIShortcuts",
+  "version": 1,
+  "exportDate": 813000000.0,
+  "commands": [
+    {
+      "id": "0793DEC8-C59E-4E94-9BE5-22CDBBF76894",
+      "name": "Translate to Vietnamese",
+      "prompt": "Translate the selected text into natural, fluent Vietnamese with correct diacritics. Keep the original tone, meaning and formatting (lists, line breaks, markdown). Do not explain anything. Return only the translation.",
+      "icon": "character.bubble",
+      "useResponseWindow": false,
+      "isBuiltIn": false,
+      "hasShortcut": false,
+      "preserveFormatting": false
+    }
+  ],
+  "gallery": {
+    "category": "translation",
+    "description": {
+      "en": "Natural Vietnamese translation that keeps the tone and formatting.",
+      "vi": "Dịch sang tiếng Việt tự nhiên, giữ giọng văn và định dạng."
+    },
+    "tags": [
+      "translate",
+      "vietnamese"
+    ],
+    "author": "gemkids275"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "appIdentifier": "AIShortcuts",
+  "version": 1,
+  "exportDate": 813000000.0,
+  "commands": [
+    {
+      "id": "CD1E8849-6C57-402C-B129-8C8236A4BDA7",
+      "name": "Reply to email",
+      "prompt": "The selected text is an email I received. Write a concise, friendly and professional reply in the same language as the email. Address every question it asks. If information is missing, leave a short [bracketed placeholder]. Return only the reply.",
+      "icon": "arrowshape.turn.up.left",
+      "useResponseWindow": true,
+      "isBuiltIn": false,
+      "hasShortcut": false,
+      "preserveFormatting": false
+    }
+  ],
+  "gallery": {
+    "category": "email",
+    "description": {
+      "en": "Drafts a clear, friendly reply to the selected email.",
+      "vi": "Soạn thư trả lời rõ ràng, thân thiện cho email đã chọn."
+    },
+    "tags": [
+      "email",
+      "reply"
+    ],
+    "author": "gemkids275"
+  }
+}

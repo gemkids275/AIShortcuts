@@ -1,0 +1,29 @@
+{
+  "appIdentifier": "AIShortcuts",
+  "version": 1,
+  "exportDate": 813000000.0,
+  "commands": [
+    {
+      "id": "153214D3-7E23-40CC-B0A7-F12F97230FAC",
+      "name": "Review code",
+      "prompt": "Review the selected code. List real bugs, unsafe input handling and edge cases first, then clarity or performance issues. For each point give the line or snippet, why it matters, and a short fix. Do not praise or restate the code. If you find nothing important, say so.",
+      "icon": "ladybug",
+      "useResponseWindow": true,
+      "isBuiltIn": false,
+      "hasShortcut": false,
+      "preserveFormatting": false
+    }
+  ],
+  "gallery": {
+    "category": "coding",
+    "description": {
+      "en": "Finds bugs and risky spots in the selected code and suggests fixes.",
+      "vi": "Tìm lỗi và điểm rủi ro trong đoạn code đã chọn, kèm gợi ý sửa."
+    },
+    "tags": [
+      "code",
+      "review"
+    ],
+    "author": "gemkids275"
+  }
+}

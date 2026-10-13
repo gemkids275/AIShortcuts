@@ -80,5 +80,19 @@ class CommandManagerTests(unittest.TestCase):
         self.assertEqual(d.keyboard_shortcut, "ctrl+k")
 
 
+    def test_gallery_commands_import(self):
+        """Every shared command in the repo's commands/ folder must import cleanly."""
+        gallery = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "commands")
+        files = sorted(f for f in os.listdir(gallery) if f.endswith(".json"))
+        self.assertTrue(files)
+        m = CommandManager(self.dir)
+        for name in files:
+            with open(os.path.join(gallery, name), encoding="utf-8") as f:
+                imported = m.decode_import_bundle(f.read())
+            self.assertEqual(len(imported), 1, name)
+            self.assertTrue(imported[0].name and imported[0].prompt, name)
+            self.assertFalse(imported[0].is_built_in, name)
+
+
 if __name__ == "__main__":
     unittest.main()
