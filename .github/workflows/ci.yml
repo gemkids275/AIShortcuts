@@ -56,7 +56,9 @@ jobs:
             echo "code=false" >> "$GITHUB_OUTPUT"
             echo "No Windows/Linux code or workflow changes: skipping checks and builds."
           fi
-          if echo "$changed" | grep -qE '^(macOS/|\.github/workflows/(ci|_build-mac|_test-mac|release-mac)\.yml)'; then
+          # Release notes, markdown and the update-notice file cannot change the built app.
+          mac_changed="$(echo "$changed" | grep -vE '^macOS/(release-notes/|Latest_Version_for_Update_Check\.txt$|.*\.md$)' || true)"
+          if echo "$mac_changed" | grep -qE '^(macOS/|\.github/workflows/(ci|_build-mac|_test-mac|release-mac)\.yml)'; then
             echo "mac=true" >> "$GITHUB_OUTPUT"
           else
             echo "mac=false" >> "$GITHUB_OUTPUT"
