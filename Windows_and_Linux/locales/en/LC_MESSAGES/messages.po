@@ -793,3 +793,6 @@ msgstr ""
 "Use: Modifier+Key (e.g. Ctrl+Shift+P)\n"
 "Modifiers: Ctrl, Shift, Alt, Super/Win\n"
 "Keys: letters, digits, F1–F12, or special keys"
+
+msgid "Get More Commands..."
+msgstr "Get More Commands..."

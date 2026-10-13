@@ -7,7 +7,7 @@ import unittest
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from models.command import Command
-from models.command_manager import CommandManager
+from models.command_manager import CommandManager, command_gallery_url
 
 
 class CommandManagerTests(unittest.TestCase):
@@ -92,6 +92,13 @@ class CommandManagerTests(unittest.TestCase):
             self.assertEqual(len(imported), 1, name)
             self.assertTrue(imported[0].name and imported[0].prompt, name)
             self.assertFalse(imported[0].is_built_in, name)
+
+
+    def test_gallery_url_follows_the_app_language(self):
+        self.assertEqual(command_gallery_url("vi"), "https://aishortcuts.github.io/vi/commands/")
+        self.assertEqual(command_gallery_url("vi_VN"), "https://aishortcuts.github.io/vi/commands/")
+        for locale in ("en", "it", "ja", "zh", "", None):
+            self.assertEqual(command_gallery_url(locale), "https://aishortcuts.github.io/commands/")
 
 
 if __name__ == "__main__":

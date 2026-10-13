@@ -4,6 +4,7 @@ from PySide6 import QtCore, QtGui, QtWidgets
 from ui.UIUtils import colorMode
 from ui.CommandEditorDialog import CommandEditorDialog
 from models.command import Command
+from models.command_manager import command_gallery_url
 
 class CommandsManagerDialog(QtWidgets.QDialog):
     """
@@ -98,6 +99,10 @@ class CommandsManagerDialog(QtWidgets.QDialog):
         self.import_btn.setStyleSheet(btn_style)
         self.import_btn.clicked.connect(self.on_import_clicked)
 
+        self.get_more_btn = QtWidgets.QPushButton(self.app._("Get More Commands..."))
+        self.get_more_btn.setStyleSheet(btn_style)
+        self.get_more_btn.clicked.connect(self.on_get_more_clicked)
+
         self.export_btn.setEnabled(False)
         self.list_widget.itemSelectionChanged.connect(self._on_selection_changed)
 
@@ -106,6 +111,7 @@ class CommandsManagerDialog(QtWidgets.QDialog):
         actions_layout.addWidget(self.delete_btn)
         actions_layout.addWidget(self.export_btn)
         actions_layout.addWidget(self.import_btn)
+        actions_layout.addWidget(self.get_more_btn)
         actions_layout.addStretch()
 
         self.restore_btn = QtWidgets.QPushButton("Restore Built-ins")
@@ -269,6 +275,10 @@ class CommandsManagerDialog(QtWidgets.QDialog):
             QtWidgets.QMessageBox.information(self, "Success", "Command exported successfully.")
         except Exception as e:
             QtWidgets.QMessageBox.critical(self, "Error", str(e))
+
+    def on_get_more_clicked(self):
+        locale = self.app.config.get("locale") or QtCore.QLocale.system().name().split("_")[0]
+        QtGui.QDesktopServices.openUrl(QtCore.QUrl(command_gallery_url(locale)))
 
     def on_import_clicked(self):
         path, _ = QtWidgets.QFileDialog.getOpenFileName(
