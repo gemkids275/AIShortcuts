@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: update-site-downloads
+  group: update-site
   cancel-in-progress: false
 
 jobs:
@@ -46,4 +46,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -am "chore: update download links to the latest releases"
-          GIT_SSH_COMMAND="ssh -i ~/.ssh/site_deploy -o IdentitiesOnly=yes" git push origin HEAD:main
+          export GIT_SSH_COMMAND="ssh -i ~/.ssh/site_deploy -o IdentitiesOnly=yes"
+          for attempt in 1 2 3; do
+            git push origin HEAD:main && exit 0
+            echo "Push rejected (attempt $attempt): rebasing onto the website's main."
+            git pull --rebase origin main
+          done
+          exit 1

@@ -2,8 +2,9 @@ name: Publish shared commands
 
 # When the command gallery changes on main, validate it and copy the files plus a
 # generated index.json into the website repo (data/commands/), which the gallery page
-# reads. Uses the same write-enabled deploy key as the download-link updater
-# (secret SITE_DEPLOY_KEY, public half registered on aishortcuts/aishortcuts.github.io).
+# reads. The validator runs first, before any secret is written to the runner; the
+# write-enabled deploy key (secret SITE_DEPLOY_KEY, public half registered on
+# aishortcuts/aishortcuts.github.io) is only used afterwards, for git and rsync.
 on:
   push:
     branches: [main]
@@ -16,17 +17,30 @@ on:
 permissions:
   contents: read
 
+# One queue for everything that pushes to the website repo (see _update-site.yml).
 concurrency:
-  group: update-site-commands
+  group: update-site
   cancel-in-progress: false
 
 jobs:
   publish:
     name: Publish to the website
-    if: github.repository == 'gemkids275/AIShortcuts'
+    if: github.repository == 'gemkids275/AIShortcuts' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+
+      - name: Validate and build the files (no secrets on the runner yet)
+        run: |
+          mkdir -p out/data/commands
+          # Start from the published index so an unchanged gallery keeps its timestamp.
+          curl -fsS https://aishortcuts.github.io/data/commands/index.json -o out/data/commands/index.json || true
+          python .github/scripts/validate_commands.py commands \
+            --copy-to out/data/commands --index out/data/commands/index.json
 
       - name: Check out the website
         env:
@@ -39,17 +53,10 @@ jobs:
           GIT_SSH_COMMAND="ssh -i ~/.ssh/site_deploy -o IdentitiesOnly=yes" \
             git clone --depth 1 git@github.com:aishortcuts/aishortcuts.github.io.git site
 
-      - uses: actions/setup-python@v7
-        with:
-          python-version: "3.13"
-
-      - name: Validate and copy the commands
-        run: |
-          python .github/scripts/validate_commands.py commands \
-            --copy-to site/data/commands --index site/data/commands/index.json
-
       - name: Commit and push
         run: |
+          mkdir -p site/data/commands
+          rsync -a --delete out/data/commands/ site/data/commands/
           cd site
           git add -A data/commands
           if git diff --cached --quiet; then
@@ -59,4 +66,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "chore: update the shared command gallery"
-          GIT_SSH_COMMAND="ssh -i ~/.ssh/site_deploy -o IdentitiesOnly=yes" git push origin HEAD:main
+          export GIT_SSH_COMMAND="ssh -i ~/.ssh/site_deploy -o IdentitiesOnly=yes"
+          for attempt in 1 2 3; do
+            git push origin HEAD:main && exit 0
+            echo "Push rejected (attempt $attempt): rebasing onto the website's main."
+            git pull --rebase origin main
+          done
+          exit 1

@@ -5,7 +5,7 @@
 ## Checklist
 
 - [ ] One file: `commands/<slug>.json` (lowercase letters, digits and `-`, e.g. `polite-decline.json`)
-- [ ] Exported from the app (Settings → Commands → export) and the `gallery` block added, as described in [commands/README.md](../../commands/README.md)
+- [ ] Exported from the app (Settings → Commands → export) and the `gallery` block added, as described in [commands/README.md](../../commands/README.md); on Windows/Linux the fields `prefix`, `deletable`, `keyboard_shortcut` and `customProviderBaseUrl` removed
 - [ ] `gallery.author` is my GitHub username and `gallery.category` is one of the allowed categories
 - [ ] Short English description (and a Vietnamese one if I can write it)
 - [ ] The prompt works on any selected text and does not depend on my own data
