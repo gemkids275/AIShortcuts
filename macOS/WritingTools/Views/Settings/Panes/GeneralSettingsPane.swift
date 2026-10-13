@@ -320,7 +320,16 @@ struct GeneralSettingsPane<SaveButton: View>: View {
                 do {
                     let data = try Data(contentsOf: url)
                     let bundle = try appState.commandManager.decodeExportBundle(data)
-                    
+
+                    // Restoring replaces every command (and deletes their custom API keys): confirm first.
+                    let confirm = NSAlert()
+                    confirm.messageText = String(localized: "Replace all commands?")
+                    confirm.informativeText = String(localized: "Every command you have now is replaced by the \(bundle.commands.count) command(s) in this file. Commands that are not in the file are deleted. To add commands without losing yours, use Import in the Commands list instead.")
+                    confirm.alertStyle = .warning
+                    confirm.addButton(withTitle: String(localized: "Cancel"))
+                    confirm.addButton(withTitle: String(localized: "Replace All"))
+                    guard confirm.runModal() == .alertSecondButtonReturn else { return }
+
                     // Replace all commands
                     appState.commandManager.replaceAllCommands(with: bundle.commands)
                     

@@ -252,34 +252,13 @@ struct CommandsView: View {
                     let data = try Data(contentsOf: url)
                     let bundle = try commandManager.decodeExportBundle(data)
                     
-                    if let firstCommand = bundle.commands.first {
-                        // Check if command with same ID exists
-                        if commandManager.commands.contains(where: { $0.id == firstCommand.id }) {
-                            var imported = firstCommand
-                            if !imported.isBuiltIn {
-                                imported = CommandModel(
-                                    id: UUID(), // New ID to avoid conflicts when importing shared commands
-                                    name: imported.name + " (Imported)",
-                                    prompt: imported.prompt,
-                                    icon: imported.icon,
-                                    useResponseWindow: imported.useResponseWindow,
-                                    isBuiltIn: false,
-                                    hasShortcut: false,
-                                    preserveFormatting: imported.preserveFormatting,
-                                    providerOverride: imported.providerOverride,
-                                    modelOverride: imported.modelOverride,
-                                    customProviderBaseURL: imported.customProviderBaseURL,
-                                    customProviderModel: imported.customProviderModel
-                                )
-                            }
-                            commandManager.addCommand(imported)
-                        } else {
-                            commandManager.addCommand(firstCommand)
-                        }
-                        
+                    let added = commandManager.importCommands(from: bundle)
+                    if let first = added.first {
                         let alert = NSAlert()
                         alert.messageText = String(localized: "Command Imported")
-                        alert.informativeText = String(localized: "Command \"\(firstCommand.name)\" has been successfully added.")
+                        alert.informativeText = added.count == 1
+                            ? String(localized: "Command \"\(first.name)\" has been successfully added.")
+                            : String(localized: "\(added.count) commands have been successfully added.")
                         alert.alertStyle = .informational
                         alert.addButton(withTitle: String(localized: "OK"))
                         alert.runModal()
