@@ -5,6 +5,11 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Releases are t
 (`N` is the integer in `update_checker.py` / `Latest_Version_for_Update_Check.txt`).
 macOS releases use separate `v*` tags and version files.
 
+## [2] - 2026-10-13
+
+### Added
+- **Get More Commands...** button in Settings and in the Command Manager. It opens the community command gallery on the website (in Vietnamese when the app language is Vietnamese), where commands can be copied or downloaded as a JSON file and imported with the Command Manager.
+
 ## [1] - 2026-10-09
 
 First release of the AI Shortcuts fork for Windows and Linux. Published as pre-built binaries.
