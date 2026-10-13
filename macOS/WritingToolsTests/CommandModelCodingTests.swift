@@ -262,3 +262,58 @@ final class CommandModelCodingTests: XCTestCase {
         }
     }
 }
+
+@MainActor
+final class CommandImportPlanTests: XCTestCase {
+
+    private func bundle(_ commands: [CommandModel]) -> CommandExportData {
+        CommandExportData(commands: commands)
+    }
+
+    func testGalleryURLFollowsTheAppLanguage() {
+        XCTAssertEqual(CommandManager.galleryURL(language: "vi").absoluteString, "https://aishortcuts.github.io/vi/commands/")
+        XCTAssertEqual(CommandManager.galleryURL(language: "vi-VN").absoluteString, "https://aishortcuts.github.io/vi/commands/")
+        XCTAssertEqual(CommandManager.galleryURL(language: "de").absoluteString, "https://aishortcuts.github.io/commands/")
+        XCTAssertEqual(CommandManager.galleryURL(language: "en").absoluteString, "https://aishortcuts.github.io/commands/")
+    }
+
+    func testAllCommandsOfABundleAreImported() {
+        let a = CommandModel(name: "A", prompt: "Do A", icon: "pencil")
+        let b = CommandModel(name: "B", prompt: "Do B", icon: "pencil")
+
+        let result = CommandManager.commandsToImport(from: bundle([a, b]), existing: [])
+
+        XCTAssertEqual(result.map(\.id), [a.id, b.id])
+    }
+
+    func testExistingIdBecomesAnIndependentCopy() {
+        let a = CommandModel(name: "A", prompt: "Do A", icon: "pencil", hasShortcut: true)
+
+        let result = CommandManager.commandsToImport(from: bundle([a]), existing: [a])
+
+        XCTAssertEqual(result.count, 1)
+        XCTAssertNotEqual(result[0].id, a.id)
+        XCTAssertEqual(result[0].name, "A (Imported)")
+        XCTAssertEqual(result[0].prompt, "Do A")
+        XCTAssertFalse(result[0].hasShortcut)
+        XCTAssertFalse(result[0].isBuiltIn)
+    }
+
+    func testExistingBuiltInIsSkipped() {
+        let builtIn = CommandModel(name: "Proofread", prompt: "p", icon: "pencil", isBuiltIn: true)
+        let other = CommandModel(name: "B", prompt: "Do B", icon: "pencil")
+
+        let result = CommandManager.commandsToImport(from: bundle([builtIn, other]), existing: [builtIn])
+
+        XCTAssertEqual(result.map(\.id), [other.id])
+    }
+
+    func testDuplicateIdsInsideOneBundleAreNotAddedTwice() {
+        let a = CommandModel(name: "A", prompt: "Do A", icon: "pencil")
+
+        let result = CommandManager.commandsToImport(from: bundle([a, a]), existing: [])
+
+        XCTAssertEqual(result.count, 2)
+        XCTAssertEqual(Set(result.map(\.id)).count, 2)
+    }
+}

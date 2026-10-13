@@ -236,6 +236,51 @@ final class CommandManager {
         return try? encoder.encode(bundle)
     }
     
+    /// Website page with ready-made commands, in Vietnamese when that is the app language.
+    static func galleryURL(language: String?) -> URL {
+        let isVietnamese = (language ?? Locale.preferredLanguages.first ?? "").hasPrefix("vi")
+        return URL(string: isVietnamese ? "https://aishortcuts.github.io/vi/commands/" : "https://aishortcuts.github.io/commands/")!
+    }
+
+    /// The commands of an import bundle that should be added next to `existing`.
+    /// A command whose ID already exists becomes an independent copy (new ID, no shortcut)
+    /// so nothing is overwritten; a built-in that already exists is skipped.
+    static func commandsToImport(from bundle: CommandExportData, existing: [CommandModel]) -> [CommandModel] {
+        var knownIds = Set(existing.map(\.id))
+        var result: [CommandModel] = []
+        for command in bundle.commands {
+            var imported = command
+            if knownIds.contains(command.id) {
+                if command.isBuiltIn { continue }
+                imported = CommandModel(
+                    id: UUID(),
+                    name: command.name + " (Imported)",
+                    prompt: command.prompt,
+                    icon: command.icon,
+                    useResponseWindow: command.useResponseWindow,
+                    isBuiltIn: false,
+                    hasShortcut: false,
+                    preserveFormatting: command.preserveFormatting,
+                    providerOverride: command.providerOverride,
+                    modelOverride: command.modelOverride,
+                    customProviderBaseURL: command.customProviderBaseURL,
+                    customProviderModel: command.customProviderModel
+                )
+            }
+            knownIds.insert(imported.id)
+            result.append(imported)
+        }
+        return result
+    }
+
+    /// Adds every command of the bundle (see `commandsToImport`) and returns what was added.
+    @discardableResult
+    func importCommands(from bundle: CommandExportData) -> [CommandModel] {
+        let added = Self.commandsToImport(from: bundle, existing: commands)
+        added.forEach(addCommand)
+        return added
+    }
+
     func decodeExportBundle(_ data: Data) throws -> CommandExportData {
         let decoder = JSONDecoder()
         let bundle = try decoder.decode(CommandExportData.self, from: data)
