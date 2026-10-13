@@ -782,3 +782,6 @@ msgstr ""
 "Dùng: Phím bổ trợ+Phím (ví dụ Ctrl+Shift+P)\n"
 "Phím bổ trợ: Ctrl, Shift, Alt, Super/Win\n"
 "Phím: chữ cái, chữ số, F1–F12 hoặc phím đặc biệt"
+
+msgid "Get More Commands..."
+msgstr "Tải thêm lệnh..."

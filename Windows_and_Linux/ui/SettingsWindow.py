@@ -15,6 +15,7 @@ from ui.AutostartManager import AutostartManager
 from ui.UIUtils import UIUtils, colorMode
 from ui.CommandEditorDialog import CommandEditorDialog
 from models.command import Command
+from models.command_manager import command_gallery_url
 from models.shortcut_conflict import check_conflict
 from update_checker import VERSION_STR
 
@@ -420,8 +421,13 @@ class SettingsWindow(QtWidgets.QWidget):
         self.import_cmd_btn.setStyleSheet(btn_style)
         self.import_cmd_btn.clicked.connect(self.on_import_command_clicked)
 
+        self.get_more_btn = QtWidgets.QPushButton(self.app._("Get More Commands..."))
+        self.get_more_btn.setStyleSheet(btn_style)
+        self.get_more_btn.clicked.connect(self.on_get_more_commands_clicked)
+
         side_layout.addWidget(self.export_cmd_btn)
         side_layout.addWidget(self.import_cmd_btn)
+        side_layout.addWidget(self.get_more_btn)
         side_layout.addStretch()
 
         restore_btn = QtWidgets.QPushButton(self.app._("Restore Defaults"))
@@ -613,6 +619,10 @@ class SettingsWindow(QtWidgets.QWidget):
             QtWidgets.QMessageBox.information(self, self.app._("Success"), self.app._("Command exported successfully."))
         except Exception as e:
             QtWidgets.QMessageBox.critical(self, self.app._("Error"), str(e))
+
+    def on_get_more_commands_clicked(self):
+        locale = self.app.config.get('locale') or QtCore.QLocale.system().name().split('_')[0]
+        QtGui.QDesktopServices.openUrl(QtCore.QUrl(command_gallery_url(locale)))
 
     def on_import_command_clicked(self):
         path, _ = QtWidgets.QFileDialog.getOpenFileName(

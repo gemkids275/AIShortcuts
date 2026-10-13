@@ -743,3 +743,6 @@ msgstr ""
 "形式: 修飾キー+キー（例: Ctrl+Shift+P）\n"
 "修飾キー: Ctrl, Shift, Alt, Super/Win\n"
 "キー: 英字、数字、F1–F12、または特殊キー"
+
+msgid "Get More Commands..."
+msgstr "コマンドをもっと見る..."

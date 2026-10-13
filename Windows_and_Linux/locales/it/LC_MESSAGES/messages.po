@@ -795,3 +795,6 @@ msgstr ""
 "Usa: Modificatore+Tasto (ad es. Ctrl+Shift+P)\n"
 "Modificatori: Ctrl, Shift, Alt, Super/Win\n"
 "Tasti: lettere, cifre, F1–F12 o tasti speciali"
+
+msgid "Get More Commands..."
+msgstr "Scarica altri comandi..."

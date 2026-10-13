@@ -7,6 +7,14 @@ from models.command import Command
 from models.shortcut_conflict import normalize
 from models.secure_storage import save_command_api_key, get_command_api_key, delete_command_api_key
 
+COMMAND_GALLERY_URL = "https://aishortcuts.github.io/commands/"
+COMMAND_GALLERY_URL_VI = "https://aishortcuts.github.io/vi/commands/"
+
+
+def command_gallery_url(locale: Optional[str]) -> str:
+    """Website page with ready-made commands, in Vietnamese when that is the app language."""
+    return COMMAND_GALLERY_URL_VI if (locale or "").startswith("vi") else COMMAND_GALLERY_URL
+
 class CommandManager:
     def __init__(self, config_dir: str):
         self.config_dir = config_dir

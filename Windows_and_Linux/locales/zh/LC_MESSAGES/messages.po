@@ -742,3 +742,6 @@ msgstr ""
 "格式：修饰键+按键（例如 Ctrl+Shift+P）\n"
 "修饰键：Ctrl、Shift、Alt、Super/Win\n"
 "按键：字母、数字、F1–F12 或特殊键"
+
+msgid "Get More Commands..."
+msgstr "获取更多命令..."
