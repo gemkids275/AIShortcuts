@@ -4,8 +4,8 @@ import time
 from urllib.error import HTTPError
 from urllib.request import URLError, urlopen
 
-CURRENT_VERSION = 1
-VERSION_STR = "1"
+CURRENT_VERSION = 2
+VERSION_STR = "2"
 UPDATE_CHECK_URL = "https://raw.githubusercontent.com/gemkids275/AIShortcuts/main/Windows_and_Linux/Latest_Version_for_Update_Check.txt"
 UPDATE_DOWNLOAD_URL = "https://github.com/gemkids275/AIShortcuts/releases"
 
