@@ -87,6 +87,14 @@ struct CommandsView: View {
                         .buttonStyle(.bordered)
                         .controlSize(.large)
                         .help("Import a command from a .json file")
+
+                        Button(action: { NSWorkspace.shared.open(CommandManager.galleryURL(language: settings.preferredLanguage)) }) {
+                            Label("Get More Commands", systemImage: "square.grid.2x2")
+                                .font(.body)
+                        }
+                        .buttonStyle(.bordered)
+                        .controlSize(.large)
+                        .help("Browse ready-made commands on the website and import them here")
                     }
                     .padding()
                 }

@@ -2,6 +2,7 @@
 
 ## What's new
 - **Import several commands at once.** **Settings → Commands → Import** now adds every command in a file instead of only the first one. A command you already have is never overwritten: a copy is added with "(Imported)" in its name. This is what the shared command packs on the [website gallery](https://aishortcuts.github.io/commands/) use.
+- **Get More Commands.** A new button in **Settings → Commands** opens the website gallery of ready-made commands.
 - **Safer restore.** **Import Full Configuration** now asks for confirmation before it replaces all your commands (and deletes their custom API keys).
 
 ## Download

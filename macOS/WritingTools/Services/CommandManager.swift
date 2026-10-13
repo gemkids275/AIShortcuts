@@ -236,6 +236,12 @@ final class CommandManager {
         return try? encoder.encode(bundle)
     }
     
+    /// Website page with ready-made commands, in Vietnamese when that is the app language.
+    static func galleryURL(language: String?) -> URL {
+        let isVietnamese = (language ?? Locale.preferredLanguages.first ?? "").hasPrefix("vi")
+        return URL(string: isVietnamese ? "https://aishortcuts.github.io/vi/commands/" : "https://aishortcuts.github.io/commands/")!
+    }
+
     /// The commands of an import bundle that should be added next to `existing`.
     /// A command whose ID already exists becomes an independent copy (new ID, no shortcut)
     /// so nothing is overwritten; a built-in that already exists is skipped.

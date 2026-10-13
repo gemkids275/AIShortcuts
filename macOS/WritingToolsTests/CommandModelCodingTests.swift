@@ -270,6 +270,13 @@ final class CommandImportPlanTests: XCTestCase {
         CommandExportData(commands: commands)
     }
 
+    func testGalleryURLFollowsTheAppLanguage() {
+        XCTAssertEqual(CommandManager.galleryURL(language: "vi").absoluteString, "https://aishortcuts.github.io/vi/commands/")
+        XCTAssertEqual(CommandManager.galleryURL(language: "vi-VN").absoluteString, "https://aishortcuts.github.io/vi/commands/")
+        XCTAssertEqual(CommandManager.galleryURL(language: "de").absoluteString, "https://aishortcuts.github.io/commands/")
+        XCTAssertEqual(CommandManager.galleryURL(language: "en").absoluteString, "https://aishortcuts.github.io/commands/")
+    }
+
     func testAllCommandsOfABundleAreImported() {
         let a = CommandModel(name: "A", prompt: "Do A", icon: "pencil")
         let b = CommandModel(name: "B", prompt: "Do B", icon: "pencil")
