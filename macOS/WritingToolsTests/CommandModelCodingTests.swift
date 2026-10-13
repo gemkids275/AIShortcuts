@@ -238,4 +238,27 @@ final class CommandModelCodingTests: XCTestCase {
 
         XCTAssertEqual(KeychainManager.shared.retrieveCustomProviderApiKeySync(for: id), "legacy-key")
     }
+
+    // MARK: - Shared command gallery
+
+    /// Every file in the repo's commands/ folder is offered for download on the website,
+    /// so each one must decode as an export bundle exactly the way the importer does.
+    func testGalleryCommandFilesDecodeAsExportBundles() throws {
+        let repoRoot = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+        let folder = repoRoot.appendingPathComponent("commands")
+        let files = try FileManager.default.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil)
+            .filter { $0.pathExtension == "json" }
+        XCTAssertFalse(files.isEmpty)
+
+        for file in files {
+            let bundle = try JSONDecoder().decode(CommandExportData.self, from: Data(contentsOf: file))
+            XCTAssertEqual(bundle.appIdentifier, "AIShortcuts", file.lastPathComponent)
+            XCTAssertEqual(bundle.commands.count, 1, file.lastPathComponent)
+            let command = try XCTUnwrap(bundle.commands.first)
+            XCTAssertFalse(command.name.isEmpty, file.lastPathComponent)
+            XCTAssertFalse(command.isBuiltIn, file.lastPathComponent)
+            XCTAssertNil(command.providerOverride, file.lastPathComponent)
+        }
+    }
 }

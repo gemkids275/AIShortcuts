@@ -1,0 +1,29 @@
+{
+  "appIdentifier": "AIShortcuts",
+  "version": 1,
+  "exportDate": 813000000.0,
+  "commands": [
+    {
+      "id": "CB284C26-6619-4B3B-B55C-656D14B39B36",
+      "name": "Action items",
+      "prompt": "From the selected notes or conversation, extract the action items as a Markdown checklist. For each item give the task, the owner if mentioned, and the deadline if mentioned. Ignore discussion that has no action. Answer in the same language as the text.",
+      "icon": "checklist",
+      "useResponseWindow": true,
+      "isBuiltIn": false,
+      "hasShortcut": false,
+      "preserveFormatting": false
+    }
+  ],
+  "gallery": {
+    "category": "productivity",
+    "description": {
+      "en": "Pulls tasks, owners and deadlines out of meeting notes or a thread.",
+      "vi": "Rút ra việc cần làm, người phụ trách và hạn từ biên bản họp hoặc chuỗi chat."
+    },
+    "tags": [
+      "meeting",
+      "tasks"
+    ],
+    "author": "gemkids275"
+  }
+}

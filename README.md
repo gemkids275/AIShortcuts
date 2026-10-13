@@ -79,7 +79,7 @@ Select everything on a page (`⌘A` / `Ctrl+A`), press the hotkey and choose **S
 
 ### Manage your commands
 
-Open **Settings → Commands** to add, edit, reorder, export and import commands, back up your whole setup, or restore the built-ins.
+Open **Settings → Commands** to add, edit, reorder, export and import commands, back up your whole setup, or restore the built-ins. Looking for ideas? Browse the [shared commands](https://aishortcuts.github.io/commands/) (also in [commands/](commands/)) and import one, or [share your own](CONTRIBUTING.md#share-a-command).
 
 <p align="center"><img src="docs/media/windows-commands.png" alt="Command Manager on Windows" width="60%"></p>
 

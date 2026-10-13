@@ -1,0 +1,29 @@
+{
+  "appIdentifier": "AIShortcuts",
+  "version": 1,
+  "exportDate": 813000000.0,
+  "commands": [
+    {
+      "id": "3F62C53B-F04F-4F4D-AD70-6EDD0B8EE9F4",
+      "name": "Commit message",
+      "prompt": "The selected text is a code diff or a description of a change. Write a git commit message in the Conventional Commits style: a subject line of at most 72 characters in the imperative mood, then a blank line and a short body that explains what changed and why. Return only the message.",
+      "icon": "arrow.triangle.branch",
+      "useResponseWindow": false,
+      "isBuiltIn": false,
+      "hasShortcut": false,
+      "preserveFormatting": false
+    }
+  ],
+  "gallery": {
+    "category": "coding",
+    "description": {
+      "en": "Writes a conventional commit message from a diff or a description.",
+      "vi": "Viết commit message chuẩn từ diff hoặc mô tả thay đổi."
+    },
+    "tags": [
+      "git",
+      "commit"
+    ],
+    "author": "gemkids275"
+  }
+}

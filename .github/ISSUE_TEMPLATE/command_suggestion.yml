@@ -1,0 +1,38 @@
+name: Suggest a command
+description: Share an idea for a useful ready-made command (you do not need to write the JSON)
+labels: ["command"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Command name
+      placeholder: Polite decline
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options: [writing, email, translation, summarizing, coding, learning, productivity]
+    validations:
+      required: true
+  - type: textarea
+    id: prompt
+    attributes:
+      label: Prompt
+      description: What should the AI do with the selected text? Do not paste API keys or links.
+      placeholder: Rewrite the selected text as a polite, warm refusal. Keep the same decision and facts. Return only the rewritten text.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: When is it useful?
+      description: A sentence or two, ideally with an example input and the output you expect.
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Sharing
+      options:
+        - label: I agree this command can be added to the public gallery under the GPL-3.0 license.
+          required: true

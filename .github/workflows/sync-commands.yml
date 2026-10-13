@@ -1,0 +1,62 @@
+name: Publish shared commands
+
+# When the command gallery changes on main, validate it and copy the files plus a
+# generated index.json into the website repo (data/commands/), which the gallery page
+# reads. Uses the same write-enabled deploy key as the download-link updater
+# (secret SITE_DEPLOY_KEY, public half registered on aishortcuts/aishortcuts.github.io).
+on:
+  push:
+    branches: [main]
+    paths:
+      - "commands/**"
+      - ".github/scripts/validate_commands.py"
+      - ".github/workflows/sync-commands.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: update-site-commands
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish to the website
+    if: github.repository == 'gemkids275/AIShortcuts'
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check out the website
+        env:
+          SITE_DEPLOY_KEY: ${{ secrets.SITE_DEPLOY_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SITE_DEPLOY_KEY" > ~/.ssh/site_deploy
+          chmod 600 ~/.ssh/site_deploy
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          GIT_SSH_COMMAND="ssh -i ~/.ssh/site_deploy -o IdentitiesOnly=yes" \
+            git clone --depth 1 git@github.com:aishortcuts/aishortcuts.github.io.git site
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Validate and copy the commands
+        run: |
+          python .github/scripts/validate_commands.py commands \
+            --copy-to site/data/commands --index site/data/commands/index.json
+
+      - name: Commit and push
+        run: |
+          cd site
+          git add -A data/commands
+          if git diff --cached --quiet; then
+            echo "Website already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: update the shared command gallery"
+          GIT_SSH_COMMAND="ssh -i ~/.ssh/site_deploy -o IdentitiesOnly=yes" git push origin HEAD:main

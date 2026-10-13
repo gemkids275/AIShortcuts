@@ -1,0 +1,29 @@
+{
+  "appIdentifier": "AIShortcuts",
+  "version": 1,
+  "exportDate": 813000000.0,
+  "commands": [
+    {
+      "id": "5A8FA9C8-714F-4C29-BC74-9DEFC6964F1D",
+      "name": "Translate to English",
+      "prompt": "Translate the selected text into natural, fluent English. Keep the original tone, meaning and formatting (lists, line breaks, markdown). Do not explain anything. Return only the translation.",
+      "icon": "globe",
+      "useResponseWindow": false,
+      "isBuiltIn": false,
+      "hasShortcut": false,
+      "preserveFormatting": false
+    }
+  ],
+  "gallery": {
+    "category": "translation",
+    "description": {
+      "en": "Natural English translation that keeps the tone and formatting.",
+      "vi": "Dịch sang tiếng Anh tự nhiên, giữ giọng văn và định dạng."
+    },
+    "tags": [
+      "translate",
+      "english"
+    ],
+    "author": "gemkids275"
+  }
+}

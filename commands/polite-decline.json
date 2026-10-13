@@ -1,0 +1,29 @@
+{
+  "appIdentifier": "AIShortcuts",
+  "version": 1,
+  "exportDate": 813000000.0,
+  "commands": [
+    {
+      "id": "37A48F64-3329-4A2C-956B-59C4B2FCB5FF",
+      "name": "Polite decline",
+      "prompt": "Rewrite the selected text as a polite, warm refusal. Keep the same decision and the same facts, add a brief thanks, and keep it short. Return only the rewritten text.",
+      "icon": "hand.raised",
+      "useResponseWindow": false,
+      "isBuiltIn": false,
+      "hasShortcut": false,
+      "preserveFormatting": false
+    }
+  ],
+  "gallery": {
+    "category": "email",
+    "description": {
+      "en": "Turns a blunt refusal into a courteous one.",
+      "vi": "Biến lời từ chối thẳng thành lời từ chối lịch sự."
+    },
+    "tags": [
+      "email",
+      "tone"
+    ],
+    "author": "gemkids275"
+  }
+}

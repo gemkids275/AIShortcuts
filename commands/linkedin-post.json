@@ -1,0 +1,29 @@
+{
+  "appIdentifier": "AIShortcuts",
+  "version": 1,
+  "exportDate": 813000000.0,
+  "commands": [
+    {
+      "id": "9C6B80A0-B642-467E-9D49-D0D170362838",
+      "name": "LinkedIn post",
+      "prompt": "Turn the selected notes into a LinkedIn post: a strong first line, short paragraphs, concrete details instead of buzzwords, and a closing question. Keep it under 200 words. Do not invent facts. Answer in the same language as the notes.",
+      "icon": "megaphone",
+      "useResponseWindow": true,
+      "isBuiltIn": false,
+      "hasShortcut": false,
+      "preserveFormatting": false
+    }
+  ],
+  "gallery": {
+    "category": "writing",
+    "description": {
+      "en": "Turns rough notes into a clear, engaging LinkedIn post.",
+      "vi": "Biến ghi chú thô thành bài đăng LinkedIn rõ ràng, thu hút."
+    },
+    "tags": [
+      "social",
+      "linkedin"
+    ],
+    "author": "gemkids275"
+  }
+}
