@@ -14,25 +14,31 @@ files are copied next to it. Both only happen when every file is valid.
 """
 import argparse
 import json
+import math
 import re
 import shutil
 import sys
+import unicodedata
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
 CATEGORIES = ("writing", "email", "translation", "summarizing", "coding", "learning", "productivity")
 MAX_FILE_BYTES = 16 * 1024
+MAX_FILES = 500
 
-SLUG = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
-ICON = re.compile(r"^[a-z0-9]+(\.[a-z0-9]+)*$")
-TAG = re.compile(r"^[a-z0-9-]{2,20}$")
-AUTHOR = re.compile(r"^[A-Za-z0-9-]{1,39}$")
+# All of these are used with fullmatch(): "$" would also accept a trailing newline.
+SLUG = re.compile(r"[a-z0-9]+(-[a-z0-9]+)*")
+ICON = re.compile(r"[a-z0-9]+(\.[a-z0-9]+)*")
+TAG = re.compile(r"[a-z0-9-]{2,20}")
+AUTHOR = re.compile(r"[A-Za-z0-9-]{1,39}")
+UUID_FORM = re.compile(r"[0-9A-Fa-f]{8}(-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}")
 SECRET = re.compile(
     r"sk-[A-Za-z0-9_-]{16,}|AIza[0-9A-Za-z_-]{20,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}"
-    r"|xox[abprs]-[A-Za-z0-9-]{10,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*KEY-----|Bearer\s+[A-Za-z0-9._-]{20,}"
+    r"|xox[abprs]-[A-Za-z0-9-]{10,}|A(?:KIA|SIA)[0-9A-Z]{16}|hf_[A-Za-z0-9]{20,}|gsk_[A-Za-z0-9]{20,}"
+    r"|xai-[A-Za-z0-9]{20,}|-----BEGIN [A-Z ]*KEY-----|Bearer\s+[A-Za-z0-9._-]{20,}"
 )
-LINK = re.compile(r"(?i)\b(?:https?|ftp)://|\bwww\.")
+LINK = re.compile(r"(?i)\b[a-z][a-z0-9+.-]*://|\b(?:data|javascript|file|vbscript):|\bwww\.")
 
 TOP_KEYS = {"appIdentifier", "version", "exportDate", "commands", "gallery"}
 COMMAND_KEYS = {
@@ -42,11 +48,18 @@ COMMAND_KEYS = {
 FORBIDDEN_COMMAND_KEYS = {
     "providerOverride", "modelOverride", "customProviderBaseURL", "customProviderModel", "customProviderApiKey",
 }
+# Fields the Windows/Linux export adds; they are not part of a shared command.
+PLATFORM_KEYS = {"prefix", "deletable", "keyboard_shortcut", "customProviderBaseUrl"}
 GALLERY_KEYS = {"category", "description", "tags", "author"}
 
 
 def _text_problems(label, text):
     problems = []
+    if any(
+        unicodedata.category(ch) in ("Cs", "Cf", "Co", "Cn") or (unicodedata.category(ch) == "Cc" and ch not in "\n\t")
+        for ch in text
+    ):
+        problems.append(f"{label} contains hidden, control or unassigned characters")
     if SECRET.search(text):
         problems.append(f"{label} contains a key- or token-like string")
     if LINK.search(text):
@@ -55,7 +68,7 @@ def _text_problems(label, text):
 
 
 def _check_text(errors, label, value, low, high, single_line=False):
-    if not isinstance(value, str) or not low <= len(value.strip()) <= high:
+    if not isinstance(value, str) or not low <= len(value.strip()) or len(value) > high:
         errors.append(f"{label} must be a string of {low}-{high} characters")
         return
     if single_line and ("\n" in value or "\r" in value):
@@ -71,16 +84,20 @@ def _validate_command(errors, command):
         if key in FORBIDDEN_COMMAND_KEYS:
             if command[key] is not None:
                 errors.append(f"command.{key} is not allowed in shared commands")
+        elif key in PLATFORM_KEYS:
+            errors.append(
+                f"command.{key} was added by the Windows/Linux export; remove prefix, deletable, "
+                "keyboard_shortcut and customProviderBaseUrl from the file"
+            )
         elif key not in COMMAND_KEYS:
             errors.append(f"command has unknown key '{key}'")
-    try:
-        uuid.UUID(str(command.get("id")))
-    except ValueError:
-        errors.append("command.id must be a UUID")
+    command_id = command.get("id")
+    if not isinstance(command_id, str) or not UUID_FORM.fullmatch(command_id):
+        errors.append("command.id must be a UUID such as 7B1E0C0E-52C4-4C55-9D55-3B9C2E7B8F10")
     _check_text(errors, "command.name", command.get("name"), 2, 40, single_line=True)
     _check_text(errors, "command.prompt", command.get("prompt"), 10, 2000)
     icon = command.get("icon")
-    if not isinstance(icon, str) or len(icon) > 64 or not ICON.match(icon):
+    if not isinstance(icon, str) or len(icon) > 64 or not ICON.fullmatch(icon):
         errors.append("command.icon must be an SF Symbol name such as 'text.badge.checkmark'")
     for key in ("useResponseWindow", "preserveFormatting"):
         if not isinstance(command.get(key, False), bool):
@@ -109,17 +126,17 @@ def _validate_gallery(errors, gallery):
             else:
                 _check_text(errors, f"gallery.description.{lang}", text, 10, 160, single_line=True)
     tags = gallery.get("tags", [])
-    if not isinstance(tags, list) or len(tags) > 5 or not all(isinstance(t, str) and TAG.match(t) for t in tags):
+    if not isinstance(tags, list) or len(tags) > 5 or not all(isinstance(t, str) and TAG.fullmatch(t) for t in tags):
         errors.append("gallery.tags must be up to 5 lowercase words (a-z, 0-9, '-', 2-20 characters)")
     author = gallery.get("author")
-    if not isinstance(author, str) or not AUTHOR.match(author):
+    if not isinstance(author, str) or not AUTHOR.fullmatch(author):
         errors.append("gallery.author must be your GitHub username")
 
 
 def validate_bundle(data, slug):
     """Return a list of problems for one parsed command file (empty when valid)."""
     errors = []
-    if slug == "index" or not SLUG.match(slug) or not 3 <= len(slug) <= 48:
+    if slug == "index" or not SLUG.fullmatch(slug) or not 3 <= len(slug) <= 48:
         errors.append("file name must be 3-48 lowercase letters, digits or '-' (e.g. polite-decline.json)")
     if not isinstance(data, dict):
         return errors + ["top level must be a JSON object"]
@@ -128,8 +145,11 @@ def validate_bundle(data, slug):
             errors.append(f"unknown top-level key '{key}'")
     if data.get("appIdentifier") != "AIShortcuts":
         errors.append("appIdentifier must be 'AIShortcuts'")
-    if data.get("version") != 1:
-        errors.append("version must be 1")
+    if type(data.get("version")) is not int or data["version"] != 1:
+        errors.append("version must be the number 1")
+    export_date = data.get("exportDate")
+    if type(export_date) not in (int, float) or not math.isfinite(export_date):
+        errors.append("exportDate must be a number (seconds since 2001-01-01, as the apps write it)")
     commands = data.get("commands")
     if not isinstance(commands, list) or len(commands) != 1:
         errors.append("commands must contain exactly one command")
@@ -139,18 +159,39 @@ def validate_bundle(data, slug):
     return errors
 
 
+def _no_duplicate_keys(pairs):
+    keys = [key for key, _ in pairs]
+    if len(keys) != len(set(keys)):
+        raise ValueError("duplicate key in an object")
+    return dict(pairs)
+
+
+def _reject_constant(name):
+    raise ValueError(f"{name} is not valid JSON")
+
+
 def load_all(directory):
     """Validate every *.json in the directory. Returns (index entries sorted by name, errors)."""
     entries, errors = [], []
     seen_ids, seen_names = {}, {}
-    for path in sorted(Path(directory).glob("*.json")):
+    paths = sorted(Path(directory).glob("*.json"))
+    if len(paths) > MAX_FILES:
+        return entries, [f"more than {MAX_FILES} command files"]
+    for path in paths:
         slug = path.stem
+        if path.is_symlink() or not path.is_file():
+            errors.append(f"{path.name}: must be a regular file")
+            continue
         if path.stat().st_size > MAX_FILE_BYTES:
             errors.append(f"{path.name}: larger than {MAX_FILE_BYTES // 1024} KB")
             continue
         try:
-            data = json.loads(path.read_text(encoding="utf-8"))
-        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+            data = json.loads(
+                path.read_text(encoding="utf-8"),
+                object_pairs_hook=_no_duplicate_keys,
+                parse_constant=_reject_constant,
+            )
+        except (OSError, UnicodeDecodeError, ValueError) as exc:
             errors.append(f"{path.name}: not valid UTF-8 JSON ({exc})")
             continue
         problems = validate_bundle(data, slug)
@@ -213,7 +254,8 @@ def main(argv=None):
         target = Path(args.copy_to)
         target.mkdir(parents=True, exist_ok=True)
         for old in target.glob("*.json"):
-            old.unlink()
+            if old.name != "index.json":  # --index reads it to keep the timestamp stable
+                old.unlink()
         for entry in entries:
             shutil.copyfile(Path(args.directory) / entry["file"], target / entry["file"])
     if args.index:

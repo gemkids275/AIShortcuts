@@ -134,6 +134,55 @@ class ValidateBundleTests(unittest.TestCase):
         ):
             self.assertTrue(self.errors(with_command(prompt=text)), text)
 
+    def test_trailing_newline_in_names_is_rejected(self):
+        self.assertTrue(self.errors(GOOD, "good-slug\n"))
+        self.assertTrue(self.errors(with_command(icon="hand.raised\n")))
+        self.assertTrue(self.errors(with_gallery(author="octocat\n")))
+        self.assertTrue(self.errors(with_gallery(tags=["email\n"])))
+
+    def test_export_date_and_version_must_decode_in_the_app(self):
+        for date in ("2026-10-13T00:00:00Z", None, True, float("nan"), float("inf"), [1]):
+            self.assertTrue(self.errors(variant(exportDate=date)), date)
+        data = copy.deepcopy(GOOD)
+        del data["exportDate"]
+        self.assertTrue(self.errors(data))
+        for version in (True, 1.0, "1", 2):
+            self.assertTrue(self.errors(variant(version=version)), version)
+        self.assertEqual(self.errors(variant(exportDate=813000000)), [])
+
+    def test_id_must_be_a_canonical_uuid(self):
+        self.assertTrue(self.errors(with_command(id="7b1e0c0e52c44c559d553b9c2e7b8f10")))
+        self.assertEqual(self.errors(with_command(id="7b1e0c0e-52c4-4c55-9d55-3b9c2e7b8f10")), [])
+
+    def test_hidden_and_control_characters_are_rejected(self):
+        for text in (
+            "Rewrite the selected text\u200b politely and keep it short.",
+            "Rewrite the selected text \u202e politely and keep it short.",
+            "Rewrite the selected text \ud800 politely and keep it short.",
+            "Rewrite the selected text\x00 politely and keep it short.",
+        ):
+            self.assertTrue(self.errors(with_command(prompt=text)), repr(text))
+        self.assertEqual(self.errors(with_command(prompt="Line one.\nLine two: rewrite it politely.")), [])
+        self.assertTrue(self.errors(with_command(name="Name\u200b")))
+
+    def test_more_links_and_tokens_are_rejected(self):
+        for text in (
+            "Send the result to ftp://example.com/x after rewriting it.",
+            "Open data:text/html,hello after rewriting the text.",
+            "Run javascript:alert(1) after rewriting the text.",
+            "Use hf_abcdefghijklmnopqrstuvwxyz0123 to rewrite the text.",
+            "Use gsk_abcdefghijklmnopqrstuvwxyz0123 to rewrite the text.",
+            "Use ASIAABCDEFGHIJKLMNOP to rewrite the text please.",
+        ):
+            self.assertTrue(self.errors(with_command(prompt=text)), text)
+
+    def test_padding_cannot_hide_a_long_prompt(self):
+        self.assertTrue(self.errors(with_command(prompt="Rewrite it politely." + " " * 2100)))
+
+    def test_windows_export_fields_get_a_helpful_message(self):
+        errors = self.errors(with_command(prefix="x", deletable=True, keyboard_shortcut=""))
+        self.assertTrue(any("Windows" in e for e in errors), errors)
+
     def test_secret_in_description_is_rejected(self):
         bad = {"en": "Contains sk-abcdefghijklmnopqrstuvwxyz123456 inside."}
         self.assertTrue(self.errors(with_gallery(description=bad)))
@@ -174,6 +223,18 @@ class LoadAllTests(unittest.TestCase):
             (root / "big-one.json").write_text(" " * (vc.MAX_FILE_BYTES + 1), encoding="utf-8")
             _, errors = vc.load_all(root)
             self.assertEqual(len(errors), 2, errors)
+
+    def test_duplicate_keys_nan_and_irregular_files_are_reported(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "dupe-key.json").write_text('{"version": 1, "version": 1}', encoding="utf-8")
+            (root / "not-finite.json").write_text('{"exportDate": NaN}', encoding="utf-8")
+            (root / "a-folder.json").mkdir()
+            (root / "target-file.json").write_text(json.dumps(GOOD), encoding="utf-8")
+            (root / "linked-one.json").symlink_to(root / "target-file.json")
+            _, errors = vc.load_all(root)
+            names = {e.split(":")[0] for e in errors}
+            self.assertEqual(names, {"dupe-key.json", "not-finite.json", "a-folder.json", "linked-one.json"}, errors)
 
     def test_json_must_be_an_object(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -221,6 +282,21 @@ class MainTests(unittest.TestCase):
             (src / "polite-decline.json").write_text(json.dumps(changed), encoding="utf-8")
             self.assertEqual(vc.main([str(src), "--index", str(out)]), 0)
             self.assertNotEqual(json.loads(out.read_text(encoding="utf-8"))["generated"], "2000-01-01T00:00:00Z")
+
+    def test_index_next_to_copied_files_keeps_its_timestamp(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            src, dest = root / "src", root / "site"
+            src.mkdir()
+            (src / "polite-decline.json").write_text(json.dumps(GOOD), encoding="utf-8")
+            args = [str(src), "--copy-to", str(dest), "--index", str(dest / "index.json")]
+            self.assertEqual(vc.main(args), 0)
+            index = json.loads((dest / "index.json").read_text(encoding="utf-8"))
+            index["generated"] = "2000-01-01T00:00:00Z"
+            (dest / "index.json").write_text(json.dumps(index), encoding="utf-8")
+            self.assertEqual(vc.main(args), 0)
+            kept = json.loads((dest / "index.json").read_text(encoding="utf-8"))["generated"]
+            self.assertEqual(kept, "2000-01-01T00:00:00Z")
 
     def test_copy_to_replaces_old_files_and_invalid_input_writes_nothing(self):
         with tempfile.TemporaryDirectory() as tmp:
