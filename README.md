@@ -12,6 +12,16 @@ A fork of [WritingTools](https://github.com/theJayTea/WritingTools) by theJayTea
   <img src="docs/media/macos-proofread.gif" alt="macOS: select text, press the hotkey, choose a command" width="49%">
 </p>
 
+<p align="center">
+  <a href="https://aishortcuts.github.io/#video"><img src="docs/media/ai-shortcuts-60s-poster.jpg" alt="Watch the 60-second overview of AI Shortcuts" width="100%"></a>
+</p>
+
+<p align="center">
+  ▶ <a href="https://aishortcuts.github.io/#video"><strong>Watch the 60-second overview</strong></a>
+  · <a href="docs/media/ai-shortcuts-60s.mp4">MP4, 1080p</a>
+  · <a href="docs/media/ai-shortcuts-60s.srt">English subtitles</a>
+</p>
+
 ## Contents
 
 - [Why AI Shortcuts](#why-ai-shortcuts)
