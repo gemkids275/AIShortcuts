@@ -1,0 +1,43 @@
+1
+00:00:00,267 --> 00:00:07,267
+You wrote a paragraph. Now you rewrite it by hand, or paste it into a chat window and copy it back.
+
+2
+00:00:07,433 --> 00:00:08,633
+There's a faster loop.
+
+3
+00:00:08,800 --> 00:00:13,933
+Pick a command. Proofread, rewrite, professional, concise.
+
+4
+00:00:14,100 --> 00:00:19,333
+The text rewrites itself, in place. Undo puts the original back.
+
+5
+00:00:19,500 --> 00:00:24,867
+Docs, Slack, VS Code, your mail. Same gesture, every time.
+
+6
+00:00:25,033 --> 00:00:28,967
+Write your own commands. Reorder, back up, share them.
+
+7
+00:00:29,133 --> 00:00:32,500
+Cloud or local, and a different model per command.
+
+8
+00:00:32,667 --> 00:00:45,367
+Under the hood: a global hotkey listener, one adapter per provider, and a writer that edits the app directly. Accessibility API on macOS, no clipboard round trip.
+
+9
+00:00:45,533 --> 00:00:51,700
+No telemetry. Keys in your OS keychain. Your text goes only to the provider you picked.
+
+10
+00:00:51,867 --> 00:00:56,333
+Free, open source, on macOS, Windows and Linux.
+
+11
+00:00:56,500 --> 00:00:57,633
+AI Shortcuts.
